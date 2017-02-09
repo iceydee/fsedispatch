@@ -1,4 +1,5 @@
 source("./src/xmlHandling.R")
+source("./src/icao.R")
 
 fse.setUserKey <- function(key) {
   userkey <<- key
@@ -33,14 +34,44 @@ clean <- function(data, v) {
   return (data)
 }
 
-fse.getAircraft <- function() {
-  url <- fse.query("aircraft", "search=configs")
+fse.getAircraft <- function(makeModel = NULL) {
+  url <- fse.query("aircraft", list(search = "configs"))
   a <- fetchXML(url, "aircraft", maxAge = (60 * 24 * 7))
   a <- clean(a, c(c("char"), rep("int", 23)))
+  if (! is.null(makeModel)) {
+    return (a[a$MakeModel == makeModel,])
+  }
   return (a)
+}
+
+fse.findAircraft <- function(makeModel) {
+  url <- fse.query("aircraft", list(search = "makemodel", makemodel = URLencode(makeModel)))
+  a <- fetchXML(url, paste(makeModel, "-search", sep = '', collapse = ''), 5)
+  a <- clean(a, c(c("int"), rep("char", 6), rep("int", 2), c("char"), rep("int", 2), c("char"), rep("int", 2), c("char", "double", "int"), rep("char", 4), rep("double", 2)))
+  return (a)
+}
+
+fse.findRentalAircraft <- function(makeModel) {
+  a <- fse.findAircraft(makeModel)
+  a <- a[a$RentalDry > 0 | a$RentalWet > 0,]
+  return (a[order(a$RentalDry, a$RentalWet),])
+}
+
+fse.getAssignments <- function(icaos, maxDistance = 400) {
+  icaoList <- paste(icaos, collapse = '-')
+  url <- fse.query("icao", list(search = "jobsfrom", icaos = icaoList))
+  a <- fetchXML(url, paste("jobsfrom", icaoList, sep = '-'), 5)
+  a <- clean(a, c(c("int"), rep("char", 3), c("int"), rep("char", 2), c("int"), rep("char", 5)))
+  a$Distance <- sapply(1:nrow(a), function(n) {icao.distance(a$FromIcao[n], a$ToIcao[n])})
+  a <- a[a$Distance <= maxDistance,]
+  return (a[order(-a$Pay),])
 }
 
 fse.query <- function(query, args) {
   baseURL <- "http://server.fseconomy.net/data"
-  return (sprintf("%s?userkey=%s&format=xml&query=%s&%s", baseURL, userkey, query, args))
+  return (sprintf("%s?userkey=%s&format=xml&query=%s&%s", baseURL, userkey, query, fse.argsToParams(args)))
+}
+
+fse.argsToParams <- function(args) {
+  return (paste(names(args), args, sep = '=', collapse = '&'))
 }

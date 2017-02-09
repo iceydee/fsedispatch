@@ -15,6 +15,7 @@ fetchXML <- function(url, name, maxAge = -1) {
 }
 
 pathFromName <- function(name, extension = "xml") {
+  name <- tolower(gsub("[^[:alnum:]]", "-", name))
   return (sprintf("./data/%s.%s", name, extension))
 }
 

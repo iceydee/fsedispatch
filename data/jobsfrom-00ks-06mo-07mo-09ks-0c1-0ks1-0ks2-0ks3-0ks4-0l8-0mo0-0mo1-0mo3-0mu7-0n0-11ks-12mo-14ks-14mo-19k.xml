@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoJobsFrom total="15"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_jobs.xsd"
+>
+<Assignment>
+<Id>236159476</Id>
+<Location>00KS</Location>
+<ToIcao>KASG</ToIcao>
+<FromIcao>00KS</FromIcao>
+<Amount>4</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passengers</Commodity>
+<Pay>1936.00</Pay>
+<Expires>11 hrs</Expires>
+<ExpireDateTime>2017-02-11 04:31:58</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236227393</Id>
+<Location>06MO</Location>
+<ToIcao>8NE9</ToIcao>
+<FromIcao>06MO</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Medivac Charter</Commodity>
+<Pay>2315.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-14 02:32:12</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>True</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236064235</Id>
+<Location>06MO</Location>
+<ToIcao>KCIR</ToIcao>
+<FromIcao>06MO</FromIcao>
+<Amount>498</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Regional Air Cargo</Commodity>
+<Pay>2984.00</Pay>
+<Expires>16 hrs</Expires>
+<ExpireDateTime>2017-02-11 09:32:07</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236089153</Id>
+<Location>09KS</Location>
+<ToIcao>8KS9</ToIcao>
+<FromIcao>09KS</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passenger</Commodity>
+<Pay>109.00</Pay>
+<Expires>21 hrs</Expires>
+<ExpireDateTime>2017-02-11 14:32:10</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236174203</Id>
+<Location>0KS1</Location>
+<ToIcao>6TX7</ToIcao>
+<FromIcao>0KS1</FromIcao>
+<Amount>146</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Air Courier</Commodity>
+<Pay>2061.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-12 09:32:10</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236171398</Id>
+<Location>0KS2</Location>
+<ToIcao>1AR4</ToIcao>
+<FromIcao>0KS2</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passengers</Commodity>
+<Pay>1514.00</Pay>
+<Expires>15 hrs</Expires>
+<ExpireDateTime>2017-02-11 08:32:05</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236129937</Id>
+<Location>0KS3</Location>
+<ToIcao>MO22</ToIcao>
+<FromIcao>0KS3</FromIcao>
+<Amount>155</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Fuel Container Delivery</Commodity>
+<Pay>672.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 09:02:27</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236176696</Id>
+<Location>0KS4</Location>
+<ToIcao>O53</ToIcao>
+<FromIcao>0KS4</FromIcao>
+<Amount>117</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Newspaper</Commodity>
+<Pay>637.00</Pay>
+<Expires>12 hrs</Expires>
+<ExpireDateTime>2017-02-11 05:32:14</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236203198</Id>
+<Location>0MO1</Location>
+<ToIcao>9OK3</ToIcao>
+<FromIcao>0MO1</FromIcao>
+<Amount>219</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Priority Mail</Commodity>
+<Pay>1004.00</Pay>
+<Expires>11 hrs</Expires>
+<ExpireDateTime>2017-02-11 04:32:09</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236205524</Id>
+<Location>0MO3</Location>
+<ToIcao>4IA6</ToIcao>
+<FromIcao>0MO3</FromIcao>
+<Amount>215</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Priority Mail</Commodity>
+<Pay>1293.00</Pay>
+<Expires>13 hrs</Expires>
+<ExpireDateTime>2017-02-11 06:32:05</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236103866</Id>
+<Location>0MU7</Location>
+<ToIcao>0MO6</ToIcao>
+<FromIcao>0MU7</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passenger</Commodity>
+<Pay>594.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 17:32:01</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236089302</Id>
+<Location>0N0</Location>
+<ToIcao>5KS1</ToIcao>
+<FromIcao>0N0</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Air Taxi Passengers</Commodity>
+<Pay>341.00</Pay>
+<Expires>34 mins</Expires>
+<ExpireDateTime>2017-02-10 17:32:12</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236134233</Id>
+<Location>11KS</Location>
+<ToIcao>SN14</ToIcao>
+<FromIcao>11KS</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passenger</Commodity>
+<Pay>218.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 21:02:07</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236120629</Id>
+<Location>11KS</Location>
+<ToIcao>MO08</ToIcao>
+<FromIcao>11KS</FromIcao>
+<Amount>114</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Food</Commodity>
+<Pay>324.00</Pay>
+<Expires>1 hrs</Expires>
+<ExpireDateTime>2017-02-10 18:32:04</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236088900</Id>
+<Location>12MO</Location>
+<ToIcao>KAIO</ToIcao>
+<FromIcao>12MO</FromIcao>
+<Amount>358</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Regional Air Cargo</Commodity>
+<Pay>1299.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-12 13:32:06</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+</IcaoJobsFrom>
+
+

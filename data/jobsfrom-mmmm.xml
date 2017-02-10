@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoJobsFrom total="13"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_jobs.xsd"
+>
+<Assignment>
+<Id>236115784</Id>
+<Location>MMMM</Location>
+<ToIcao>MMLC</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passengers</Commodity>
+<Pay>1098.00</Pay>
+<Expires>22 mins</Expires>
+<ExpireDateTime>2017-02-10 15:32:10</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236072787</Id>
+<Location>MMMM</Location>
+<ToIcao>MMGL</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passengers</Commodity>
+<Pay>1436.00</Pay>
+<Expires>8 hrs</Expires>
+<ExpireDateTime>2017-02-11 00:01:29</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236207552</Id>
+<Location>MMMM</Location>
+<ToIcao>MMGL</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passenger</Commodity>
+<Pay>883.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 07:31:11</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236118871</Id>
+<Location>MMMM</Location>
+<ToIcao>MMGL</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passengers</Commodity>
+<Pay>1436.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 19:01:08</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236129909</Id>
+<Location>MMMM</Location>
+<ToIcao>MMZP</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>4</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Corporate Charter</Commodity>
+<Pay>1933.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-12 02:02:26</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236136741</Id>
+<Location>MMMM</Location>
+<ToIcao>MM1I</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>5</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Corporate Charter</Commodity>
+<Pay>2007.00</Pay>
+<Expires>13 hrs</Expires>
+<ExpireDateTime>2017-02-11 05:02:10</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236220419</Id>
+<Location>MMMM</Location>
+<ToIcao>MMAA</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passenger</Commodity>
+<Pay>920.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 13:00:47</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236088564</Id>
+<Location>MMMM</Location>
+<ToIcao>MMAA</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passenger</Commodity>
+<Pay>920.00</Pay>
+<Expires>15 hrs</Expires>
+<ExpireDateTime>2017-02-11 06:30:58</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236050024</Id>
+<Location>MMMM</Location>
+<ToIcao>MMHC</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>9</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Pax - Group Charter</Commodity>
+<Pay>3792.00</Pay>
+<Expires>1 hrs</Expires>
+<ExpireDateTime>2017-02-10 16:32:03</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236138435</Id>
+<Location>MMMM</Location>
+<ToIcao>MMIO</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>1181</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Cargo Pallets</Commodity>
+<Pay>5769.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-12 06:32:22</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236141997</Id>
+<Location>MMMM</Location>
+<ToIcao>MM2H</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>7</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passengers</Commodity>
+<Pay>6091.00</Pay>
+<Expires>3 hrs</Expires>
+<ExpireDateTime>2017-02-10 19:02:20</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236172469</Id>
+<Location>MMMM</Location>
+<ToIcao>74TA</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>74</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Medical Supplies</Commodity>
+<Pay>943.00</Pay>
+<Expires>4 hrs</Expires>
+<ExpireDateTime>2017-02-10 20:02:02</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>True</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236099849</Id>
+<Location>MMMM</Location>
+<ToIcao>MMSD</ToIcao>
+<FromIcao>MMMM</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aeronaves Quetzal passengers</Commodity>
+<Pay>1575.00</Pay>
+<Expires>19 hrs</Expires>
+<ExpireDateTime>2017-02-11 11:01:53</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+</IcaoJobsFrom>
+
+

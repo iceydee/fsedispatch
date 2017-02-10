@@ -2349,11 +2349,11 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraft.x
 <MakeModel>Embraer Phenom 300</MakeModel>
 <Registration>N-41168</Registration>
 <Owner>Bank of FSE</Owner>
-<Location>KBAD</Location>
-<LocationName>Barksdale AFB, Bossier City, Louisiana, United States</LocationName>
+<Location>KLTS</Location>
+<LocationName>Altus AFB, Altus, Oklahoma, United States</LocationName>
 <Home>4A5</Home>
 <SalePrice>0.00</SalePrice>
-<SellbackPrice>640528.00</SellbackPrice>
+<SellbackPrice>640329.00</SellbackPrice>
 <Equipment>IFR/AP/GPS</Equipment>
 <RentalDry>904.00</RentalDry>
 <RentalWet>1746.00</RentalWet>
@@ -2361,11 +2361,11 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraft.x
 <Bonus>170</Bonus>
 <RentalTime>18000</RentalTime>
 <RentedBy>Not rented.</RentedBy>
-<FuelPct>0.18</FuelPct>
+<FuelPct>0.06</FuelPct>
 <NeedsRepair>0</NeedsRepair>
-<AirframeTime>03:00</AirframeTime>
-<EngineTime>03:00</EngineTime>
-<TimeLast100hr>03:00</TimeLast100hr>
+<AirframeTime>04:05</AirframeTime>
+<EngineTime>04:05</EngineTime>
+<TimeLast100hr>04:05</TimeLast100hr>
 <LeasedFrom>NA</LeasedFrom>
 <MonthlyFee>6405.00</MonthlyFee>
 <FeeOwed>0.00</FeeOwed>

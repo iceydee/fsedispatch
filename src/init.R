@@ -1,8 +1,9 @@
 library("XML")
 
 source("./src/fseconomy.R")
+source("./src/earnings.R")
 
-fse.setUserKey("12341234")
+# fse.setUserKey("12341234")
 
 # 1. Ask for valid aircraft types
 ## Pre-req: download up-to-date list of aircraft

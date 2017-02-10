@@ -1,0 +1,1314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoJobsFrom total="87"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_jobs.xsd"
+>
+<Assignment>
+<Id>236081268</Id>
+<Location>PAKN</Location>
+<ToIcao>WSN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>South Naknek Passenger</Commodity>
+<Pay>264.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 03:31:16</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236117689</Id>
+<Location>PAKN</Location>
+<ToIcao>WSN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>South Naknek Passengers</Commodity>
+<Pay>569.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 18:31:17</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236136180</Id>
+<Location>PAKN</Location>
+<ToIcao>WSN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>264.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-16 02:01:12</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236126604</Id>
+<Location>PAKN</Location>
+<ToIcao>WSN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>South Naknek Passengers</Commodity>
+<Pay>569.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 22:02:03</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236092652</Id>
+<Location>PAKN</Location>
+<ToIcao>WSN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>South Naknek Passenger</Commodity>
+<Pay>264.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 08:02:02</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235913809</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Levelock Passengers</Commodity>
+<Pay>852.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 07:31:58</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235886920</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Levelock Passenger</Commodity>
+<Pay>524.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 20:32:03</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235861947</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passengers</Commodity>
+<Pay>1132.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 10:31:02</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235851727</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passengers</Commodity>
+<Pay>1132.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 06:31:11</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235914883</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Levelock Passenger</Commodity>
+<Pay>524.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 08:01:00</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235947246</Id>
+<Location>PAKN</Location>
+<ToIcao>KLL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>524.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 21:01:59</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235850280</Id>
+<Location>PAKN</Location>
+<ToIcao>AK96</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passengers</Commodity>
+<Pay>1306.00</Pay>
+<Expires>23 hrs</Expires>
+<ExpireDateTime>2017-02-11 06:00:47</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235867998</Id>
+<Location>PAKN</Location>
+<ToIcao>AK96</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passengers</Commodity>
+<Pay>1306.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 13:01:22</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235839456</Id>
+<Location>PAKN</Location>
+<ToIcao>A14</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (A14) Passenger</Commodity>
+<Pay>613.00</Pay>
+<Expires>19 hrs</Expires>
+<ExpireDateTime>2017-02-11 01:31:34</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235835791</Id>
+<Location>PAKN</Location>
+<ToIcao>A14</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (A14) Passengers</Commodity>
+<Pay>996.00</Pay>
+<Expires>17 hrs</Expires>
+<ExpireDateTime>2017-02-11 00:01:40</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235866922</Id>
+<Location>PAKN</Location>
+<ToIcao>A14</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (A14) Passengers</Commodity>
+<Pay>996.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 12:31:35</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235868053</Id>
+<Location>PAKN</Location>
+<ToIcao>A14</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (A14) Passengers</Commodity>
+<Pay>996.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 13:01:33</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236127735</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>622.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 22:31:44</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236137621</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Egegik Passenger</Commodity>
+<Pay>622.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-16 02:31:54</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235863301</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Egegik Passenger</Commodity>
+<Pay>622.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 11:01:29</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236125234</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Egegik Passengers</Commodity>
+<Pay>1010.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 21:31:25</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236154465</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Egegik Passengers</Commodity>
+<Pay>1010.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 09:31:20</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236167328</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>622.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 15:00:59</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236173299</Id>
+<Location>PAKN</Location>
+<ToIcao>PAII</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Egegik Passengers</Commodity>
+<Pay>1010.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 17:30:50</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235812694</Id>
+<Location>PAKN</Location>
+<ToIcao>LKK</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (LKK) Passenger</Commodity>
+<Pay>710.00</Pay>
+<Expires>8 hrs</Expires>
+<ExpireDateTime>2017-02-10 14:31:57</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235903784</Id>
+<Location>PAKN</Location>
+<ToIcao>LKK</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (LKK) Passenger</Commodity>
+<Pay>710.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-12 03:30:55</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235858211</Id>
+<Location>PAKN</Location>
+<ToIcao>LKK</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (LKK) Passenger</Commodity>
+<Pay>710.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 09:01:33</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235826968</Id>
+<Location>PAKN</Location>
+<ToIcao>LKK</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tiger Air (LKK) Passenger</Commodity>
+<Pay>710.00</Pay>
+<Expires>14 hrs</Expires>
+<ExpireDateTime>2017-02-10 20:31:17</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236203992</Id>
+<Location>PAKN</Location>
+<ToIcao>PADL</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Chilkoot Air Assignment</Commodity>
+<Pay>756.00</Pay>
+<Expires>13 days</Expires>
+<ExpireDateTime>2017-02-24 06:00:57</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235328617</Id>
+<Location>PAKN</Location>
+<ToIcao>5Z9</ToIcao>
+<FromIcao>A14</FromIcao>
+<Amount>1</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Express Envelope</Commodity>
+<Pay>163.00</Pay>
+<Expires>8 days</Expires>
+<ExpireDateTime>2017-02-18 09:02:40</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235251297</Id>
+<Location>PAKN</Location>
+<ToIcao>5Z9</ToIcao>
+<FromIcao>A14</FromIcao>
+<Amount>1</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Express Envelope</Commodity>
+<Pay>162.00</Pay>
+<Expires>7 days</Expires>
+<ExpireDateTime>2017-02-17 09:02:36</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235935599</Id>
+<Location>PAKN</Location>
+<ToIcao>4AK7</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Chilkoot feeder</Commodity>
+<Pay>782.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 16:30:52</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236047060</Id>
+<Location>PAKN</Location>
+<ToIcao>4AK7</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Chilkoot feeder</Commodity>
+<Pay>782.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 13:31:03</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236112818</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Migrant Worker</Commodity>
+<Pay>787.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 16:30:52</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236112817</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Aerial Photographer</Commodity>
+<Pay>787.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 16:30:52</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236088827</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Trust Fund Kid</Commodity>
+<Pay>787.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 06:31:51</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236075106</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Guide</Commodity>
+<Pay>787.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 01:00:55</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236087606</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Migrant Worker</Commodity>
+<Pay>787.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 06:01:48</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236048420</Id>
+<Location>PAKN</Location>
+<ToIcao>PNP</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Tourist</Commodity>
+<Pay>787.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 14:01:40</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236180560</Id>
+<Location>PAKN</Location>
+<ToIcao>5NN</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>5</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Hikers</Commodity>
+<Pay>2587.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 20:31:30</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236147353</Id>
+<Location>PAKN</Location>
+<ToIcao>TPO</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>High-Land Passengers</Commodity>
+<Pay>865.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 06:31:29</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236080120</Id>
+<Location>PAKN</Location>
+<ToIcao>PATG</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Mechanics</Commodity>
+<Pay>869.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 03:01:39</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236190735</Id>
+<Location>PAKN</Location>
+<ToIcao>PATG</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Togiak Fishermen</Commodity>
+<Pay>869.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 00:31:57</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236130223</Id>
+<Location>PAKN</Location>
+<ToIcao>PATG</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Togiak Villagers</Commodity>
+<Pay>1411.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-13 23:31:24</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236154481</Id>
+<Location>PAKN</Location>
+<ToIcao>PATG</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Togiak Villagers</Commodity>
+<Pay>1874.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 09:31:23</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236203022</Id>
+<Location>PAKN</Location>
+<ToIcao>PADQ</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>889.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 05:31:45</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236195564</Id>
+<Location>PAKN</Location>
+<ToIcao>PADQ</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>889.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 02:31:50</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236047230</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 13:31:35</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236169892</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 16:01:49</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236136097</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-14 02:00:58</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236199389</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-15 04:02:06</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236111621</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-13 16:00:46</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236172134</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 17:00:59</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236108018</Id>
+<Location>PAKN</Location>
+<ToIcao>PASV</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Alaskan Air Pax</Commodity>
+<Pay>894.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-13 14:31:01</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235295729</Id>
+<Location>PAKN</Location>
+<ToIcao>PAJC</ToIcao>
+<FromIcao>A14</FromIcao>
+<Amount>220</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Priority Mail</Commodity>
+<Pay>1104.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 13:32:37</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236185282</Id>
+<Location>PAKN</Location>
+<ToIcao>PAEH</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>906.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 22:31:00</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236167330</Id>
+<Location>PAKN</Location>
+<ToIcao>PAEH</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>906.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 15:01:00</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236173522</Id>
+<Location>PAKN</Location>
+<ToIcao>PAEH</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passengers</Commodity>
+<Pay>1957.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 17:31:35</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236164891</Id>
+<Location>PAKN</Location>
+<ToIcao>PAEH</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Cape Newenham Passengers</Commodity>
+<Pay>1474.00</Pay>
+<Expires>6 days</Expires>
+<ExpireDateTime>2017-02-16 14:01:03</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235867013</Id>
+<Location>PAKN</Location>
+<ToIcao>PAHO</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>908.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 12:31:52</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235814925</Id>
+<Location>PAKN</Location>
+<ToIcao>PAHO</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>908.00</Pay>
+<Expires>9 hrs</Expires>
+<ExpireDateTime>2017-02-10 15:31:45</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235968502</Id>
+<Location>PAKN</Location>
+<ToIcao>PAHO</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>AAAC Code Share Passenger</Commodity>
+<Pay>908.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 05:30:54</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235982083</Id>
+<Location>PAKN</Location>
+<ToIcao>PAQH</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Hunter</Commodity>
+<Pay>908.00</Pay>
+<Expires>4 days</Expires>
+<ExpireDateTime>2017-02-14 11:00:56</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236104492</Id>
+<Location>PAKN</Location>
+<ToIcao>KIB</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>917.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-13 13:00:57</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235938122</Id>
+<Location>PAKN</Location>
+<ToIcao>KIB</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>917.00</Pay>
+<Expires>11 hrs</Expires>
+<ExpireDateTime>2017-02-10 17:31:09</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236139818</Id>
+<Location>PAKN</Location>
+<ToIcao>KIB</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1490.00</Pay>
+<Expires>3 days</Expires>
+<ExpireDateTime>2017-02-14 03:31:02</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235938121</Id>
+<Location>PAKN</Location>
+<ToIcao>KIB</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>917.00</Pay>
+<Expires>11 hrs</Expires>
+<ExpireDateTime>2017-02-10 17:31:09</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236051840</Id>
+<Location>PAKN</Location>
+<ToIcao>KIB</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1490.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 15:31:27</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236092161</Id>
+<Location>PAKN</Location>
+<ToIcao>PABE</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>100</Amount>
+<UnitType>kg</UnitType>
+<Commodity>FTX Global Cargo</Commodity>
+<Pay>992.00</Pay>
+<Expires>12 hrs</Expires>
+<ExpireDateTime>2017-02-10 18:32:20</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236099442</Id>
+<Location>PAKN</Location>
+<ToIcao>HCA</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Corporate Charter</Commodity>
+<Pay>2019.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 18:32:15</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235307536</Id>
+<Location>PAKN</Location>
+<ToIcao>IGT</ToIcao>
+<FromIcao>A14</FromIcao>
+<Amount>155</Amount>
+<UnitType>kg</UnitType>
+<Commodity>Fuel Container Delivery</Commodity>
+<Pay>1196.00</Pay>
+<Expires>10 days</Expires>
+<ExpireDateTime>2017-02-20 08:02:54</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235953480</Id>
+<Location>PAKN</Location>
+<ToIcao>PASD</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Sand Point Charter</Commodity>
+<Pay>933.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 23:31:32</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235929668</Id>
+<Location>PAKN</Location>
+<ToIcao>PASD</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Sand Point Charter</Commodity>
+<Pay>933.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 14:01:25</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235685243</Id>
+<Location>PAKN</Location>
+<ToIcao>PASD</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Sand Point Charter</Commodity>
+<Pay>933.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 10:01:11</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236184124</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>2018.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 22:01:09</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236166339</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 14:31:45</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236131311</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>17 hrs</Expires>
+<ExpireDateTime>2017-02-11 00:01:07</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235925698</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 12:30:47</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235911150</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1520.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 06:30:57</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236100943</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1520.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 11:31:23</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235944687</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1520.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 20:01:51</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236104491</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>1 days</Expires>
+<ExpireDateTime>2017-02-11 13:00:56</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236190406</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-13 00:30:51</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>235947139</Id>
+<Location>PAKN</Location>
+<ToIcao>PANC</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>2</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>ERA Passengers</Commodity>
+<Pay>1520.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 21:01:40</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236113120</Id>
+<Location>PAKN</Location>
+<ToIcao>CSR</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>1</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Campbell Anchorage Passenger</Commodity>
+<Pay>938.00</Pay>
+<Expires>5 days</Expires>
+<ExpireDateTime>2017-02-15 16:31:50</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>true</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236143429</Id>
+<Location>PAKN</Location>
+<ToIcao>CSR</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>3</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Corporate Charter</Commodity>
+<Pay>2072.00</Pay>
+<Expires>2 days</Expires>
+<ExpireDateTime>2017-02-12 10:32:22</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+<Assignment>
+<Id>236107882</Id>
+<Location>PAKN</Location>
+<ToIcao>PAGA</ToIcao>
+<FromIcao>PAKN</FromIcao>
+<Amount>55</Amount>
+<UnitType>passengers</UnitType>
+<Commodity>Passengers</Commodity>
+<Pay>21960.00</Pay>
+<Expires>4 hrs</Expires>
+<ExpireDateTime>2017-02-10 11:02:13</ExpireDateTime>
+<Type>Trip-Only</Type>
+<Express>False</Express>
+<PtAssignment>false</PtAssignment>
+</Assignment>
+</IcaoJobsFrom>
+
+

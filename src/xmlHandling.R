@@ -6,6 +6,22 @@ fetchXML <- function(url, name, maxAge = -1) {
   path <- pathFromName(name)
   if (!validFileExists(path, maxAge)) {
     data <- getURL(url)
+    if (!exists("apiQueryCount")) {
+      apiQueryCount <<- 0
+    }
+    apiQueryCount <<- apiQueryCount + 1
+    if (apiQueryCount >= 10) {
+      cat("Too many api requests, sleeping...\n")
+      for (i in 60:1) {
+        cat(sprintf("%i seconds remaining\n", i))
+        Sys.sleep(1)
+      }
+      apiQueryCount <<- 0
+      cat("And we're back in business.\n")
+    }
+    if (grepl("<Error>", data)) {
+      stop(data)
+    }
     file.create(path, overwrite = TRUE)
     fileCOnn <- file(path)
     writeLines(data, fileCOnn)

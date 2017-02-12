@@ -87,10 +87,32 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
 }
 
 fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
-  if(length(icaos) > 25) {
-    cat("\nMore than 25 airports in search, cutting short at 25.\n")
-    icaos = icaos[1:25]
+  maxFetch <- 10
+  if(length(icaos) > maxFetch) {
+    len <- length(icaos)
+    cat(sprintf("Bulk fetching %i airports assignments at a time.\n", len))
+    n <- 1
+    if (grouped) {
+      assignments <- list()
+    } else {
+      assignments <- data.frame()
+    }
+    assignments <- data.frame
+    while ((n + maxFetch - 1) <= len) {
+      cat(sprintf("Fetching icaos %i:%i - %s\n", n, (n + maxFetch - 1), paste(icaos[n:(n + maxFetch - 1)], collapse = "-")))
+      a <- fse.getAssignments(icaos[n:(n + maxFetch - 1)], minDistance, maxDistance, unittype, maxSeats, grouped)
+      
+      if (grouped) {
+        assignments <- append(assignments, a)
+      } else {
+        assignments <- rbind(assignments, a)
+      }
+      
+      n <- (n + maxFetch)
+    }
+    return (assignments)
   }
+  
   icaoList <- paste(icaos, collapse = '-')
   url <- fse.query("icao", list(search = "jobsfrom", icaos = icaoList))
   a <- fetchXML(url, paste("jobsfrom", icaoList, sep = '-'), 5)

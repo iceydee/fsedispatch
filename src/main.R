@@ -26,6 +26,8 @@ maxDistance <- readInt(sprintf("What's the maximum range you want to fly today? 
 minLon <- readInt("What's the most western longitude you want to fly from today? [-180 - 180] ")
 maxLon <- readInt(sprintf("What's the most eastern longitude you want to fly from today? [%i - 180] " , minLon + 1))
 
+cat("\n")
+
 # Find possible rental aircraft
 rentalAircraft <- fse.findRentalAircraft(aircraft$MakeModel, lonFilter = c(minLon, maxLon), waterOk = FALSE)
 

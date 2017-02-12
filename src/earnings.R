@@ -11,6 +11,13 @@ calc.assignments <- function(makeModel, assignments) {
 }
 
 calc.earnings <- function(aircraft, assignment, dry = TRUE) {
+  if (assignment$RentalWet == 0) {
+    dry <- TRUE
+  }
+  if (assignment$RentalDry == 0) {
+    dry <- FALSE
+  }
+  
   cost <- 0
   if (dry) {
     fuelCost <- (calc.fuelUsage(aircraft, assignment$Distance) * assignment$FuelPrice)

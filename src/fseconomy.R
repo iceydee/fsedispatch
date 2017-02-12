@@ -5,6 +5,8 @@ fse.setUserKey <- function(key) {
   userkey <<- key
 }
 
+fse.setUserKey(Sys.getenv("USERKEY"))
+
 cleanInt <- function(data, col) {
   data[,col] <- as.integer(as.character(data[,col]))
   return (data)
@@ -68,14 +70,41 @@ fse.findRentalAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilte
   return (a[order(a$RentalDry, a$RentalWet),])
 }
 
-fse.getAssignments <- function(icaos, maxDistance = 400) {
+fse.groupAssignments <- function(assignments, maxSeats = 9) {
+  groupedAssignments <- list()
+  for (n in 1:nrow(assignments)) {
+    a <- assignments[n,]
+    if (a$Amount < maxSeats) {
+      i <- (length(groupedAssignments) + 1)
+      x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
+      while (sum(x$Amount) > maxSeats) {
+        x <- x[1:(nrow(x)-1),]
+      }
+      groupedAssignments[[i]] <- x
+    }
+  }
+  return (groupedAssignments)
+}
+
+fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
+  if(length(icaos) > 25) {
+    cat("\nMore than 25 airports in search, cutting short at 25.\n")
+    icaos = icaos[1:25]
+  }
   icaoList <- paste(icaos, collapse = '-')
   url <- fse.query("icao", list(search = "jobsfrom", icaos = icaoList))
   a <- fetchXML(url, paste("jobsfrom", icaoList, sep = '-'), 5)
   a <- clean(a, c(c("int"), rep("char", 3), c("int"), rep("char", 2), c("int"), rep("char", 5)))
   a$Distance <- sapply(1:nrow(a), function(n) {icao.distance(a$FromIcao[n], a$ToIcao[n])})
-  a <- a[a$Distance <= maxDistance,]
-  return (a[order(-a$Pay),])
+  a <- a[a$Distance >= minDistance & a$Distance <= maxDistance,]
+  a <- a[a$UnitType == unittype,]
+  a <- a[a$Amount <= maxSeats,]
+  a <- a[order(-a$Pay),]
+  
+  if (grouped) {
+    return (fse.groupAssignments(a, maxSeats = maxSeats))
+  }
+  return (a)
 }
 
 fse.query <- function(query, args) {

@@ -77,14 +77,14 @@ icao.distance <- function(start, end) {
   }
   
   # Check distance cache first
-  distance <- icao.distanceForPair(p)
-  if (is.null(distance)) {
+  #distance <- icao.distanceForPair(p)
+  #if (is.null(distance)) {
     loc1 <- icao.location(p[1])
     loc2 <- icao.location(p[2])
     
     distance <- round(conv_unit(distVincentyEllipsoid(loc1, loc2), "m", "naut_mi"))
-    icao.cacheDistance(p, distance)
-  }
+    #icao.cacheDistance(p, distance)
+  #}
   
   return (distance)
 }

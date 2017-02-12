@@ -1,20 +1,26 @@
 source("./src/fseconomy.R")
 
-calc.assignments <- function(makeModel, assignments, rentalDry = 0, rentalWet = 0, fuelPrice = 0) {
+calc.assignments <- function(makeModel, assignments) {
   aircraft <- fse.getAircraft(makeModel)
+  assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
-  assignments$Earnings <- sapply(1:nrow(assignments), function(n) {calc.earnings(aircraft, assignments[n,], rentalDry = rentalDry, rentalWet = rentalWet, fuelPrice = fuelPrice)})
+  assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {calc.earnings(aircraft, assignments[n,])})
+  assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {calc.earnings(aircraft, assignments[n,], dry = FALSE)})
+  assignments$Earnings <- sapply(1:nrow(assignments), function(n) {max(assignments$DryEarnings[n], assignments$WetEarnings[n])})
   return (assignments)
 }
 
-calc.earnings <- function(aircraft, assignment, rentalDry = 0, rentalWet = 0, fuelPrice = 0) {
+calc.earnings <- function(aircraft, assignment, dry = TRUE) {
   cost <- 0
-  if (rentalDry > 0) {
-    cost <- (cost + (calc.fuelUsage(aircraft, assignment$Distance) * fuelPrice))
+  if (dry) {
+    fuelCost <- (calc.fuelUsage(aircraft, assignment$Distance) * assignment$FuelPrice)
+    cost <- ((assignment$RentalDry * assignment$Duration) + fuelCost)
+  } else {
+    cost <- (assignment$RentalWet * assignment$Duration)
   }
-  cost <- (cost + rentalDry + rentalWet)
-  
+
   # TODO: Include ground crew fee + booking fee. https://sites.google.com/site/fseoperationsguide/getting-started/assignments#TOC-Assignment-Fees
+  # TODO: Include distance bonus
   
   return (assignment$Pay - cost)
 }
@@ -24,5 +30,6 @@ calc.fuelUsage <- function(aircraft, distance) {
 }
 
 calc.duration <- function(aircraft, distance) {
-  return (distance / aircraft$CruiseSpeed)
+  # TODO: Include taxi, climb, descent
+  return (as.integer(distance) / as.integer(aircraft$CruiseSpeed))
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>134</FboId>
+<Status>Active</Status>
+<Airport>Los Rodeos</Airport>
+<Name>Nacional de Servicios Aereos - Tenerife</Name>
+<Owner>NSA Aero(eperezsa)</Owner>
+<Icao>GCXO</Icao>
+<Location>Los Rodeos, Tenerife-North, Spain</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>4206</Fuel100LL>
+<FuelJetA>3265</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>5431</FboId>
+<Status>Active</Status>
+<Airport>Los Rodeos</Airport>
+<Name>Suwannee Air Canary Island</Name>
+<Owner>Suwannee Air Canary Island(rcn01)</Owner>
+<Icao>GCXO</Icao>
+<Location>Los Rodeos, Tenerife-North, Spain</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>16681</Fuel100LL>
+<FuelJetA>2</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Los Rodeos</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>GCXO</Icao>
+<Location>Los Rodeos, Tenerife-North, Spain</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

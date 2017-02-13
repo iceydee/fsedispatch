@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>7512</FboId>
+<Status>Active</Status>
+<Airport>Kamloops</Airport>
+<Name>Cougar Air Kamloops</Name>
+<Owner>Cougar Air North America(cougar22)</Owner>
+<Icao>CYKA</Icao>
+<Location>Kamloops, Kamloops, British Columbia, Canada</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>2</GatesRented>
+<Fuel100LL>11713</Fuel100LL>
+<FuelJetA>12659</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>7845</FboId>
+<Status>Active</Status>
+<Airport>Kamloops</Airport>
+<Name>Air Canada Express - Kamloops</Name>
+<Owner>Air Canada Express(BrianPeace)</Owner>
+<Icao>CYKA</Icao>
+<Location>Kamloops, Kamloops, British Columbia, Canada</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>48780</Fuel100LL>
+<FuelJetA>54966</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Kamloops</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>CYKA</Icao>
+<Location>Kamloops, Kamloops, British Columbia, Canada</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

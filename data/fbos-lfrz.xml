@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>24196</FboId>
+<Status>Active</Status>
+<Airport>Montoir</Airport>
+<Name>Aviator Intl. FBO - LFRZ - St Nazaire</Name>
+<Owner>Aviator - Intl.(VAA_008)</Owner>
+<Icao>LFRZ</Icao>
+<Location>Montoir, St Nazaire, France</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>5697</Fuel100LL>
+<FuelJetA>6573</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>24335</FboId>
+<Status>Active</Status>
+<Airport>Montoir</Airport>
+<Name>North West Air</Name>
+<Owner>North West Air(jfabian)</Owner>
+<Icao>LFRZ</Icao>
+<Location>Montoir, St Nazaire, France</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>10274</Fuel100LL>
+<FuelJetA>3986</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Montoir</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>LFRZ</Icao>
+<Location>Montoir, St Nazaire, France</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Not Avail</Fuel100LL>
+<FuelJetA>Not Avail</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

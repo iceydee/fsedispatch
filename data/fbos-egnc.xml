@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>8739</FboId>
+<Status>Active</Status>
+<Airport>Carlisle</Airport>
+<Name>TinGoose - Carlisle</Name>
+<Owner>TinGoose Aviation(odie)</Owner>
+<Icao>EGNC</Icao>
+<Location>Carlisle, Carlisle, United Kingdom</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>4</Gates>
+<GatesRented>2</GatesRented>
+<Fuel100LL>30397</Fuel100LL>
+<FuelJetA>14321</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>40</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Carlisle</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>EGNC</Icao>
+<Location>Carlisle, Carlisle, United Kingdom</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Not Avail</Fuel100LL>
+<FuelJetA>Not Avail</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

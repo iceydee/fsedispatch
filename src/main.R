@@ -59,31 +59,6 @@ if (region$count < 1) {
 rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
-maxSeats <- (aircraft$Seats - 1)
-assignments <- fse.getAssignments(
-  rentalAircraft$Location,
-  minDistance = minDistance, maxDistance = maxDistance,
-  maxSeats = maxSeats,
-  grouped = TRUE
-)
+assignments <- getRankedAssignments(rentalAircraft, minDistance, maxDistance)
 
-if (length(assignments) < 1) {
-  stop("No assignments matching criteria. Try changing distance.")
-}
-
-groupedAssignments <- assignments[[1]][0,]
-for (n in 1:length(assignments)) {
-  a <- assignments[[n]]
-  b <- a[1,]
-  b$Id <- n
-  b$Amount <- sum(a$Amount)
-  b$Pay <- sum(a$Pay)
-  groupedAssignments[n,] <- b
-}
-groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
-groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
-
-groupedAssignments <- calc.assignments(rentalAircraft, groupedAssignments)
-groupedAssignments <- groupedAssignments[order(-groupedAssignments$Earnings),]
-
-print(head(groupedAssignments))
+print(head(assignments))

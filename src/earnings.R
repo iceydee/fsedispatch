@@ -1,5 +1,50 @@
 source("./src/fseconomy.R")
 
+getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  
+  if (is.null(searchICAO)) {
+    startLocation = NULL
+    searchICAO = rentalAircraft$Location
+  } else {
+    if (nrow(rentalAircraft) != 1) {
+      stop("Expecting just 1 rental aircraft when searching assignments on hop")
+    }
+    startLocation = rentalAircraft$Location
+  }
+  
+  # Find assignments
+  maxSeats <- (aircraft$Seats - 1)
+  assignments <- fse.getAssignments(
+    searchICAO,
+    minDistance = minDistance, maxDistance = maxDistance,
+    maxSeats = maxSeats,
+    grouped = TRUE,
+    startLocation = startLocation
+  )
+  
+  if (length(assignments) < 1) {
+    stop("No assignments matching criteria. Try changing distance.")
+  }
+  
+  groupedAssignments <- assignments[[1]][0,]
+  for (n in 1:length(assignments)) {
+    a <- assignments[[n]]
+    b <- a[1,]
+    b$Id <- n
+    b$Amount <- sum(a$Amount)
+    b$Pay <- sum(a$Pay)
+    groupedAssignments[n,] <- b
+  }
+  groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
+  groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
+  
+  groupedAssignments <- calc.assignments(rentalAircraft, groupedAssignments)
+  groupedAssignments <- groupedAssignments[order(-groupedAssignments$Earnings),]
+  
+  return (groupedAssignments)
+}
+
 calc.assignments <- function(rentalAircraft, assignments) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})

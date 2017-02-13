@@ -19,7 +19,7 @@ fse.getAircraft <- function(makeModel = NULL) {
 
 fse.findAircraft <- function(makeModel, waterOk = TRUE) {
   url <- fse.query("aircraft", list(search = "makemodel", makemodel = URLencode(makeModel)))
-  a <- fetchXML(url, paste(makeModel, "-search", sep = '', collapse = ''), 5)
+  a <- fetchXML(url, paste(makeModel, "-search", sep = '', collapse = ''), 15)
   a <- clean(a, c(c("int"), rep("char", 6), rep("int", 2), c("char"), rep("int", 2), c("char"), rep("int", 2), c("char", "double", "int"), rep("char", 4), rep("double", 2)))
   a <- merge(a, icaoloc, by = "Location")
   if (!waterOk) {
@@ -67,7 +67,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
   return (groupedAssignments)
 }
 
-fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
+fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE, startLocation = NULL) {
   maxFetch <- 10
   if(length(icaos) > maxFetch) {
     len <- length(icaos)
@@ -106,6 +106,10 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   a <- a[a$UnitType == unittype,]
   a <- a[a$Amount <= maxSeats,]
   a <- a[order(-a$Pay),]
+  
+  if (!is.null(startLocation)) {
+    a$Location <- rep(startLocation, nrow(a))
+  }
   
   if (grouped) {
     if (nrow(a) < 1) {

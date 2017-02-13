@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>25968</FboId>
+<Status>Active</Status>
+<Airport>Clackamas Heights</Airport>
+<Name>FunFlyers - Clackamas Heights, Oregon</Name>
+<Owner>ianads</Owner>
+<Icao>1OR6</Icao>
+<Location>Clackamas Heights, Oregon City, Oregon, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>5000</Fuel100LL>
+<FuelJetA>5391</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

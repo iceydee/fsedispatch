@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="3"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>711</FboId>
+<Status>Active</Status>
+<Airport>King Salmon</Airport>
+<Name>ExxonMobil Aviation-Operated by EliteAir</Name>
+<Owner>EA - Pacific Region(PBCool1)</Owner>
+<Icao>PAKN</Icao>
+<Location>King Salmon, King Salmon, Alaska, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>3</GatesRented>
+<Fuel100LL>41523</Fuel100LL>
+<FuelJetA>14310</FuelJetA>
+<BuildingMaterials>6000</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>9012</FboId>
+<Status>Active</Status>
+<Airport>King Salmon</Airport>
+<Name>ERA King Salmon (GotBush?)</Name>
+<Owner>ERA Aviation(windspeaks)</Owner>
+<Icao>PAKN</Icao>
+<Location>King Salmon, King Salmon, Alaska, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>40756</Fuel100LL>
+<FuelJetA>47543</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>13309</FboId>
+<Status>Active</Status>
+<Airport>King Salmon</Airport>
+<Name>Aurora Air Service an AAAC Partner</Name>
+<Owner>fseigler</Owner>
+<Icao>PAKN</Icao>
+<Location>King Salmon, King Salmon, Alaska, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>11621</Fuel100LL>
+<FuelJetA>6029</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>King Salmon</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>PAKN</Icao>
+<Location>King Salmon, King Salmon, Alaska, United States</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

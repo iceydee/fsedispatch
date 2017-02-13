@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>4421</FboId>
+<Status>Active</Status>
+<Airport>Sand Point</Airport>
+<Name>Shumagin Islands Air Service</Name>
+<Owner>Paradise Aviation &#38;#9733;(DigTek)</Owner>
+<Icao>PASD</Icao>
+<Location>Sand Point, Sand Point, Alaska, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>7141</Fuel100LL>
+<FuelJetA>3545</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>14179</FboId>
+<Status>Active</Status>
+<Airport>Sand Point</Airport>
+<Name>Aurora Air Service - AAAC Partner</Name>
+<Owner>fseigler</Owner>
+<Icao>PASD</Icao>
+<Location>Sand Point, Sand Point, Alaska, United States</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>5741</Fuel100LL>
+<FuelJetA>16527</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

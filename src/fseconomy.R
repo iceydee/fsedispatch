@@ -115,7 +115,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   
   icaoList <- paste(icaos, collapse = '-')
   url <- fse.query("icao", list(search = "jobsfrom", icaos = icaoList))
-  a <- fetchXML(url, paste("jobsfrom", icaoList, sep = '-'), 5)
+  a <- fetchXML(url, paste("jobsfrom", icaoList, sep = '-'), 15)
   a <- clean(a, c(c("int"), rep("char", 3), c("int"), rep("char", 2), c("int"), rep("char", 5)))
   a$Distance <- sapply(1:nrow(a), function(n) {icao.distance(a$FromIcao[n], a$ToIcao[n])})
   a <- a[a$Distance >= minDistance & a$Distance <= maxDistance,]
@@ -127,6 +127,13 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
     return (fse.groupAssignments(a, maxSeats = maxSeats))
   }
   return (a)
+}
+
+fse.icaoHasFBO <- function(icao) {
+  url <- fse.query("icao", list(search = "fbo", icao = icao))
+  x <- fetchXML(url, sprintf("fbos-%s", icao), 60 * 24 * 30, getRawXML = TRUE) # Cache for 30 days
+  fbos <- as.integer(xmlGetAttr(xmlRoot(x), "total"))
+  return (fbos > 0)
 }
 
 fse.query <- function(query, args) {

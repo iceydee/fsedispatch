@@ -2,7 +2,7 @@ library("XML")
 library("RCurl")
 
 # maxAge: -1 = always fetch, 0 = cache forever, 1+ = acceptable age in minutes
-fetchXML <- function(url, name, maxAge = -1) {
+fetchXML <- function(url, name, maxAge = -1, getRawXML = FALSE) {
   path <- pathFromName(name)
   if (!validFileExists(path, maxAge)) {
     data <- getURL(url)
@@ -26,6 +26,9 @@ fetchXML <- function(url, name, maxAge = -1) {
     fileCOnn <- file(path)
     writeLines(data, fileCOnn)
     close(fileCOnn)
+  }
+  if (getRawXML) {
+    return (xmlParse(path))
   }
   return (xmlToDataFrame(path))
 }

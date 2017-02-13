@@ -2,6 +2,7 @@ source("./src/fseconomy.R")
 
 calc.assignments <- function(rentalAircraft, assignments) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
   assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
@@ -36,9 +37,23 @@ calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE) {
     cost <- (rentalAircraft$RentalWet * assignment$Duration)
   }
 
-  # TODO: Include ground crew fee + booking fee. https://sites.google.com/site/fseoperationsguide/getting-started/assignments#TOC-Assignment-Fees
+  # TODO: Include booking fee. https://sites.google.com/site/fseoperationsguide/getting-started/assignments#TOC-Assignment-Fees
   
-  return (assignment$Pay - cost + assignment$DistanceBonus)
+  return (assignment$Pay - cost + assignment$DistanceBonus - assignment$GroundCrewFee)
+}
+
+calc.groundCrewFee <- function(assignment) {
+  groundCrewFee <- 0.00
+  baseFee <- assignment$Pay * 0.05
+  
+  if (fse.icaoHasFBO(assignment$FromIcao)) {
+    groundCrewFee <- groundCrewFee + baseFee
+  }
+  if (fse.icaoHasFBO(assignment$ToIcao)) {
+    groundCrewFee <- groundCrewFee + baseFee
+  }
+  
+  return (groundCrewFee)
 }
 
 calc.distanceBonus <- function(rentalAircraft, assignment) {

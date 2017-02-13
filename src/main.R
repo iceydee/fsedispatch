@@ -50,13 +50,6 @@ for (n in 1:length(assignments)) {
   groupedAssignments[n,] <- b
 }
 groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
-
-#groupedAssignments$RentalDry <- sapply(1:nrow(groupedAssignments), function(n) {
-#  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalDry")]
-#})
-#groupedAssignments$RentalWet <- sapply(1:nrow(groupedAssignments), function(n) {
-#  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalWet")]
-#})
 groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
 
 groupedAssignments <- calc.assignments(rentalAircraft, groupedAssignments)

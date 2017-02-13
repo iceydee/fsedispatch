@@ -46,7 +46,7 @@ for (n in 1:length(assignments)) {
   b <- a[1,]
   b$Id <- n
   b$Amount <- sum(a$Amount)
-  b$Pay <- sum(b$Pay)
+  b$Pay <- sum(a$Pay)
   groupedAssignments[n,] <- b
 }
 groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]

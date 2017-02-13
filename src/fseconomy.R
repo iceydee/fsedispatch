@@ -71,10 +71,26 @@ fse.findRentalAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilte
   return (a[order(a$RentalDry, a$RentalWet),])
 }
 
+fse.groupHasICAOPair <- function(groupedAssignments, start, end) {
+  if (length(groupedAssignments) < 1) {
+    return (FALSE)
+  }
+  for (n in 1:length(groupedAssignments)) {
+    a <- groupedAssignments[[n]]
+    if (a$FromIcao == start && a$ToIcao == end) {
+      return (TRUE)
+    }
+  }
+  return (FALSE)
+}
+
 fse.groupAssignments <- function(assignments, maxSeats = 9) {
   groupedAssignments <- list()
   for (n in 1:nrow(assignments)) {
     a <- assignments[n,]
+    if (fse.groupHasICAOPair(groupedAssignments, a$FromIcao, a$ToIcao)) {
+      next
+    }
     if (a$Amount < maxSeats) {
       i <- (length(groupedAssignments) + 1)
       x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
@@ -98,9 +114,13 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
     } else {
       assignments <- data.frame()
     }
-    while ((n + maxFetch - 1) <= len) {
-      cat(sprintf("Fetching icaos %i:%i - %s\n", n, (n + maxFetch - 1), paste(icaos[n:(n + maxFetch - 1)], collapse = "-")))
-      a <- fse.getAssignments(icaos[n:(n + maxFetch - 1)], minDistance, maxDistance, unittype, maxSeats, grouped)
+    while (n <= len) {
+      last <- (n + maxFetch - 1)
+      if (last > len) {
+        last <- len
+      }
+      cat(sprintf("Fetching icaos %i:%i - %s\n", n, last, paste(icaos[n:last], collapse = "-")))
+      a <- fse.getAssignments(icaos[n:last], minDistance, maxDistance, unittype, maxSeats, grouped)
       
       if (grouped) {
         assignments <- append(assignments, a)

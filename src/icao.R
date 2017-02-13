@@ -115,7 +115,7 @@ filterLatLon <- function(loc, maxDistance = 50) {
 
 icao.nearby <- function(start, maxDistance = 50) {
   startLoc <- icao.location(start)
-  filterLoc <- filterLatLon(startLoc)
+  filterLoc <- filterLatLon(startLoc, maxDistance)
   lonRange <- c(startLoc[1] - filterLoc[1], startLoc[1] + filterLoc[1])
   latRange <- c(startLoc[2] - filterLoc[2], startLoc[2] + filterLoc[2])
   

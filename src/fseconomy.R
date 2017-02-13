@@ -17,26 +17,19 @@ fse.getAircraft <- function(makeModel = NULL) {
   return (a)
 }
 
-fse.filterLocation <- function(locationDF, lonFilter, latFilter) {
-  a <- locationDF
-  a <- a[a$Longitude > lonFilter[1] & a$Longitude < lonFilter[2] & a$Latitude > latFilter[1] & a$Latitude < latFilter[2],]
-  return (a)
-}
-
-fse.findAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilter = c(-90, 90), waterOk = TRUE) {
+fse.findAircraft <- function(makeModel, waterOk = TRUE) {
   url <- fse.query("aircraft", list(search = "makemodel", makemodel = URLencode(makeModel)))
   a <- fetchXML(url, paste(makeModel, "-search", sep = '', collapse = ''), 5)
   a <- clean(a, c(c("int"), rep("char", 6), rep("int", 2), c("char"), rep("int", 2), c("char"), rep("int", 2), c("char", "double", "int"), rep("char", 4), rep("double", 2)))
   a <- merge(a, icaoloc, by = "Location")
-  a <- fse.filterLocation(a, lonFilter, latFilter)
   if (!waterOk) {
     a <- icao.filterWater(a)
   }
   return (a)
 }
 
-fse.findRentalAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilter = c(-90, 90), waterOk = TRUE) {
-  a <- fse.findAircraft(makeModel, lonFilter = lonFilter, latFilter = latFilter, waterOk = waterOk)
+fse.findRentalAircraft <- function(makeModel, waterOk = TRUE) {
+  a <- fse.findAircraft(makeModel, waterOk = waterOk)
   a <- a[a$RentalDry > 0 | a$RentalWet > 0,]
   a <- a[a$NeedsRepair == 0,]
   return (a[order(a$RentalDry, a$RentalWet),])

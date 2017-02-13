@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>21803</FboId>
+<Status>Active</Status>
+<Airport>Biberach An Der Riss</Airport>
+<Name>Verkehrslandeplatz Biberach</Name>
+<Owner>Baden-Schwaben-Air GmbH(Artur_Mueller)</Owner>
+<Icao>EDMB</Icao>
+<Location>Biberach An Der Riss, Biberach An Der Riss, Germany</Location>
+<Lots>1</Lots>
+<RepairShop>No</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>4431</Fuel100LL>
+<FuelJetA>1943</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

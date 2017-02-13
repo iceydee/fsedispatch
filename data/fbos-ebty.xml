@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>25313</FboId>
+<Status>Active</Status>
+<Airport>Maubray</Airport>
+<Name>YAS Europe (EBTY UC 11/29 2067Gras Orbx FW)</Name>
+<Owner>Yankee Aviation Services(wildblu)</Owner>
+<Icao>EBTY</Icao>
+<Location>Maubray, Tournai, Belgium</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>5212</Fuel100LL>
+<FuelJetA>11299</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

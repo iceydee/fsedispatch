@@ -1,6 +1,35 @@
 library("XML")
 library("RCurl")
 
+cleanInt <- function(data, col) {
+  data[,col] <- as.integer(as.character(data[,col]))
+  return (data)
+}
+
+cleanDouble <- function(data, col) {
+  data[,col] <- as.double(as.character(data[,col]))
+  return (data)
+}
+
+cleanChar <- function(data, col) {
+  data[,col] <- as.character(data[,col])
+  return (data)
+}
+
+clean <- function(data, v) {
+  for (n in 1:ncol(data)) {
+    type <- v[n]
+    if (type == "int") {
+      data <- cleanInt(data, n)
+    } else if (type == "double") {
+      data <- cleanDouble(data, n)
+    } else {
+      data <- cleanChar(data, n)
+    }
+  }
+  return (data)
+}
+
 # maxAge: -1 = always fetch, 0 = cache forever, 1+ = acceptable age in minutes
 fetchXML <- function(url, name, maxAge = -1, getRawXML = FALSE) {
   path <- pathFromName(name)

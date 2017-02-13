@@ -7,35 +7,6 @@ fse.setUserKey <- function(key) {
 
 fse.setUserKey(Sys.getenv("USERKEY"))
 
-cleanInt <- function(data, col) {
-  data[,col] <- as.integer(as.character(data[,col]))
-  return (data)
-}
-
-cleanDouble <- function(data, col) {
-  data[,col] <- as.double(as.character(data[,col]))
-  return (data)
-}
-
-cleanChar <- function(data, col) {
-  data[,col] <- as.character(data[,col])
-  return (data)
-}
-
-clean <- function(data, v) {
-  for (n in 1:ncol(data)) {
-    type <- v[n]
-    if (type == "int") {
-      data <- cleanInt(data, n)
-    } else if (type == "double") {
-      data <- cleanDouble(data, n)
-    } else {
-      data <- cleanChar(data, n)
-    }
-  }
-  return (data)
-}
-
 fse.getAircraft <- function(makeModel = NULL) {
   url <- fse.query("aircraft", list(search = "configs"))
   a <- fetchXML(url, "aircraft", maxAge = (60 * 24 * 7))
@@ -144,6 +115,9 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   a <- a[order(-a$Pay),]
   
   if (grouped) {
+    if (nrow(a) < 1) {
+      return (list())
+    }
     return (fse.groupAssignments(a, maxSeats = maxSeats))
   }
   return (a)

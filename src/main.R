@@ -3,6 +3,7 @@ cat("------------------\n\n")
 
 source("./src/fseconomy.R")
 source("./src/earnings.R")
+source("./src/regions.R")
 
 readInt <- function(prompt = "") {
   cat(prompt)
@@ -12,9 +13,15 @@ readInt <- function(prompt = "") {
   return (a)
 }
 
+printVector <- function(vector) {
+  for (n in 1:length(vector)) {
+    cat(sprintf("[%i] %s\n", n, as.character(vector[n])))
+  }
+}
+
 # Get the aircraft
 aircraftList <- fse.getAircraft()
-print(aircraftList$MakeModel)
+printVector(aircraftList$MakeModel)
 q <- sprintf("\nWhich aircraft? [1-%i] ", nrow(aircraftList))
 aircraft <- aircraftList[readInt(q),]
 
@@ -22,14 +29,34 @@ aircraft <- aircraftList[readInt(q),]
 minDistance <- readInt("What's the minimum range you want to fly today? [1-?] ")
 maxDistance <- readInt(sprintf("What's the maximum range you want to fly today? [%i-?] ", minDistance + 1))
 
-# Get the longitude range
-minLon <- readInt("What's the most western longitude you want to fly from today? [-180 - 180] ")
-maxLon <- readInt(sprintf("What's the most eastern longitude you want to fly from today? [%i - 180] " , minLon + 1))
-
-cat("\n")
-
 # Find possible rental aircraft
-rentalAircraft <- fse.findRentalAircraft(aircraft$MakeModel, lonFilter = c(minLon, maxLon), waterOk = FALSE)
+rentalAircraft <- fse.findRentalAircraft(
+  aircraft$MakeModel,
+  waterOk = FALSE
+)
+
+# Check how many ac we have in each region
+regions$count <- sapply(1:nrow(regions), function (n) {
+  return (nrow(limitByRegion(rentalAircraft, regions[n,])))
+})
+
+# Get the region
+acExists <- FALSE
+for (n in 1:nrow(regions)) {
+  if (regions$count[n] > 0) {
+    acExists <- TRUE
+    cat(sprintf("[%i] %s (%i aircraft rentable)\n", n, regions$name[n], regions$count[n]))
+  }
+}
+if (!acExists) {
+  stop(sprintf("No '%s' available for rent.", aircraft$MakeModel))
+}
+q <- sprintf("\nWhich region? [1-%i] ", nrow(regions))
+region <- regions[readInt(q),]
+if (region$count < 1) {
+  stop(sprintf("No '%s' available for rent in %s.", aircraft$MakeModel, region$name))
+}
+rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
 maxSeats <- (aircraft$Seats - 1)
@@ -39,6 +66,10 @@ assignments <- fse.getAssignments(
   maxSeats = maxSeats,
   grouped = TRUE
 )
+
+if (length(assignments) < 1) {
+  stop("No assignments matching criteria. Try changing distance.")
+}
 
 groupedAssignments <- assignments[[1]][0,]
 for (n in 1:length(assignments)) {

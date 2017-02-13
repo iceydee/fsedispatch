@@ -67,6 +67,7 @@ fse.findAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilter = c(
 fse.findRentalAircraft <- function(makeModel, lonFilter = c(-180, 180), latFilter = c(-90, 90), waterOk = TRUE) {
   a <- fse.findAircraft(makeModel, lonFilter = lonFilter, latFilter = latFilter, waterOk = waterOk)
   a <- a[a$RentalDry > 0 | a$RentalWet > 0,]
+  a <- a[a$NeedsRepair == 0,]
   return (a[order(a$RentalDry, a$RentalWet),])
 }
 
@@ -97,7 +98,6 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
     } else {
       assignments <- data.frame()
     }
-    assignments <- data.frame
     while ((n + maxFetch - 1) <= len) {
       cat(sprintf("Fetching icaos %i:%i - %s\n", n, (n + maxFetch - 1), paste(icaos[n:(n + maxFetch - 1)], collapse = "-")))
       a <- fse.getAssignments(icaos[n:(n + maxFetch - 1)], minDistance, maxDistance, unittype, maxSeats, grouped)

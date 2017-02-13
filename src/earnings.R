@@ -1,35 +1,51 @@
 source("./src/fseconomy.R")
 
-calc.assignments <- function(makeModel, assignments) {
-  aircraft <- fse.getAircraft(makeModel)
+calc.assignments <- function(rentalAircraft, assignments) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
-  assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {calc.earnings(aircraft, assignments[n,])})
-  assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {calc.earnings(aircraft, assignments[n,], dry = FALSE)})
+  assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
+    calc.distanceBonus(ac, assignments[n,])
+  })
+  assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
+    calc.earnings(ac, aircraft, assignments[n,])
+  })
+  assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
+    calc.earnings(ac, aircraft, assignments[n,], dry = FALSE)
+  })
   assignments$Earnings <- sapply(1:nrow(assignments), function(n) {max(assignments$DryEarnings[n], assignments$WetEarnings[n])})
   return (assignments)
 }
 
-calc.earnings <- function(aircraft, assignment, dry = TRUE) {
-  if (assignment$RentalWet == 0) {
+calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE) {
+  if (rentalAircraft$RentalWet == 0) {
     dry <- TRUE
   }
-  if (assignment$RentalDry == 0) {
+  if (rentalAircraft$RentalDry == 0) {
     dry <- FALSE
   }
   
   cost <- 0
   if (dry) {
     fuelCost <- (calc.fuelUsage(aircraft, assignment$Distance) * assignment$FuelPrice)
-    cost <- ((assignment$RentalDry * assignment$Duration) + fuelCost)
+    cost <- ((rentalAircraft$RentalDry * assignment$Duration) + fuelCost)
   } else {
-    cost <- (assignment$RentalWet * assignment$Duration)
+    cost <- (rentalAircraft$RentalWet * assignment$Duration)
   }
 
   # TODO: Include ground crew fee + booking fee. https://sites.google.com/site/fseoperationsguide/getting-started/assignments#TOC-Assignment-Fees
-  # TODO: Include distance bonus
   
-  return (assignment$Pay - cost)
+  return (assignment$Pay - cost + assignment$DistanceBonus)
+}
+
+calc.distanceBonus <- function(rentalAircraft, assignment) {
+  oldHomeDistance <- icao.distance(assignment$FromIcao, rentalAircraft$Home)
+  newHomeDistance <- icao.distance(assignment$ToIcao, rentalAircraft$Home)
+  distanceDiff <- oldHomeDistance - newHomeDistance
+  return (rentalAircraft$Bonus * distanceDiff / 100)
 }
 
 calc.fuelUsage <- function(aircraft, distance) {

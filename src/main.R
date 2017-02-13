@@ -49,16 +49,17 @@ for (n in 1:length(assignments)) {
   b$Pay <- sum(b$Pay)
   groupedAssignments[n,] <- b
 }
+groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
 
-groupedAssignments$RentalDry <- sapply(1:nrow(groupedAssignments), function(n) {
-  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalDry")]
-})
-groupedAssignments$RentalWet <- sapply(1:nrow(groupedAssignments), function(n) {
-  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalWet")]
-})
+#groupedAssignments$RentalDry <- sapply(1:nrow(groupedAssignments), function(n) {
+#  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalDry")]
+#})
+#groupedAssignments$RentalWet <- sapply(1:nrow(groupedAssignments), function(n) {
+#  rentalAircraft[rentalAircraft$Location == groupedAssignments$Location[n], c("RentalWet")]
+#})
 groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
 
-groupedAssignments <- calc.assignments(aircraft$MakeModel, groupedAssignments)
+groupedAssignments <- calc.assignments(rentalAircraft, groupedAssignments)
 groupedAssignments <- groupedAssignments[order(-groupedAssignments$Earnings),]
 
 print(head(groupedAssignments))

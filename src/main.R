@@ -60,19 +60,7 @@ rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
 assignments <- getRankedAssignments(rentalAircraft, 0, maxDistance)
-hop2 <- list()
-for (n in 1:nrow(assignments)) {
-  a <- assignments[n,]
-  if (a$Distance[n] < maxDistance) {
-    ac <- rentalAircraft[rentalAircraft$Location == a$FromIcao,][1,]
-    minD <- max(minDistance - a$Distance[n], 0)
-    maxD <- (maxDistance - a$Distance[n])
-    b <- getRankedAssignments(ac, minD, maxD, searchICAO = a$ToIcao)
-    hop2[[(length(hop2) + 1)]] <- b[1:min(nrow(b), 5)]
-  } else {
-    hop2[[(length(hop2) + 1)]] <- a[0,]
-  }
-}
+hop2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, searchICAO = assignments$ToIcao, matchICAO = assignments$FromIcao)
 
 results <- data.frame(
   start = character(),
@@ -89,32 +77,98 @@ results <- data.frame(
   stringsAsFactors = FALSE)
 for (n in 1:nrow(assignments)) {
   a <- assignments[n,]
-  b <- hop2[[n]][1,]
+  b <- hop2[hop2$FromIcao == a$ToIcao,]
+  maxBDistance <- maxDistance - a$Distance
+  b <- b[b$Distance < maxBDistance,]
+  b <- b[order(-b$Earnings),]
+  
   if (nrow(b) > 0) {
     results[n,] <- list(
-      start = a$FromIcao[n],
-      mid = a$ToIcao[n],
+      start = a$FromIcao,
+      mid = a$ToIcao,
       end = b$ToIcao,
-      amount1 = a$Amount[n],
-      commodity1 = a$Commodity[n],
+      amount1 = a$Amount,
+      commodity1 = a$Commodity,
       amount2 = b$Amount,
       commodity2 = b$Commodity,
-      totalEarnings = a$Earnings[n] + b$Earnings,
-      distance1 = a$Distance[n],
+      totalEarnings = (a$Earnings + b$Earnings),
+      distance1 = a$Distance,
       distance2 = b$Distance,
-      totalDistance = a$Distance[n] + b$Distance
+      totalDistance = a$Distance + b$Distance
     )
   } else {
     results[n,] <- list(
-      start = a$FromIcao[n],
-      end = a$ToIcao[n],
-      amount = a$Amount[n],
-      commodity = a$Commodity[n],
-      totalEarnings = a$Earnings[n],
-      distance1 = a$Distance[n],
-      totalDistance = a$Distance[n]
+      start = a$FromIcao,
+      end = a$ToIcao,
+      amount = a$Amount,
+      commodity = a$Commodity,
+      totalEarnings = a$Earnings,
+      distance1 = a$Distance,
+      totalDistance = a$Distance
     )
   }
 }
+
+# hop2 <- list()
+# for (n in 1:nrow(assignments)) {
+#   a <- assignments[n,]
+#   if (a$Distance < maxDistance) {
+#     ac <- rentalAircraft[rentalAircraft$Location == a$FromIcao,][1,]
+#     minD <- max(minDistance - a$Distance, 0)
+#     maxD <- (maxDistance - a$Distance)
+#     b <- getRankedAssignments(ac, minD, maxD, searchICAO = a$ToIcao)
+#     if (nrow(b) < 1) {
+#       hop2[[(length(hop2) + 1)]] <- a[0,]
+#       next
+#     }
+#     hop2[[(length(hop2) + 1)]] <- b[1:min(nrow(b), 5)]
+#   } else {
+#     hop2[[(length(hop2) + 1)]] <- a[0,]
+#   }
+# }
+
+# results <- data.frame(
+#   start = character(),
+#   mid = character(),
+#   end = character(),
+#   amount1 = integer(),
+#   commodity1 = character(),
+#   amount2 = integer(),
+#   commotity2 = character(),
+#   totalEarnings = integer(),
+#   distance1 = integer(),
+#   distance2 = integer(),
+#   totalDistance = integer(),
+#   stringsAsFactors = FALSE)
+# for (n in 1:nrow(assignments)) {
+#   a <- assignments[n,]
+#   b <- hop2[[n]][1,]
+#   if (nrow(b) > 0) {
+#     results[n,] <- list(
+#       start = a$FromIcao[n],
+#       mid = a$ToIcao[n],
+#       end = b$ToIcao,
+#       amount1 = a$Amount[n],
+#       commodity1 = a$Commodity[n],
+#       amount2 = b$Amount,
+#       commodity2 = b$Commodity,
+#       totalEarnings = a$Earnings[n] + b$Earnings,
+#       distance1 = a$Distance[n],
+#       distance2 = b$Distance,
+#       totalDistance = a$Distance[n] + b$Distance
+#     )
+#   } else {
+#     results[n,] <- list(
+#       start = a$FromIcao[n],
+#       end = a$ToIcao[n],
+#       amount = a$Amount[n],
+#       commodity = a$Commodity[n],
+#       totalEarnings = a$Earnings[n],
+#       distance1 = a$Distance[n],
+#       totalDistance = a$Distance[n]
+#     )
+#   }
+# }
+
 results <- results[order(-results$totalEarnings),]
 print(head(results))

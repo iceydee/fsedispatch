@@ -50,11 +50,22 @@ fse.groupHasICAOPair <- function(groupedAssignments, start, end) {
 
 fse.groupAssignments <- function(assignments, maxSeats = 9) {
   groupedAssignments <- list()
+  if (nrow(assignments) < 1) {
+    return (groupedAssignments)
+  }
   for (n in 1:nrow(assignments)) {
     a <- assignments[n,]
     if (fse.groupHasICAOPair(groupedAssignments, a$FromIcao, a$ToIcao)) {
       next
     }
+    
+    tryCatch({
+      if (a$Amount < maxSeats) {
+      }
+    }, error = function(e) {
+      cat("And theeeere's the exception...\n")
+    })
+    
     if (a$Amount < maxSeats) {
       i <- (length(groupedAssignments) + 1)
       x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
@@ -67,7 +78,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
   return (groupedAssignments)
 }
 
-fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE, startLocation = NULL) {
+fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
   maxFetch <- 10
   if(length(icaos) > maxFetch) {
     len <- length(icaos)
@@ -106,10 +117,6 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   a <- a[a$UnitType == unittype,]
   a <- a[a$Amount <= maxSeats,]
   a <- a[order(-a$Pay),]
-  
-  if (!is.null(startLocation)) {
-    a$Location <- rep(startLocation, nrow(a))
-  }
   
   if (grouped) {
     if (nrow(a) < 1) {

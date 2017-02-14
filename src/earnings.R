@@ -1,33 +1,54 @@
 source("./src/fseconomy.R")
 
-getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL) {
+findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
+  if (nrow(assignments) < 1) {
+    return (assignments)
+  }
+  for (n in 1:nrow(assignments)) {
+    matchRow <- match(assignments$FromIcao[n], searchICAO, nomatch = NULL)
+    if (is.null(matchRow)) {
+      cat(sprintf("%s not found in matchICAO - %s\n", assignments$FromIcao[n], paste(matchICAO, collapse = "-")))
+      next
+    }
+    newLoc <- matchICAO[matchRow]
+    if (is.null(newLoc)) {
+      cat(sprintf("%s == NULL!!\n", assignments$FromIcao[n]))
+      next
+    }
+    assignments$Location[n] <- matchICAO[matchRow]
+  }
+  assignments$Location <- sapply(1:nrow(assignments), function(n) {
+    return ()
+  })
+  return (assignments)
+}
+
+getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL, matchICAO = NULL) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   
+  findNearestAC <- FALSE
+  
   if (is.null(searchICAO)) {
-    startLocation = NULL
     searchICAO = rentalAircraft$Location
   } else {
-    if (nrow(rentalAircraft) != 1) {
-      stop("Expecting just 1 rental aircraft when searching assignments on hop")
-    }
-    startLocation = rentalAircraft$Location
+    findNearestAC <- TRUE
   }
   
   # Find assignments
   maxSeats <- (aircraft$Seats - 1)
   assignments <- fse.getAssignments(
-    searchICAO,
+    unique(searchICAO),
     minDistance = minDistance, maxDistance = maxDistance,
     maxSeats = maxSeats,
-    grouped = TRUE,
-    startLocation = startLocation
+    grouped = TRUE
   )
   
   if (length(assignments) < 1) {
-    stop("No assignments matching criteria. Try changing distance.")
+    return (data.frame())
   }
   
   groupedAssignments <- assignments[[1]][0,]
+  
   for (n in 1:length(assignments)) {
     a <- assignments[[n]]
     b <- a[1,]
@@ -38,6 +59,10 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   }
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
   groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
+  
+  if (findNearestAC) {
+    groupedAssignments <- findNearestAircraft(groupedAssignments, searchICAO, matchICAO)
+  }
   
   groupedAssignments <- calc.assignments(rentalAircraft, groupedAssignments)
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Earnings),]
@@ -51,16 +76,28 @@ calc.assignments <- function(rentalAircraft, assignments) {
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
   assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
-    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
-    calc.distanceBonus(ac, assignments[n,])
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    if (nrow(ac) < 1) {
+      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      return (0)
+    }
+    calc.distanceBonus(ac[1,], assignments[n,])
   })
   assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {
-    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
-    calc.earnings(ac, aircraft, assignments[n,])
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    if (nrow(ac) < 1) {
+      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      return (0)
+    }
+    calc.earnings(ac[1,], aircraft, assignments[n,])
   })
   assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {
-    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],][1,]
-    calc.earnings(ac, aircraft, assignments[n,], dry = FALSE)
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    if (nrow(ac) < 1) {
+      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      return (0)
+    }
+    calc.earnings(ac[1,], aircraft, assignments[n,], dry = FALSE)
   })
   assignments$Earnings <- sapply(1:nrow(assignments), function(n) {max(assignments$DryEarnings[n], assignments$WetEarnings[n])})
   return (assignments)

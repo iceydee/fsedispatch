@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>12256</FboId>
+<Status>Active</Status>
+<Airport>Siegerland</Airport>
+<Name>Siegerland</Name>
+<Owner>Franko Air(Franko72)</Owner>
+<Icao>EDGS</Icao>
+<Location>Siegerland, Siegerland, Germany</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>2482</Fuel100LL>
+<FuelJetA>4542</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>26899</FboId>
+<Status>Active</Status>
+<Airport>Siegerland</Airport>
+<Name>Cado's Airline Service, Main-Businnes Siegerland, Germany,NRW/RP</Name>
+<Owner>Cado68</Owner>
+<Icao>EDGS</Icao>
+<Location>Siegerland, Siegerland, Germany</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>16998</Fuel100LL>
+<FuelJetA>17732</FuelJetA>
+<BuildingMaterials>8400</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Siegerland</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>EDGS</Icao>
+<Location>Siegerland, Siegerland, Germany</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Not Avail</Fuel100LL>
+<FuelJetA>Not Avail</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

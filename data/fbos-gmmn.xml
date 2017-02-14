@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>10521</FboId>
+<Status>Active</Status>
+<Airport>Mohamed V</Airport>
+<Name>Aviator Intl. FBO - GMMN - Casablanca</Name>
+<Owner>Aviator - Intl. (Africa)(VAA_008)</Owner>
+<Icao>GMMN</Icao>
+<Location>Mohamed V, Casablanca, Morocco</Location>
+<Lots>1</Lots>
+<RepairShop>No</RepairShop>
+<Gates>No Passenger Terminal</Gates>
+<GatesRented>No Passenger Terminal</GatesRented>
+<Fuel100LL>8702</Fuel100LL>
+<FuelJetA>7297</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>26935</FboId>
+<Status>Active</Status>
+<Airport>Mohamed V</Airport>
+<Name>ANDES Mohamed V</Name>
+<Owner>unocualquiera</Owner>
+<Icao>GMMN</Icao>
+<Location>Mohamed V, Casablanca, Morocco</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>6</Gates>
+<GatesRented>2</GatesRented>
+<Fuel100LL>5000</Fuel100LL>
+<FuelJetA>16355</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>60</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Mohamed V</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>GMMN</Icao>
+<Location>Mohamed V, Casablanca, Morocco</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

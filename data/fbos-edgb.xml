@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>22712</FboId>
+<Status>Active</Status>
+<Airport>Breitscheid</Airport>
+<Name>Breitscheid</Name>
+<Owner>German Flight Corporation (GFC)(TNT_Larsn)</Owner>
+<Icao>EDGB</Icao>
+<Location>Breitscheid, Breitscheid, Germany</Location>
+<Lots>1</Lots>
+<RepairShop>No</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>14054</Fuel100LL>
+<FuelJetA>13203</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

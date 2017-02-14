@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>736</FboId>
+<Status>Active</Status>
+<Airport>Gioia Del Colle Mil</Airport>
+<Name>CAETE - Gioia Del Colle</Name>
+<Owner>Litus</Owner>
+<Icao>LIBV</Icao>
+<Location>Gioia Del Colle Mil, Gioia Del Colle, Italy</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>6</Gates>
+<GatesRented>3</GatesRented>
+<Fuel100LL>2415</Fuel100LL>
+<FuelJetA>5018</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>60</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>17058</FboId>
+<Status>Active</Status>
+<Airport>Gioia Del Colle Mil</Airport>
+<Name>TA - Tuttovola Airways - Gioia Del Colle</Name>
+<Owner>TA - Tuttovola Airways - FBO &#38; Facilities(Belzer)</Owner>
+<Icao>LIBV</Icao>
+<Location>Gioia Del Colle Mil, Gioia Del Colle, Italy</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>11153</Fuel100LL>
+<FuelJetA>3802</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Gioia Del Colle Mil</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>LIBV</Icao>
+<Location>Gioia Del Colle Mil, Gioia Del Colle, Italy</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

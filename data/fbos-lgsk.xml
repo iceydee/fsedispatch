@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>20868</FboId>
+<Status>Active</Status>
+<Airport>Alexandros Papadiamandis</Airport>
+<Name>KB Air Skiathos</Name>
+<Owner>keithb77</Owner>
+<Icao>LGSK</Icao>
+<Location>Alexandros Papadiamandis, Skiathos, Greece</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>4</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>792</Fuel100LL>
+<FuelJetA>3569</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>40</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

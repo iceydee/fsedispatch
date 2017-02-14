@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="3"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>5516</FboId>
+<Status>Active</Status>
+<Airport>Lisbon</Airport>
+<Name>AlentAir - LPPT</Name>
+<Owner>AlentAir - Ground Force(antoniopecas)</Owner>
+<Icao>LPPT</Icao>
+<Location>Lisbon, Lisbon, Portugal</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>3</GatesRented>
+<Fuel100LL>8888</Fuel100LL>
+<FuelJetA>13944</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>16872</FboId>
+<Status>Active</Status>
+<Airport>Lisbon</Airport>
+<Name>Portugal Rooster Aviation - Lisbon</Name>
+<Owner>Portugal Rooster Aviation(Matt74)</Owner>
+<Icao>LPPT</Icao>
+<Location>Lisbon, Lisbon, Portugal</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>8610</Fuel100LL>
+<FuelJetA>1920</FuelJetA>
+<BuildingMaterials>12240</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>22290</FboId>
+<Status>Active</Status>
+<Airport>Lisbon</Airport>
+<Name>Regional Aviation Lisbon</Name>
+<Owner>Regional Aviation(Fakir)</Owner>
+<Icao>LPPT</Icao>
+<Location>Lisbon, Lisbon, Portugal</Location>
+<Lots>1</Lots>
+<RepairShop>No</RepairShop>
+<Gates>3</Gates>
+<GatesRented>3</GatesRented>
+<Fuel100LL>34797</Fuel100LL>
+<FuelJetA>34133</FuelJetA>
+<BuildingMaterials>10000</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Lisbon</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>LPPT</Icao>
+<Location>Lisbon, Lisbon, Portugal</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

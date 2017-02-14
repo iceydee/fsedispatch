@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>740</FboId>
+<Status>Active</Status>
+<Airport>Marseille/Provence</Airport>
+<Name>GFC Spain - Marseille</Name>
+<Owner>GFC Swiss/France(McFly)</Owner>
+<Icao>LFML</Icao>
+<Location>Marseille/Provence, Marseille/Provence, France</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>6</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>9898</Fuel100LL>
+<FuelJetA>4822</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>60</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>10551</FboId>
+<Status>Active</Status>
+<Airport>Marseille/Provence</Airport>
+<Name>Aviator Intl. FBO - LFML - Marseille</Name>
+<Owner>Aviator - Intl.(VAA_008)</Owner>
+<Icao>LFML</Icao>
+<Location>Marseille/Provence, Marseille/Provence, France</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>35248</Fuel100LL>
+<FuelJetA>1538</FuelJetA>
+<BuildingMaterials>14000</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Marseille/Provence</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>LFML</Icao>
+<Location>Marseille/Provence, Marseille/Provence, France</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

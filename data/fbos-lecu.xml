@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>16374</FboId>
+<Status>Active</Status>
+<Airport>Cuatro Vientos</Airport>
+<Name>Nacional de Servicios Aereos - Cuatro Vientos</Name>
+<Owner>NSA Aero(eperezsa)</Owner>
+<Icao>LECU</Icao>
+<Location>Cuatro Vientos, Madrid, Spain</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>6306</Fuel100LL>
+<FuelJetA>3226</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>24819</FboId>
+<Status>Active</Status>
+<Airport>Cuatro Vientos</Airport>
+<Name>Inerza Aviation Services</Name>
+<Owner>INERZ AEROTAXI(Geonauta)</Owner>
+<Icao>LECU</Icao>
+<Location>Cuatro Vientos, Madrid, Spain</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>1531</Fuel100LL>
+<FuelJetA>3347</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

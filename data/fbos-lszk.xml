@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>20514</FboId>
+<Status>Active</Status>
+<Airport>Speck-Fehraltorf</Airport>
+<Name>Badenflug Speck-Fehraltorf</Name>
+<Owner>Badenflug(carbonex)</Owner>
+<Icao>LSZK</Icao>
+<Location>Speck-Fehraltorf, Speck-Fehraltorf, Switzerland</Location>
+<Lots>1</Lots>
+<RepairShop>No</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>4932</Fuel100LL>
+<FuelJetA>4012</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

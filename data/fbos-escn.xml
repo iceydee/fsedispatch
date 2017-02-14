@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>25878</FboId>
+<Status>Active</Status>
+<Airport>Tullinge</Airport>
+<Name>Tullinge flygplats AB</Name>
+<Owner>Nordic Light(Vipstjert)</Owner>
+<Icao>ESCN</Icao>
+<Location>Tullinge, Stockholm, Sweden</Location>
+<Lots>2</Lots>
+<RepairShop>No</RepairShop>
+<Gates>4</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>3000</Fuel100LL>
+<FuelJetA>3364</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>40</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>200000.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Tullinge</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>ESCN</Icao>
+<Location>Tullinge, Stockholm, Sweden</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Not Avail</Fuel100LL>
+<FuelJetA>Not Avail</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>25647</FboId>
+<Status>Active</Status>
+<Airport>Prostejov</Airport>
+<Name>Whisky Air</Name>
+<Owner>JJJ</Owner>
+<Icao>LKPJ</Icao>
+<Location>Prostejov, Prostejov, Czech Republic</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>7167</Fuel100LL>
+<FuelJetA>0</FuelJetA>
+<BuildingMaterials>4000</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>26151</FboId>
+<Status>Active</Status>
+<Airport>Prostejov</Airport>
+<Name>Moravia Helicopter</Name>
+<Owner>djbuldog</Owner>
+<Icao>LKPJ</Icao>
+<Location>Prostejov, Prostejov, Czech Republic</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>2</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>9963</Fuel100LL>
+<FuelJetA>4470</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>20</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

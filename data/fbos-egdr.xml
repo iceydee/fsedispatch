@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>26451</FboId>
+<Status>Active</Status>
+<Airport>Culdrose Navy</Airport>
+<Name>Sovereign Air - Culdrose</Name>
+<Owner>Sovereign Air - Global(Boomer24)</Owner>
+<Icao>EGDR</Icao>
+<Location>Culdrose Navy, Culdrose, United Kingdom</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>6</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>15000</Fuel100LL>
+<FuelJetA>13502</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>60</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>26452</FboId>
+<Status>Active</Status>
+<Airport>Culdrose Navy</Airport>
+<Name>GFC United Kingdom -  Culdrose Navy</Name>
+<Owner>GFC United Kingdom(TNT_Larsn)</Owner>
+<Icao>EGDR</Icao>
+<Location>Culdrose Navy, Culdrose, United Kingdom</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>13514</Fuel100LL>
+<FuelJetA>11694</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Culdrose Navy</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>EGDR</Icao>
+<Location>Culdrose Navy, Culdrose, United Kingdom</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

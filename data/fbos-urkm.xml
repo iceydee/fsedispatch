@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="2"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>9800</FboId>
+<Status>Active</Status>
+<Airport>Maykop</Airport>
+<Name>Barakuda - Maykop, Russia</Name>
+<Owner>barakuda</Owner>
+<Icao>URKM</Icao>
+<Location>Maykop, Maykop, Russia</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>6</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>11491</Fuel100LL>
+<FuelJetA>3794</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>60</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<FboId>17689</FboId>
+<Status>Active</Status>
+<Airport>Maykop</Airport>
+<Name>Kazbek AirServ.</Name>
+<Owner>CCCPTalde(Otxabide)</Owner>
+<Icao>URKM</Icao>
+<Location>Maykop, Maykop, Russia</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>3</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>3199</Fuel100LL>
+<FuelJetA>1361</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>30</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Maykop</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>URKM</Icao>
+<Location>Maykop, Maykop, Russia</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

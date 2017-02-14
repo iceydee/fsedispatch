@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>2569</FboId>
+<Status>Active</Status>
+<Airport>Ibn Batouta</Airport>
+<Name>Rick's Cafe Americain</Name>
+<Owner>Jarschi</Owner>
+<Icao>GMTT</Icao>
+<Location>Ibn Batouta, Tanger, Morocco</Location>
+<Lots>3</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>9</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>15861</Fuel100LL>
+<FuelJetA>12578</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>90</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Ibn Batouta</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>GMTT</Icao>
+<Location>Ibn Batouta, Tanger, Morocco</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Unlimited</Fuel100LL>
+<FuelJetA>Unlimited</FuelJetA>
+<BuildingMaterials>Unlimited</BuildingMaterials>
+<Supplies>Unlimited</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

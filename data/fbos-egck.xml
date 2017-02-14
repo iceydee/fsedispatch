@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>7726</FboId>
+<Status>Active</Status>
+<Airport>Caernarfon</Airport>
+<Name>The Barnstormers' Hangar - Caernarfon</Name>
+<Owner>Outback Air Charter (Europe)(amord)</Owner>
+<Icao>EGCK</Icao>
+<Location>Caernarfon, Caernarfon, United Kingdom</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>4</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>9938</Fuel100LL>
+<FuelJetA>10860</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>40</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+<FBO>
+<Status>Active</Status>
+<Airport>Caernarfon</Airport>
+<Name>System</Name>
+<Owner>System</Owner>
+<Icao>EGCK</Icao>
+<Location>Caernarfon, Caernarfon, United Kingdom</Location>
+<Lots>N/A</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>N/A</Gates>
+<GatesRented>N/A</GatesRented>
+<Fuel100LL>Not Avail</Fuel100LL>
+<FuelJetA>Not Avail</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>N/A</SuppliesPerDay>
+<SuppliedDays>N/A</SuppliedDays>
+<SellPrice>N/A</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

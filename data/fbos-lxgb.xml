@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>408</FboId>
+<Status>Active</Status>
+<Airport>Gibraltar AB</Airport>
+<Name>Midnight Oil Company</Name>
+<Owner>RandonAir(Audax)</Owner>
+<Icao>LXGB</Icao>
+<Location>Gibraltar AB, Gibraltar, Gibraltar</Location>
+<Lots>2</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>4</Gates>
+<GatesRented>3</GatesRented>
+<Fuel100LL>16805</Fuel100LL>
+<FuelJetA>11217</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>40</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

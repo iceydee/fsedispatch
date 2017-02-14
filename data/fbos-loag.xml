@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>22364</FboId>
+<Status>Active</Status>
+<Airport>Langenlois</Airport>
+<Name>Lamprechtsofen AirServ.</Name>
+<Owner>AlpsTalde(Otxabide)</Owner>
+<Icao>LOAG</Icao>
+<Location>Langenlois, Krems, Austria</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>6206</Fuel100LL>
+<FuelJetA>3834</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

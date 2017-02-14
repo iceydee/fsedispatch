@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>24653</FboId>
+<Status>Active</Status>
+<Airport>Saarlouis-Duren</Airport>
+<Name>Trilithium Aviation - Saarlouis-Duren (ORBX Free)</Name>
+<Owner>Trilithium Aviation(ve6gil)</Owner>
+<Icao>EDRJ</Icao>
+<Location>Saarlouis-Duren, Saarlouis-Duren, Germany</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>4560</Fuel100LL>
+<FuelJetA>3220</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IcaoFboItems total="1"
+xmlns="http://server.fseconomy.net"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_fbos.xsd"
+>
+<FBO>
+<FboId>21549</FboId>
+<Status>Active</Status>
+<Airport>Luzern-Beromunster</Airport>
+<Name>Badenflug Luzern-Beromunster</Name>
+<Owner>Badenflug(carbonex)</Owner>
+<Icao>LSZO</Icao>
+<Location>Luzern-Beromunster, Luzern-Beromunster, Switzerland</Location>
+<Lots>1</Lots>
+<RepairShop>Yes</RepairShop>
+<Gates>1</Gates>
+<GatesRented>0</GatesRented>
+<Fuel100LL>4823</Fuel100LL>
+<FuelJetA>4683</FuelJetA>
+<BuildingMaterials>0</BuildingMaterials>
+<Supplies>0</Supplies>
+<SuppliesPerDay>10</SuppliesPerDay>
+<SuppliedDays>0</SuppliedDays>
+<SellPrice>0.00</SellPrice>
+</FBO>
+</IcaoFboItems>
+
+

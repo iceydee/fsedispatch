@@ -99,11 +99,15 @@ for (n in 1:nrow(assignments)) {
   } else {
     results[n,] <- list(
       start = a$FromIcao,
+      mid = NA,
       end = a$ToIcao,
-      amount = a$Amount,
-      commodity = a$Commodity,
+      amount1 = a$Amount,
+      commodity1 = a$Commodity,
+      amount2 = NA,
+      commidity2 = NA,
       totalEarnings = a$Earnings,
       distance1 = a$Distance,
+      distance2 = NA,
       totalDistance = a$Distance
     )
   }

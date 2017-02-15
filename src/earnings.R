@@ -15,11 +15,8 @@ findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
       cat(sprintf("%s == NULL!!\n", assignments$FromIcao[n]))
       next
     }
-    assignments$Location[n] <- matchICAO[matchRow]
+    assignments$Location[n] <- newLoc
   }
-  assignments$Location <- sapply(1:nrow(assignments), function(n) {
-    return ()
-  })
   return (assignments)
 }
 
@@ -58,7 +55,15 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
     groupedAssignments[n,] <- b
   }
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
-  groupedAssignments$FuelPrice <- rep(4.5, nrow(groupedAssignments))
+  
+  if (aircraft$FuelType == 0) {
+    fuelType <- "100LL"
+  } else {
+    fuelType <- "Jet-A"
+  }
+  groupedAssignments$FuelPrice <- sapply(1:nrow(groupedAssignments), function(n) {
+    fse.fuelPrice(groupedAssignments$FromIcao[n], fuelType)
+  })
   
   if (findNearestAC) {
     groupedAssignments <- findNearestAircraft(groupedAssignments, searchICAO, matchICAO)
@@ -72,6 +77,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
 
 calc.assignments <- function(rentalAircraft, assignments) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  fse.fetchAirports(c(assignments$FromIcao, assignments$ToIcao))
   assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})

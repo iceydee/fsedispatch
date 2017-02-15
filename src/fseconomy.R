@@ -1,5 +1,6 @@
 source("./src/xmlHandling.R")
 source("./src/icao.R")
+source("./src/scrape.R")
 
 fse.setUserKey <- function(key) {
   userkey <<- key
@@ -125,13 +126,6 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
     return (fse.groupAssignments(a, maxSeats = maxSeats))
   }
   return (a)
-}
-
-fse.icaoHasFBO <- function(icao) {
-  url <- fse.query("icao", list(search = "fbo", icao = icao))
-  x <- fetchXML(url, sprintf("fbos-%s", icao), 60 * 24 * 30, getRawXML = TRUE) # Cache for 30 days
-  fbos <- as.integer(xmlGetAttr(xmlRoot(x), "total"))
-  return (fbos > 0)
 }
 
 fse.query <- function(query, args) {

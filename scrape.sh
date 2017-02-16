@@ -1,3 +1,5 @@
 #!/bin/bash
 
-phantomjs --load-images=false ./src/scrape.js
+TARGET=${1-"airports"}
+
+phantomjs --load-images=false ./src/${TARGET}.js

@@ -16,9 +16,11 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
     }
   }
   
+  toFetch <- sort(unique(toFetch))
+  
   if (length(toFetch) > 0) {
     cat(sprintf("Scraping FSE for: %s\n", paste(toFetch, collapse = "-")))
-    system(sprintf("PREFIX='fbos' FSE_ICAO='%s' ./scrape.sh >/dev/null", paste(toFetch, collapse="-")))
+    system(sprintf("PREFIX='fbos' FSE_ICAO='%s' ./scrape.sh airports >/dev/null", paste(toFetch, collapse="-")))
   }
 }
 

@@ -5,26 +5,68 @@ var env = system.env;
 
 var filePrefix = env['PREFIX'];
 
-phantom.cookiesEnabled = true;
-emptyStep = function() {
+var emptyStep = function() {
   console.log("empty next step");
 };
 
-step = emptyStep;
-nextStep = emptyStep;
-nextStepTrigger = 'notrigger';
+var step = emptyStep;
+var nextStep = emptyStep;
+var nextStepTrigger = 'notrigger';
+var loggedInCallbacks = [];
 
 var evaluate = function(func) {
+  console.log("debug: evaluate running");
   var args = [].slice.call(arguments, 1);
   var fn = "function() { return (" + func.toString() + ").apply(this, " + JSON.stringify(args) + ");}";
   return page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
     page.evaluate(fn);
   });
-}
+};
 
-var save = function(name) {
-  fs.write('./data/' + filePrefix + '-' + name.toLowerCase() + '.html', page.content, 'w');
-}
+var setNextStep = function(newStep) {
+  return nextStep = newStep;
+};
+
+var setNextTrigger = function(nextTrigger) {
+  return nextStepTrigger = nextTrigger;
+};
+
+module.exports = {
+  page: page,
+
+  step: function() {
+    return step;
+  },
+
+  setStep: function(newStep) {
+    return step = newStep;
+  },
+
+  nextStep: function() {
+    return nextStep;
+  },
+
+  setNextStep: setNextStep,
+
+  nextTrigger: function() {
+    return nextStepTrigger;
+  },
+
+  setNextTrigger: setNextTrigger,
+
+  evaluate: evaluate,
+
+  save: function(name) {
+    fs.write('./data/' + filePrefix + '-' + name.toLowerCase() + '.html', page.content, 'w');
+  },
+
+  onLoggedIn: function(func) {
+    loggedInCallbacks.push(func);
+    return func;
+  }
+};
+
+phantom.cookiesEnabled = true;
 
 page.onResourceRequested = function(requestData, networkRequest) {
   if (requestData.url.indexOf("server.fseconomy.net") >= 0) {
@@ -56,10 +98,11 @@ page.onConsoleMessage = function(msg) {
   console.log(msg);
 };
 
-step = function() {
+var step = function() {
   console.log("--- Login");
-  nextStep = saveLoggedInPage;
-  nextStepTrigger = 'index.jsp';
+
+  setNextStep(loggedInPage);
+  setNextTrigger('index.jsp');
 
   evaluate(function(user, pass) {
     $('input[name="user"]').val(user);
@@ -69,47 +112,14 @@ step = function() {
 };
 page.open('http://server.fseconomy.net');
 
-saveLoggedInPage = function() {
-  console.log("--- saveLoggedInPage");
-
-  save('login');
+var loggedInPage = function() {
+  console.log("--- loggedInPage");
 
   console.log('--- delay 1s for page render');
-  setTimeout(airports, 1000);
+  setTimeout(callLoggedInCallbacks, 1000);
 };
 
-airports = function() {
-  console.log('--- airports');
-  nextStep = loadAirport;
-  nextStepTrigger = 'airport.jsp';
-
-  page.open('http://server.fseconomy.net/airport.jsp');
-};
-
-var fetchIcao = env['FSE_ICAO'].split('-');
-var curIcao = 'empty';
-loadAirport = function() {
-  nextStep = saveAirportForm;
-  nextStepTrigger = 'airport.jsp';
-
-  if (fetchIcao.length == 0) {
-    phantom.exit();
-  }
-
-  curIcao = fetchIcao.shift();
-
-  evaluate(function(icao) {
-    var f = $('form[action="airport.jsp"]');
-    f.find('input[name="icao"]').val(icao);
-    f.find('.button[value="Go"]').click();
-  }, curIcao);
-};
-
-saveAirportForm = function() {
-  console.log('--- saveAirportForm');
-
-  save(curIcao);
-
-  console.log('--- delay 750ms for next fetch - not to hammer the server.');
-  setTimeout(loadAirport, 750);
+var callLoggedInCallbacks = function() {
+  console.log("--- triggering logged in callbacks");
+  loggedInCallbacks.map(function(f) {f();});
 };

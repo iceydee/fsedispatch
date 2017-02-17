@@ -6,13 +6,15 @@ findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
   }
   for (n in 1:nrow(assignments)) {
     matchRow <- match(assignments$FromIcao[n], searchICAO, nomatch = NULL)
-    if (is.null(matchRow)) {
-      cat(sprintf("%s not found in matchICAO - %s\n", assignments$FromIcao[n], paste(matchICAO, collapse = "-")))
+    if (is.null(matchRow) || is.na(matchRow)) {
+      cat(sprintf("%s not found in searchICAO - %s\n", assignments$FromIcao[n], paste(searchICAO, collapse = "-")))
+      assignments$Location[n] <- matchICAO[1]
       next
     }
     newLoc <- matchICAO[matchRow]
-    if (is.null(newLoc)) {
+    if (is.null(newLoc) || is.na(newLoc)) {
       cat(sprintf("%s == NULL!!\n", assignments$FromIcao[n]))
+      assignments$Location[n] <- matchICAO[1]
       next
     }
     assignments$Location[n] <- newLoc
@@ -25,8 +27,8 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   
   findNearestAC <- FALSE
   
-  if (is.null(searchICAO)) {
-    searchICAO = rentalAircraft$Location
+  if (is.null(searchICAO) || is.na(searchICAO)) {
+    searchICAO <- rentalAircraft$Location
   } else {
     findNearestAC <- TRUE
   }
@@ -34,7 +36,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   # Find assignments
   maxSeats <- (aircraft$Seats - 1)
   assignments <- fse.getAssignments(
-    unique(searchICAO),
+    unique(sort(searchICAO)),
     minDistance = minDistance, maxDistance = maxDistance,
     maxSeats = maxSeats,
     grouped = TRUE
@@ -145,6 +147,11 @@ calc.groundCrewFee <- function(assignment) {
 }
 
 calc.distanceBonus <- function(rentalAircraft, assignment) {
+  if (is.na(assignment$FromIcao) ||
+      is.na(assignment$ToIcao) ||
+      is.na(rentalAircraft$Home)) {
+    return (0.00)
+  }
   oldHomeDistance <- icao.distance(assignment$FromIcao, rentalAircraft$Home)
   newHomeDistance <- icao.distance(assignment$ToIcao, rentalAircraft$Home)
   distanceDiff <- oldHomeDistance - newHomeDistance

@@ -60,7 +60,7 @@ rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
 assignments <- getRankedAssignments(rentalAircraft, 0, maxDistance)
-hop2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, searchICAO = assignments$ToIcao, matchICAO = assignments$FromIcao)
+hop2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, assignments$ToIcao, assignments$FromIcao)
 
 results <- data.frame(
   start = character(),

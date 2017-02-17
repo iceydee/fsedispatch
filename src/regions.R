@@ -11,7 +11,8 @@ regions[7,] <- c(name = "North America", minLon = -180, maxLon = 15, minLat = 23
 regions[8,] <- c(name = "USA withouut Alaska and Hawaii", minLon = -125, maxLon = -64, minLat = 24, maxLat = 48) #
 regions[9,] <- c(name = "Arctic", minLon = -180, maxLon = 180, minLat = 60, maxLat = 90)
 regions[10,] <- c(name = "Central America / Caribbean", minLon = -120, maxLon = 30, minLat = 0, maxLat = 33)
-regions[11,] <- c(name = "South America", minLon = -90, maxLon = 30, minLat = -60, maxLat = 15)
+regions[11,] <- c(name = "Caribbean", minLon = -87, maxLon = -59, minLat = 10, maxLat = 28) #
+regions[12,] <- c(name = "South America", minLon = -90, maxLon = 30, minLat = -60, maxLat = 15)
 regions <- clean(regions, c(c("char"), rep("double", 4)))
 
 limitByRegion <- function(df, region) {

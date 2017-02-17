@@ -1,8 +1,8 @@
 source("./src/xmlHandling.R")
 
 regions <- data.frame(name = character(), minLon = integer(), maxLon = integer(), minLat = integer(), maxLat = integer(), stringsAsFactors = FALSE)
-regions[1,] <- c(name = "Europe", minLon = -30, maxLon = 60, minLat = 30, maxLat = 90)
-regions[2,] <- c(name = "Africa", minLon = -30, maxLon = 60, minLat = -45, maxLat = 42)
+regions[1,] <- c(name = "Europe", minLon = -25, maxLon = 53, minLat = 17, maxLat = 82) #
+regions[2,] <- c(name = "Africa", minLon = -26, maxLon = 56, minLat = -37, maxLat = 36) #
 regions[3,] <- c(name = "Middle East", minLon = 20, maxLon = 75, minLat = 10, maxLat = 45)
 regions[4,] <- c(name = "Northern Asia", minLon = 40, maxLon = 180, minLat = 30, maxLat = 90)
 regions[5,] <- c(name = "Southern Asia", minLon = 40, maxLon = 180, minLat = 15, maxLat = 30)

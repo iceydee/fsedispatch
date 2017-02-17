@@ -47,6 +47,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   }
   
   groupedAssignments <- assignments[[1]][0,]
+  groupedAssignments["PtCount"] <- integer(0)
   
   for (n in 1:length(assignments)) {
     a <- assignments[[n]]
@@ -54,6 +55,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
     b$Id <- n
     b$Amount <- sum(a$Amount)
     b$Pay <- sum(a$Pay)
+    b$PtCount <- nrow(a[a$PtAssignment == "true",])
     groupedAssignments[n,] <- b
   }
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
@@ -81,6 +83,7 @@ calc.assignments <- function(rentalAircraft, assignments) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   fse.fetchAirports(c(assignments$FromIcao, assignments$ToIcao))
   assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
+  assignments$BookingFee <- sapply(1:nrow(assignments), function(n) {calc.bookingFee(assignments[n,])})
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
   assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
@@ -127,9 +130,7 @@ calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE) {
     cost <- (rentalAircraft$RentalWet * assignment$Duration)
   }
 
-  # TODO: Include booking fee. https://sites.google.com/site/fseoperationsguide/getting-started/assignments#TOC-Assignment-Fees
-  
-  return (assignment$Pay - cost + assignment$DistanceBonus - assignment$GroundCrewFee)
+  return (assignment$Pay - cost + assignment$DistanceBonus - assignment$GroundCrewFee - assignment$BookingFee)
 }
 
 calc.groundCrewFee <- function(assignment) {
@@ -144,6 +145,13 @@ calc.groundCrewFee <- function(assignment) {
   }
   
   return (groundCrewFee)
+}
+
+calc.bookingFee <- function(assignment) {
+  if (assignment$PtCount > 5) {
+    return (assignment$Pay * (assignment$PtCount / 100))
+  }
+  return (0.00)
 }
 
 calc.distanceBonus <- function(rentalAircraft, assignment) {

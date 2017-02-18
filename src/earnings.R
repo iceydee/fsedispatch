@@ -1,5 +1,61 @@
 source("./src/fseconomy.R")
 
+gatherResults <- function(leg1, leg2) {
+  results <- data.frame(
+    start = character(),
+    mid = character(),
+    end = character(),
+    amount1 = integer(),
+    commodity1 = character(),
+    amount2 = integer(),
+    commodity2 = character(),
+    totalEarnings = integer(),
+    distance1 = integer(),
+    distance2 = integer(),
+    totalDistance = integer(),
+    stringsAsFactors = FALSE)
+  for (n in 1:nrow(leg1)) {
+    a <- leg1[n,]
+    b <- leg2[leg2$FromIcao == a$ToIcao,]
+    maxBDistance <- maxDistance - a$Distance
+    b <- b[b$Distance < maxBDistance,]
+    b <- b[order(-b$Earnings),]
+    
+    if (nrow(b) > 0) {
+      results[n,] <- list(
+        start = a$FromIcao,
+        mid = a$ToIcao,
+        end = b$ToIcao,
+        amount1 = a$Amount,
+        commodity1 = a$Commodity,
+        amount2 = b$Amount,
+        commodity2 = b$Commodity,
+        totalEarnings = (a$Earnings + b$Earnings),
+        distance1 = a$Distance,
+        distance2 = b$Distance,
+        totalDistance = a$Distance + b$Distance
+      )
+    } else {
+      results[n,] <- list(
+        start = a$FromIcao,
+        mid = NA,
+        end = a$ToIcao,
+        amount1 = a$Amount,
+        commodity1 = a$Commodity,
+        amount2 = NA,
+        commidity2 = NA,
+        totalEarnings = a$Earnings,
+        distance1 = a$Distance,
+        distance2 = NA,
+        totalDistance = a$Distance
+      )
+    }
+  }
+  
+  results <- results[order(-results$totalEarnings),]
+  return (results)
+}
+
 findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
   if (nrow(assignments) < 1) {
     return (assignments)

@@ -59,59 +59,26 @@ if (region$count < 1) {
 rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
-assignments <- getRankedAssignments(rentalAircraft, 0, maxDistance)
-hop2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, assignments$ToIcao, assignments$FromIcao)
+leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance)
+leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, assignments$ToIcao, assignments$FromIcao)
 
-results <- data.frame(
-  start = character(),
-  mid = character(),
-  end = character(),
-  amount1 = integer(),
-  commodity1 = character(),
-  amount2 = integer(),
-  commotity2 = character(),
-  totalEarnings = integer(),
-  distance1 = integer(),
-  distance2 = integer(),
-  totalDistance = integer(),
-  stringsAsFactors = FALSE)
-for (n in 1:nrow(assignments)) {
-  a <- assignments[n,]
-  b <- hop2[hop2$FromIcao == a$ToIcao,]
-  maxBDistance <- maxDistance - a$Distance
-  b <- b[b$Distance < maxBDistance,]
-  b <- b[order(-b$Earnings),]
-  
-  if (nrow(b) > 0) {
-    results[n,] <- list(
-      start = a$FromIcao,
-      mid = a$ToIcao,
-      end = b$ToIcao,
-      amount1 = a$Amount,
-      commodity1 = a$Commodity,
-      amount2 = b$Amount,
-      commodity2 = b$Commodity,
-      totalEarnings = (a$Earnings + b$Earnings),
-      distance1 = a$Distance,
-      distance2 = b$Distance,
-      totalDistance = a$Distance + b$Distance
-    )
+printOption <- function(result) {
+  cat(sprintf("Get your %s from %s\n", aircraft$MakeModel, result$start))
+  if (!is.na(result$mid)) {
+    cat(sprintf("Fly %i %s to %s. (%i nm distance)\nThen\n", result$amount1, result$commodity1, result$mid, result$distance1))
+    amount2 <- result$amount2
+    distance2 <- result$distance2
+    commodity2 <- result$commodity2
   } else {
-    results[n,] <- list(
-      start = a$FromIcao,
-      mid = NA,
-      end = a$ToIcao,
-      amount1 = a$Amount,
-      commodity1 = a$Commodity,
-      amount2 = NA,
-      commidity2 = NA,
-      totalEarnings = a$Earnings,
-      distance1 = a$Distance,
-      distance2 = NA,
-      totalDistance = a$Distance
-    )
+    amount2 <- result$amount1
+    distance2 <- result$distance1
+    commodity2 <- result$commodity1
   }
+  cat(sprintf("Fly %i %s to %s. (%i nm distance)\nTotal distance: %i nm\nTotal earnings: $%i\n", amount2, commodity2, result$end, distance2, result$totalDistance, result$totalEarnings))
 }
 
-results <- results[order(-results$totalEarnings),]
-print(head(results))
+results <- gatherResults(leg1, leg2)
+cat("Option 1:\n")
+printOption(results[1,])
+cat("\n\nOption 2:\n")
+printOption(results[2,])

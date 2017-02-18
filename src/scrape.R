@@ -28,7 +28,9 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
     name <- safeLongName(paste(toFetch, collapse="-"))
     path <- sprintf("./tmp/scrape-%s.json", name)
     write(toJSON(toFetch), path)
-    system(sprintf("PREFIX='fbos' FSE_ICAO_FILE='%s' ./scrape.sh airports", path))
+    
+    cmd <- sprintf("PREFIX='fbos' FSE_ICAO_FILE='%s' ./scrape.sh airports > /dev/null", path)
+    system(cmd)
     #unlink(path)
   }
 }

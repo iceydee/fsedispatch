@@ -1,7 +1,8 @@
- var sc = require('./scrape_common.js');
+var sc = require('./scrape_common.js');
 var system = require('system');
 var env = system.env;
 var fs = require('fs');
+var ProgressBar = require('./progress.js');
 
 var airports = function() {
   console.log('--- airports');
@@ -14,6 +15,8 @@ var airports = function() {
 var stream = fs.open(env['FSE_ICAO_FILE'], 'r');
 var fetchIcao = JSON.parse(stream.read());
 stream.close();
+
+var bar = new ProgressBar({total: fetchIcao.length});
 
 var curIcao = 'empty';
 var loadAirport = function() {
@@ -38,8 +41,10 @@ var saveAirportForm = function() {
 
   sc.save(curIcao);
 
-  console.log('--- delay 750ms for next fetch - not to hammer the server.');
-  setTimeout(loadAirport, 750);
+  console.log('--- delay 500ms for next fetch - not to hammer the server.');
+
+  bar.tick();
+  setTimeout(loadAirport, 500);
 };
 
 sc.onLoggedIn(function() {

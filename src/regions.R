@@ -1,18 +1,26 @@
 source("./src/xmlHandling.R")
 
+nxt <- function(r) {
+  return (nrow(r) + 1)
+}
+
 regions <- data.frame(name = character(), minLon = integer(), maxLon = integer(), minLat = integer(), maxLat = integer(), stringsAsFactors = FALSE)
-regions[1,] <- c(name = "Europe", minLon = -25, maxLon = 53, minLat = 17, maxLat = 82) #
-regions[2,] <- c(name = "Africa", minLon = -26, maxLon = 56, minLat = -37, maxLat = 36) #
-regions[3,] <- c(name = "Middle East", minLon = 20, maxLon = 75, minLat = 10, maxLat = 45)
-regions[4,] <- c(name = "Northern Asia", minLon = 40, maxLon = 180, minLat = 30, maxLat = 90)
-regions[5,] <- c(name = "Southern Asia", minLon = 40, maxLon = 180, minLat = 15, maxLat = 30)
-regions[6,] <- c(name = "Oceania", minLon = 90, maxLon = 180, minLat = -60, maxLat = 15)
-regions[7,] <- c(name = "North America", minLon = -180, maxLon = 15, minLat = 23, maxLat = 90)
-regions[8,] <- c(name = "USA withouut Alaska and Hawaii", minLon = -125, maxLon = -64, minLat = 24, maxLat = 48) #
-regions[9,] <- c(name = "Arctic", minLon = -180, maxLon = 180, minLat = 60, maxLat = 90)
-regions[10,] <- c(name = "Central America / Caribbean", minLon = -120, maxLon = 30, minLat = 0, maxLat = 33)
-regions[11,] <- c(name = "Caribbean", minLon = -87, maxLon = -59, minLat = 10, maxLat = 28) #
-regions[12,] <- c(name = "South America", minLon = -90, maxLon = 30, minLat = -60, maxLat = 15)
+regions[nxt(regions),] <- c(name = "Central Europe", minLon = 6, maxLon = 24, minLat = 45.5, maxLat = 55) #
+regions[nxt(regions),] <- c(name = "Western Europe", minLon = -10.5, maxLon = 8.25, minLat = 36, maxLat = 61) #
+regions[nxt(regions),] <- c(name = "Eastern Europe", minLon = 12, maxLon = 30, minLat = 41.2, maxLat = 59.7) #
+regions[nxt(regions),] <- c(name = "Northern Europe", minLon = -24.5, maxLon = 31.5, minLat = 50, maxLat = 80.8) #
+regions[nxt(regions),] <- c(name = "Europe", minLon = -10.5, maxLon = 53, minLat = 17, maxLat = 82) #
+regions[nxt(regions),] <- c(name = "Africa", minLon = -26, maxLon = 56, minLat = -37, maxLat = 36) #
+regions[nxt(regions),] <- c(name = "Middle East", minLon = 20, maxLon = 75, minLat = 10, maxLat = 45)
+regions[nxt(regions),] <- c(name = "Northern Asia", minLon = 40, maxLon = 180, minLat = 30, maxLat = 90)
+regions[nxt(regions),] <- c(name = "Southern Asia", minLon = 40, maxLon = 180, minLat = 15, maxLat = 30)
+regions[nxt(regions),] <- c(name = "Oceania", minLon = 90, maxLon = 180, minLat = -60, maxLat = 15)
+regions[nxt(regions),] <- c(name = "North America", minLon = -180, maxLon = 15, minLat = 23, maxLat = 90)
+regions[nxt(regions),] <- c(name = "USA withouut Alaska and Hawaii", minLon = -125, maxLon = -64, minLat = 24, maxLat = 48) #
+regions[nxt(regions),] <- c(name = "Arctic", minLon = -180, maxLon = 180, minLat = 60, maxLat = 90)
+regions[nxt(regions),] <- c(name = "Central America / Caribbean", minLon = -120, maxLon = 30, minLat = 0, maxLat = 33)
+regions[nxt(regions),] <- c(name = "Caribbean", minLon = -87, maxLon = -59, minLat = 10, maxLat = 28) #
+regions[nxt(regions),] <- c(name = "South America", minLon = -90, maxLon = 30, minLat = -60, maxLat = 15)
 regions <- clean(regions, c(c("char"), rep("double", 4)))
 
 limitByRegion <- function(df, region) {

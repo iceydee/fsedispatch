@@ -41,10 +41,10 @@ var saveAirportForm = function() {
 
   sc.save(curIcao);
 
-  console.log('--- delay 500ms for next fetch - not to hammer the server.');
+  console.log('--- delay 100ms for next fetch - not to hammer the server.');
 
   bar.tick();
-  setTimeout(loadAirport, 500);
+  setTimeout(loadAirport, 100);
 };
 
 sc.onLoggedIn(function() {

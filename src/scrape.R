@@ -20,16 +20,35 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
   toFetch <- sort(unique(toFetch))
   
   if (length(toFetch) > 0) {
-    if (length(toFetch) > 100) {
-      cat(sprintf("Scraping FSE: %s...%s\n\n%i airports in total.\n", paste(head(toFetch), collapse = "-"), paste(tail(toFetch), collapse = "-"), length(toFetch)))
-    } else {
-      cat(sprintf("Scraping FSE for: %s\n\n%i airports in total.\n", paste(toFetch, collapse = "-"), length(toFetch)))
+    fetchFiles <- list()
+    maxFetch <- 150
+    n <- 1
+    len <- length(toFetch)
+    while (n <= len) {
+      last <- (n + maxFetch - 1)
+      if (last > len) {
+        last <- len
+      }
+      curFetch <- toFetch[n:last]
+      
+      if (length(curFetch) > 100) {
+        cat(sprintf("Scraping FSE: %s...%s\n\n%i airports in total.\n", paste(head(curFetch), collapse = "-"), paste(tail(curFetch), collapse = "-"), length(curFetch)))
+      } else {
+        cat(sprintf("Scraping FSE for: %s\n\n%i airports in total.\n", paste(curFetch, collapse = "-"), length(curFetch)))
+      }
+      name <- safeLongName(paste(curFetch, collapse="-"))
+      path <- sprintf("./tmp/scrape-%s.json", name)
+      write(toJSON(curFetch), path)
+      fetchFiles[[length(fetchFiles) + 1]] <- path
+      
+      n <- (n + maxFetch)
     }
-    name <- safeLongName(paste(toFetch, collapse="-"))
-    path <- sprintf("./tmp/scrape-%s.json", name)
-    write(toJSON(toFetch), path)
     
-    cmd <- sprintf("PREFIX='fbos' FSE_ICAO_FILE='%s' ./scrape.sh airports > /dev/null", path)
+    name <- safeLongName(paste(fetchFiles, collapse="-"))
+    path <- sprintf("./tmp/scrape-list-%s", name)
+    write(paste(fetchFiles, collapse="\n"), path)
+    
+    cmd <- sprintf("PREFIX='fbos' FSE_SCRAPE_LIST='%s' ./scrape.sh airports", path)
     system(cmd)
     #unlink(path)
   }

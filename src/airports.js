@@ -12,7 +12,7 @@ var airports = function() {
   sc.page.open('http://server.fseconomy.net/airport.jsp');
 };
 
-var stream = fs.open(env['FSE_ICAO_FILE'], 'r');
+var stream = fs.open(env['FSE_ICAO_FILE'].trim(), 'r');
 var fetchIcao = JSON.parse(stream.read());
 stream.close();
 
@@ -48,6 +48,7 @@ var saveAirportForm = function() {
 };
 
 sc.onLoggedIn(function() {
+  system.stderr.write("Starting to fetch airports\n");
   console.log("--- and we're over in airport collection mode.");
   airports();
 });

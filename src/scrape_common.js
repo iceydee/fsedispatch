@@ -61,6 +61,7 @@ module.exports = {
   },
 
   onLoggedIn: function(func) {
+    console.log("adding logged in callback");
     loggedInCallbacks.push(func);
     return func;
   }
@@ -99,6 +100,7 @@ page.onConsoleMessage = function(msg) {
 };
 
 var step = function() {
+  system.stderr.write("Logging in\n");
   console.log("--- Login");
 
   setNextStep(loggedInPage);
@@ -113,6 +115,7 @@ var step = function() {
 page.open('http://server.fseconomy.net');
 
 var loggedInPage = function() {
+  system.stderr.write("Successfully logged in\n");
   console.log("--- loggedInPage");
 
   console.log('--- delay 1s for page render');

@@ -60,24 +60,42 @@ rentalAircraft <- limitByRegion(rentalAircraft, region)
 
 # Find assignments
 leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance)
-leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, assignments$ToIcao, assignments$FromIcao)
+leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao)
 
 printOption <- function(result) {
+  amount2 <- 0
+  distance2 <- 0
+  fuelUsage2 <- 0
+  duration2 <- 0
+  commidity2 <- ""
   cat(sprintf("Get your %s from %s\n", aircraft$MakeModel, result$start))
   if (!is.na(result$mid)) {
-    cat(sprintf("Fly %i %s to %s. (%i nm distance)\nThen\n", result$amount1, result$commodity1, result$mid, result$distance1))
+    cat(sprintf("Fly %i %s to %s. (%i nm distance)\n", result$amount1, result$commodity1, result$mid, result$distance1))
+    cat(sprintf("Bring minimum %.0f gal fuel (with zero wind, no reserve)\n", result$fuelUsage1))
+    cat(sprintf("Estimated duration %.2fh (zero wind, no taxi time)\n", result$duration1))
+    cat("\nThen\n\n")
     amount2 <- result$amount2
     distance2 <- result$distance2
+    fuelUsage2 <- result$fuelUsage2
+    duration2 <- result$duration2
     commodity2 <- result$commodity2
   } else {
     amount2 <- result$amount1
     distance2 <- result$distance1
+    fuelUsage2 <- result$fuelUsage2
+    duration2 <- result$duration1
     commodity2 <- result$commodity1
   }
-  cat(sprintf("Fly %i %s to %s. (%i nm distance)\nTotal distance: %i nm\nTotal earnings: $%i\n", amount2, commodity2, result$end, distance2, result$totalDistance, result$totalEarnings))
+  cat(sprintf("Fly %i %s to %s. (%i nm distance)\n", amount2, commodity2, result$end, distance2))
+  cat(sprintf("Bring minimum %.0f gal fuel (with zero wind, no reserve)\n", fuelUsage2))
+  cat(sprintf("Estimated duration %.2fh (zero wind, no taxi time)\n", duration2))
+  cat(sprintf("\nTotal distance: %i nm\n", result$totalDistance))
+  cat(sprintf("Total earnings: $%.0f\n", result$totalEarnings))
+  cat(sprintf("Total duration: %.2fh\n", result$totalDuration))
 }
 
 results <- gatherResults(leg1, leg2)
+cat(rep("\n", 20))
 cat("Option 1:\n")
 printOption(results[1,])
 cat("\n\nOption 2:\n")

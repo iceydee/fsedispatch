@@ -34,8 +34,13 @@ gatherResults <- function(leg1, leg2) {
     commodity2 = character(),
     totalEarnings = integer(),
     distance1 = integer(),
+    fuelUsage1 = integer(),
+    duration1 = integer(),
     distance2 = integer(),
+    fuelUsage2 = integer(),
+    duration2 = integer(),
     totalDistance = integer(),
+    totalDuration = integer(),
     stringsAsFactors = FALSE)
   for (n in 1:nrow(leg1)) {
     a <- leg1[n,]
@@ -55,8 +60,13 @@ gatherResults <- function(leg1, leg2) {
         commodity2 = b$Commodity,
         totalEarnings = (a$Earnings + b$Earnings),
         distance1 = a$Distance,
+        fuelUsage1 = a$FuelUsage,
+        duration1 = a$Duration,
         distance2 = b$Distance,
-        totalDistance = a$Distance + b$Distance
+        fuelUsage2 = b$FuelUsage,
+        duration2 = b$Duration,
+        totalDistance = a$Distance + b$Distance,
+        totalDuration = a$Duration + b$Duration
       )
     } else {
       results[n,] <- list(
@@ -69,8 +79,13 @@ gatherResults <- function(leg1, leg2) {
         commidity2 = NA,
         totalEarnings = a$Earnings,
         distance1 = a$Distance,
+        fuelUsage1 = a$FuelUsage,
+        duration1 = a$Duration,
         distance2 = NA,
-        totalDistance = a$Distance
+        fuelUsage2 = NA,
+        duration2 = NA,
+        totalDistance = a$Distance,
+        totalDuration = a$Duration
       )
     }
   }

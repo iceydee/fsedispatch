@@ -1,5 +1,28 @@
 source("./src/fseconomy.R")
 
+fuelWeight <- function(vol, type = 0) {
+  if (type == 0) { # 100LL
+    return (vol * 2.72)
+  }
+  return (vol * 3.08)
+}
+
+passengerWeight <- function(passengers) {
+  return (passengers * 73)
+}
+
+maxPayload <- function(aircraft) {
+  return (aircraft$MTOW - aircraft$EmptyWeight)
+}
+
+maxCargo <- function(aircraft, volFuel, passengers = 0) {
+  return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - passengerWeight(passengers))
+}
+
+maxPassengers <- function(aircraft, volFuel, cargo = 0) {
+  return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - cargo)
+}
+
 gatherResults <- function(leg1, leg2) {
   results <- data.frame(
     start = character(),
@@ -90,7 +113,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   }
   
   # Find assignments
-  maxSeats <- (aircraft$Seats - 1)
+  maxSeats <- (aircraft$Seats - 1) # TODO: Use fuel calc for this
   assignments <- fse.getAssignments(
     unique(sort(searchICAO)),
     minDistance = minDistance, maxDistance = maxDistance,

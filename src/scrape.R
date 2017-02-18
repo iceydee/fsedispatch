@@ -1,4 +1,5 @@
 library("rvest")
+library("RJSONIO")
 source("./src/xmlHandling.R")
 
 htmlPath <- function(name, p = "fbos") {
@@ -24,7 +25,11 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
     } else {
       cat(sprintf("Scraping FSE for: %s\n\n%i airports in total.\n", paste(toFetch, collapse = "-"), length(toFetch)))
     }
-    system(sprintf("PREFIX='fbos' FSE_ICAO='%s' ./scrape.sh airports >/dev/null", paste(toFetch, collapse="-")))
+    name <- safeLongName(paste(toFetch, collapse="-"))
+    path <- sprintf("./tmp/scrape-%s.json", name)
+    write(toJSON(toFetch), path)
+    system(sprintf("PREFIX='fbos' FSE_ICAO_FILE='%s' ./scrape.sh airports", path))
+    #unlink(path)
   }
 }
 

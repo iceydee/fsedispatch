@@ -3,3 +3,4 @@ packrat/lib*/
 .Rhistory
 data/
 .envrc
+tmp/

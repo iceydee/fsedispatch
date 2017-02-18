@@ -1,5 +1,6 @@
 library("XML")
 library("RCurl")
+library("digest")
 
 cleanInt <- function(data, col) {
   data[,col] <- as.integer(as.character(data[,col]))
@@ -60,6 +61,13 @@ fetchXML <- function(url, name, maxAge = -1, getRawXML = FALSE) {
     return (xmlParse(path))
   }
   return (xmlToDataFrame(path))
+}
+
+safeLongName <- function(name) {
+  if (nchar(name) < 50) {
+    return (name)
+  }
+  return (sha1(name))
 }
 
 pathFromName <- function(name, extension = "xml") {

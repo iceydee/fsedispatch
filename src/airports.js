@@ -1,6 +1,7 @@
-var sc = require("./scrape_common.js");
+ var sc = require('./scrape_common.js');
 var system = require('system');
 var env = system.env;
+var fs = require('fs');
 
 var airports = function() {
   console.log('--- airports');
@@ -10,7 +11,10 @@ var airports = function() {
   sc.page.open('http://server.fseconomy.net/airport.jsp');
 };
 
-var fetchIcao = env['FSE_ICAO'].split('-');
+var stream = fs.open(env['FSE_ICAO_FILE'], 'r');
+var fetchIcao = JSON.parse(stream.read());
+stream.close();
+
 var curIcao = 'empty';
 var loadAirport = function() {
   sc.setNextStep(saveAirportForm);

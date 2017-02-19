@@ -23,7 +23,7 @@ maxPassengers <- function(aircraft, volFuel, cargo = 0) {
   return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - cargo)
 }
 
-gatherResults <- function(leg1, leg2) {
+gatherResults <- function(leg1, leg2, maxDistance) {
   results <- data.frame(
     start = character(),
     mid = character(),

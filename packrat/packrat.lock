@@ -76,6 +76,16 @@ Source: CRAN
 Version: 0.6
 Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
 
+Package: htmltools
+Source: CRAN
+Version: 0.3.5
+Requires: Rcpp, digest
+
+Package: httpuv
+Source: CRAN
+Version: 1.3.3
+Requires: Rcpp
+
 Package: httr
 Source: CRAN
 Version: 1.2.1
@@ -130,6 +140,16 @@ Version: 0.3-1
 Hash: 367275e3dcdd208339e131c7a41bec56
 Requires: stringr
 
+Package: shiny
+Source: CRAN
+Version: 1.0.0
+Requires: R6, digest, jsonlite, mime, htmltools, httpuv, sourcetools,
+    xtable
+
+Package: sourcetools
+Source: CRAN
+Version: 0.1.5
+
 Package: sp
 Source: CRAN
 Version: 1.2-4
@@ -151,6 +171,10 @@ Source: CRAN
 Version: 1.1.1
 Hash: b913af17a4e43c2fb83f3b60b5353a27
 Requires: BH, Rcpp
+
+Package: xtable
+Source: CRAN
+Version: 1.8-2
 
 Package: yaml
 Source: CRAN

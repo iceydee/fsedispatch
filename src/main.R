@@ -94,7 +94,7 @@ printOption <- function(result) {
   cat(sprintf("Total duration: %.2fh\n", result$totalDuration))
 }
 
-results <- gatherResults(leg1, leg2)
+results <- gatherResults(leg1, leg2, maxDistance)
 cat(rep("\n", 20))
 cat("Option 1:\n")
 printOption(results[1,])

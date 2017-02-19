@@ -80,7 +80,8 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
 }
 
 fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
-  maxFetch <- 10
+  icaos <- unique(sort(icaos))
+  maxFetch <- 100
   if(length(icaos) > maxFetch) {
     len <- length(icaos)
     cat(sprintf("Bulk fetching %i airports assignments at a time.\n", len))

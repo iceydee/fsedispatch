@@ -17,6 +17,10 @@ regions[nxt(regions),] <- c(name = "Southern Asia", minLon = 40, maxLon = 180, m
 regions[nxt(regions),] <- c(name = "Oceania", minLon = 90, maxLon = 180, minLat = -60, maxLat = 15)
 regions[nxt(regions),] <- c(name = "North America", minLon = -180, maxLon = 15, minLat = 23, maxLat = 90)
 regions[nxt(regions),] <- c(name = "USA withouut Alaska and Hawaii", minLon = -125, maxLon = -64, minLat = 24, maxLat = 48) #
+regions[nxt(regions),] <- c(name = "USA Pacific", minLon = -125, maxLon = -113.5, minLat = 32.5, maxLat = 49) #
+regions[nxt(regions),] <- c(name = "USA Mountain", minLon = -117.5, maxLon = -100, minLat = 31.2, maxLat = 49) #
+regions[nxt(regions),] <- c(name = "USA Central", minLon = -107, maxLon = -84.8, minLat = 25.8, maxLat = 49) #
+regions[nxt(regions),] <- c(name = "USA Eastern", minLon = -90.5, maxLon = -44.8, minLat = 24.4, maxLat = 48) #
 regions[nxt(regions),] <- c(name = "Arctic", minLon = -180, maxLon = 180, minLat = 60, maxLat = 90)
 regions[nxt(regions),] <- c(name = "Central America / Caribbean", minLon = -120, maxLon = 30, minLat = 0, maxLat = 33)
 regions[nxt(regions),] <- c(name = "Caribbean", minLon = -87, maxLon = -59, minLat = 10, maxLat = 28) #

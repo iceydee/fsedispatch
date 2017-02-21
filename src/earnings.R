@@ -91,7 +91,7 @@ gatherResults <- function(leg1, leg2, maxDistance) {
   }
   
   results <- results[order(-results$totalEarnings),]
-  return (results)
+  return (as.data.frame(results))
 }
 
 findNearestAircraft <- function(assignments, searchICAO, matchICAO) {

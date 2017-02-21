@@ -59,7 +59,7 @@ shinyServer(function(input, output) {
     regions <- regions[regions$count > 0,]
     
     r <- sapply(1:nrow(regions), function(n) {
-      sprintf("%s (%i aircraft)", regions$name[n], regions$count[n])
+      sprintf("%s (%.0f aircraft)", regions$name[n], regions$count[n])
     })
     selectizeInput("region", NULL, c("", r),
                    options = list(placeholder = "Select a region"))
@@ -78,7 +78,7 @@ shinyServer(function(input, output) {
                        Distance = integer(),
                        Amount = integer(),
                        Commodity = character(),
-                       Earnings = integer(),
+                       Earnings = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
@@ -104,7 +104,7 @@ shinyServer(function(input, output) {
                        Distance = integer(),
                        Amount = integer(),
                        Commodity = character(),
-                       Earnings = integer(),
+                       Earnings = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
@@ -144,7 +144,7 @@ shinyServer(function(input, output) {
     return (div(
       renderDataTable(data),
       h5(sprintf("Total earnings: $%.0f", result$totalEarnings)),
-      h5(sprintf("Total distance: %i nm", result$totalDistance)),
+      h5(sprintf("Total distance: %.0f nm", result$totalDistance)),
       h5(sprintf("Total duration: %.2fh", result$totalDuration))
     ))
   }

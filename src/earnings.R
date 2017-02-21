@@ -23,6 +23,13 @@ maxPassengers <- function(aircraft, volFuel, cargo = 0) {
   return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - cargo)
 }
 
+is.dry <- function(assignment) {
+  if (assignment$DryEarnings > assignment$WetEarnings) {
+    return (T)
+  }
+  return (F)
+}
+
 gatherResults <- function(leg1, leg2, maxDistance) {
   results <- data.frame(
     start = character(),
@@ -30,8 +37,14 @@ gatherResults <- function(leg1, leg2, maxDistance) {
     end = character(),
     amount1 = integer(),
     commodity1 = character(),
+    earnings1 = integer(),
+    dry1 = logical(),
+    assignmentIds1 = character(),
     amount2 = integer(),
     commodity2 = character(),
+    earnings2 = integer(),
+    dry2 = logical(),
+    assignmentIds2 = character(),
     totalEarnings = integer(),
     distance1 = integer(),
     fuelUsage1 = integer(),
@@ -56,8 +69,14 @@ gatherResults <- function(leg1, leg2, maxDistance) {
         end = b$ToIcao,
         amount1 = a$Amount,
         commodity1 = a$Commodity,
+        earnings1 = a$Earnings,
+        dry1 = is.dry(a),
+        assignmentIds1 = a$AssignmentIds,
         amount2 = b$Amount,
         commodity2 = b$Commodity,
+        earnings2 = b$Earnings,
+        dry2 = is.dry(b),
+        assignmentIds2 = b$AssignmentIds,
         totalEarnings = (a$Earnings + b$Earnings),
         distance1 = a$Distance,
         fuelUsage1 = a$FuelUsage,
@@ -75,8 +94,14 @@ gatherResults <- function(leg1, leg2, maxDistance) {
         end = a$ToIcao,
         amount1 = a$Amount,
         commodity1 = a$Commodity,
+        earnings1 = a$Earnings,
+        dry1 = is.dry(a),
+        assignmentIds1 = a$AssignmentIds,
         amount2 = NA,
         commidity2 = NA,
+        earnings2 = NA,
+        dry2 = NA,
+        assignmentIds2 = NA,
         totalEarnings = a$Earnings,
         distance1 = a$Distance,
         fuelUsage1 = a$FuelUsage,
@@ -142,6 +167,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   
   groupedAssignments <- assignments[[1]][0,]
   groupedAssignments["PtCount"] <- integer(0)
+  groupedAssignments["AssignmentIds"] <- character(0)
   
   for (n in 1:length(assignments)) {
     a <- assignments[[n]]
@@ -150,6 +176,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
     b$Amount <- sum(a$Amount)
     b$Pay <- sum(a$Pay)
     b$PtCount <- nrow(a[a$PtAssignment == "true",])
+    b$AssignmentIds <- paste(a$Id, collapse = ",")
     groupedAssignments[n,] <- b
   }
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]

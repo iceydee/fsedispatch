@@ -4,6 +4,7 @@ source("./src/regions.R")
 source("./src/fseconomy.R")
 source("./src/earnings.R")
 source("./src/icao.R")
+source("./src/scrape.R")
 
 # We tweak the "am" field to have nicer factor labels. Since this doesn't
 # rely on any user inputs we can do this once at startup and then use the
@@ -70,6 +71,8 @@ shinyServer(function(input, output) {
                        Distance = integer(),
                        Amount = integer(),
                        Commodity = character(),
+                       Earnings = integer(),
+                       RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
                        stringsAsFactors = F)
@@ -79,6 +82,8 @@ shinyServer(function(input, output) {
       Distance = result$distance1,
       Amount = result$amount1,
       Commodity = result$commodity1,
+      Earnings = result$earnings1,
+      RentDry = result$dry1,
       Duration = result$duration1,
       `Minimum Fuel` = result$fuelUsage1
     )
@@ -92,6 +97,8 @@ shinyServer(function(input, output) {
                        Distance = integer(),
                        Amount = integer(),
                        Commodity = character(),
+                       Earnings = integer(),
+                       RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
                        stringsAsFactors = F)
@@ -101,6 +108,8 @@ shinyServer(function(input, output) {
       Distance = result$distance1,
       Amount = result$amount1,
       Commodity = result$commodity1,
+      Earnings = result$earnings1,
+      RentDry = result$dry1,
       Duration = result$duration1,
       `Minimum Fuel` = result$fuelUsage1
     )
@@ -110,6 +119,8 @@ shinyServer(function(input, output) {
       Distance = result$distance2,
       Amount = result$amount2,
       Commodity = result$commodity2,
+      Earnings = result$earnings2,
+      RentDry = result$dry2,
       Duration = result$duration2,
       `Minimum Fuel` = result$fuelUsage2
     )
@@ -138,40 +149,100 @@ shinyServer(function(input, output) {
     return (F)
   }
   
+  results <- reactive({
+    # Dependencies
+    input$aircraft
+    input$region
+    
+    isolate(
+      withProgress(message = "Finding assignments", value = 0, {
+        # Find rental aircraft
+        incProgress(0.1, detail = "Finding rental aircraft")
+        region <- sub(" \\([0-9]+ aircraft\\)", "", input$region)
+        region <- regions[regions$name == region,]
+        rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
+        rentalAircraft <- limitByRegion(rentalAircraft, region)
+        
+        # Fetch leg 1
+        if (Sys.getenv("TESTRUN") == "true") {
+          rentalAircraft <- rentalAircraft[1:(min(5, nrow(rentalAircraft))),]
+        }
+        incProgress(0.2, detail = "Fetching assignments for leg 1")
+        minDistance <- input$distance[1]
+        maxDistance <- input$distance[2]
+        leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance)
+        
+        # Fetch leg 2
+        if (Sys.getenv("TESTRUN") == "true") {
+          leg1 <- leg1[1:(min(10, nrow(leg1))),]
+        }
+        incProgress(0.3, detail = "Fetching assignments for leg 2")
+        leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao)
+        
+        # Gather results
+        incProgress(0.9, detail = "Gathering results")
+        results <- gatherResults(leg1, leg2, maxDistance)
+      })
+    )
+    
+    return (results)
+  })
+  
   output$results <- renderUI({
+    # Dependencies
     if (is.empty(input$aircraft) || is.empty(input$region)) {
       return()
     }
     
-    withProgress(message = "Finding assignments", value = 0, {
-      # Find rental aircraft
-      incProgress(0.1, detail = "Finding rental aircraft")
-      region <- sub(" \\([0-9]+ aircraft\\)", "", input$region)
-      region <- regions[regions$name == region,]
-      rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
-      rentalAircraft <- limitByRegion(rentalAircraft, region)
-      
-      # Fetch leg 1
-      incProgress(0.2, detail = "Fetching assignments for leg 1")
-      minDistance <- input$distance[1]
-      maxDistance <- input$distance[2]
-      leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance)
-      
-      # Fetch leg 2
-      incProgress(0.3, detail = "Fetching assignments for leg 2")
-      leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao)
-      
-      # Gather results
-      incProgress(0.9, detail = "Gathering results")
-      results <- gatherResults(leg1, leg2, maxDistance)
-    })
+    # Fetch the results
+    results <- results()
     
     div(
       h2("Results are in"),
-      h3("Option 1"),
-      outputOption(results[1,]),
-      h3("Option 2"),
-      outputOption(results[2,])
+      div(
+        id = "option1",
+        h3("Option 1"),
+        outputOption(results[1,]),
+        actionButton("option1Book", "Book Option 1")
+      ),
+      div(
+        id = "option2",
+        h3("Option 2"),
+        outputOption(results[2,]),
+        actionButton("option2Book", "Book option 2")
+      )
     )
+  })
+  
+  bookOption <- function(number = 1) {
+    withProgress(message = "Booking assignments", value = 0, {
+      # Fetch the results and get option
+      results <- results()
+      a <- results[number,]
+      
+      incProgress(0.1, detail = "Leg 1")
+      
+      # Book leg 1
+      fse.bookAssignments(a$start, a$assignmentIds1)
+      
+      if (!is.na(a$mid)) {
+        incProgress(0.5, detail = "Leg 2")
+        
+        # Book leg 2 if there is one
+        fse.bookAssignments(a$mid, a$assignmentIds2)
+      }
+    })
+  }
+  
+  observeEvent(input$option1Book, {
+    removeUI("#option1Book")
+    bookOption(1)
+    removeUI("#option1")
+  })
+  
+  observeEvent(input$option2Book, {
+    removeUI("#option2Book")
+    bookOption(2)
+    removeUI("#option2")
   })
 })

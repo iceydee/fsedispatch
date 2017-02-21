@@ -7,6 +7,11 @@ htmlPath <- function(name, p = "fbos") {
   return (pathFromName(name, extension = "html"))
 }
 
+fse.bookAssignments <- function(icao, assignment_ids, group_id = 0) {
+  cmd <- sprintf("FSE_ICAO='%s' ASSIGNMENT_IDS='%s' GROUP_ID='%i' ./scrape.sh get_assignments", icao, assignment_ids, group_id)
+  system(cmd)
+}
+
 fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
   toFetch <- vector()
   for (n in 1:length(icaos)) {
@@ -50,7 +55,7 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
     
     cmd <- sprintf("PREFIX='fbos' FSE_SCRAPE_LIST='%s' ./scrape.sh airports", path)
     system(cmd)
-    #unlink(path)
+    unlink(path)
   }
 }
 

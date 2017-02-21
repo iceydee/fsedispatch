@@ -24,6 +24,15 @@ maxPassengers <- function(aircraft, volFuel, cargo = 0) {
 }
 
 is.dry <- function(assignment) {
+  if (is.na(assignment$DryEarnings) && is.na(assignment$WetEarnings)) {
+    return (NA)
+  }
+  if (is.na(assignment$DryEarnings)) {
+    return (F)
+  }
+  if (is.na(assignment$WetEarnings)) {
+    return (T)
+  }
   if (assignment$DryEarnings > assignment$WetEarnings) {
     return (T)
   }
@@ -61,6 +70,7 @@ gatherResults <- function(leg1, leg2, maxDistance) {
     maxBDistance <- maxDistance - a$Distance
     b <- b[b$Distance < maxBDistance,]
     b <- b[order(-b$Earnings),]
+    b <- b[1,]
     
     if (nrow(b) > 0) {
       results[n,] <- list(
@@ -219,7 +229,7 @@ calc.assignments <- function(rentalAircraft, assignments) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
     if (nrow(ac) < 1) {
       cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
-      return (0)
+      return (0.0)
     }
     calc.earnings(ac[1,], aircraft, assignments[n,])
   })
@@ -227,7 +237,7 @@ calc.assignments <- function(rentalAircraft, assignments) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
     if (nrow(ac) < 1) {
       cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
-      return (0)
+      return (0.0)
     }
     calc.earnings(ac[1,], aircraft, assignments[n,], dry = FALSE)
   })

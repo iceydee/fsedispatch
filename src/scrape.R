@@ -93,8 +93,8 @@ fse.getFBOs <- function(icao) {
   a <- a[[1]]
   a <- a[a$FBO > 0,]
   colnames(a) <- c("FBO", "100LL Price", "100LL Gallons", "Jet-A Price", "Jet-A Gallons", "Repair/Avionics")
-  a$`100LL Price` <- sapply(1:nrow(a), function(n) {as.double(gsub("\\$", "", a$`100LL Price`[n]))})
-  a$`Jet-A Price` <- sapply(1:nrow(a), function(n) {as.double(gsub("\\$", "", a$`Jet-A Price`[n]))})
+  a$`100LL Price` <- sapply(1:nrow(a), function(n) {suppressWarnings(as.double(gsub("\\$", "", a$`100LL Price`[n])))})
+  a$`Jet-A Price` <- sapply(1:nrow(a), function(n) {suppressWarnings(as.double(gsub("\\$", "", a$`Jet-A Price`[n])))})
   a$`100LL Gallons` <- sapply(1:nrow(a), function(n) {
     if (is.na(a$`100LL Gallons`[n])) {
       return (0)
@@ -102,7 +102,7 @@ fse.getFBOs <- function(icao) {
     if (a$`100LL Gallons`[n] == "unlimited") {
       return (Inf)
     } else {
-      return (as.integer(a$`100LL Gallons`[n]))
+      return (suppressWarnings(as.integer(a$`100LL Gallons`[n])))
     }
   })
   a$`Jet-A Gallons` <- sapply(1:nrow(a), function(n) {
@@ -112,7 +112,7 @@ fse.getFBOs <- function(icao) {
     if (a$`Jet-A Gallons`[n] == "unlimited") {
       return (Inf)
     } else {
-      return (as.integer(a$`Jet-A Gallons`[n]))
+      return (suppressWarnings(as.integer(a$`Jet-A Gallons`[n])))
     }
   })
   return (a)

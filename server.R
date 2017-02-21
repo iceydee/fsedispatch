@@ -65,6 +65,13 @@ shinyServer(function(input, output) {
                    options = list(placeholder = "Select a region"))
   })
   
+  output$groupSelect <- renderUI({
+    groups <- fse.getGroups()
+    
+    selectizeInput("group", NULL, c("", groups$name),
+                   options = list(placeholder = "Select your group"))
+  })
+  
   oneLegOptionData <- function(result) {
     data <- list(From = character(),
                        To = character(),
@@ -149,6 +156,38 @@ shinyServer(function(input, output) {
     return (F)
   }
   
+  group <- reactive({
+    # Dependencies
+    input$group
+    
+    isolate(
+      withProgress(message = "Fetching groups", value = 0, {
+        groups <- fse.getGroups()
+        group <- groups[groups$name == input$group,]
+      })
+    )
+    
+    return (group)
+  })
+  
+  region <- reactive({
+    region <- sub(" \\([0-9]+ aircraft\\)", "", input$region)
+    return (regions[regions$name == region,])
+  })
+  
+  rentalAircraft <- reactive({
+    # Dependencies
+    input$aircraft
+    input$region
+    
+    isolate({
+      rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
+      rentalAircraft <- limitByRegion(rentalAircraft, region())
+    })
+    
+    return (rentalAircraft)
+  })
+  
   results <- reactive({
     # Dependencies
     input$aircraft
@@ -158,10 +197,7 @@ shinyServer(function(input, output) {
       withProgress(message = "Finding assignments", value = 0, {
         # Find rental aircraft
         incProgress(0.1, detail = "Finding rental aircraft")
-        region <- sub(" \\([0-9]+ aircraft\\)", "", input$region)
-        region <- regions[regions$name == region,]
-        rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
-        rentalAircraft <- limitByRegion(rentalAircraft, region)
+        rentalAircraft <- rentalAircraft()
         
         # Fetch leg 1
         if (Sys.getenv("TESTRUN") == "true") {
@@ -222,14 +258,16 @@ shinyServer(function(input, output) {
       
       incProgress(0.1, detail = "Leg 1")
       
+      group <- group()
+      
       # Book leg 1
-      fse.bookAssignments(a$start, a$assignmentIds1)
+      fse.bookAssignments(a$start, a$assignmentIds1, group_id = group$groupId)
       
       if (!is.na(a$mid)) {
         incProgress(0.5, detail = "Leg 2")
         
         # Book leg 2 if there is one
-        fse.bookAssignments(a$mid, a$assignmentIds2)
+        fse.bookAssignments(a$mid, a$assignmentIds2, group_id = group$groupId)
       }
     })
   }

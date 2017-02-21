@@ -7,6 +7,33 @@ htmlPath <- function(name, p = "fbos") {
   return (pathFromName(name, extension = "html"))
 }
 
+fse.getGroups <- function(maxAge = 60 * 24 * 7) {
+  path <- htmlPath('groups', Sys.getenv("FSE_USER"))
+  if (!validFileExists(path, maxAge)) {
+    cmd <- sprintf("PREFIX='%s' ./scrape.sh get_groups", Sys.getenv("FSE_USER"))
+    system(cmd)
+  }
+  
+  groups <- data.frame(
+    name = character(),
+    groupId = integer(),
+    stringsAsFactors = F
+  )
+  groups[1,] <- list(name = "Myself", groupId = 0)
+  
+  table <- read_html(path) %>% html_nodes(xpath = '//*[@id="groupForm"]/table//tr')
+  for (n in 2:length(table)) {
+    row <- html_nodes(table[n], xpath = './/td')
+    name <- html_text(row[1])
+    groupLink <- html_nodes(row[3], xpath = ".//a")[1] %>% html_attr("href")
+    groupId <- as.integer(strsplit(groupLink, "=")[[1]][2])
+    
+    groups[nrow(groups) + 1,] <- list(name = name, groupId = groupId)
+  }
+  
+  return (groups)
+}
+
 fse.bookAssignments <- function(icao, assignment_ids, group_id = 0) {
   cmd <- sprintf("FSE_ICAO='%s' ASSIGNMENT_IDS='%s' GROUP_ID='%i' ./scrape.sh get_assignments", icao, assignment_ids, group_id)
   system(cmd)

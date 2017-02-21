@@ -28,7 +28,8 @@ shinyUI(pageWithSidebar(
                 min = 0, max = 2000, value = c(200, 500),
                 step = 50, post = " nm"),
     h5(textOutput("duration")),
-    uiOutput("regionSelect")
+    uiOutput("regionSelect"),
+    uiOutput("groupSelect")
   ),
   
   # Show the caption and plot of the requested variable against mpg

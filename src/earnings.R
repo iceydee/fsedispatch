@@ -151,7 +151,7 @@ findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
   return (assignments)
 }
 
-getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL, matchICAO = NULL) {
+getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL, matchICAO = NULL, progress = function(a, b) {}) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   
   findNearestAC <- FALSE
@@ -165,10 +165,11 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   # Find assignments
   maxSeats <- (aircraft$Seats - 1) # TODO: Use fuel calc for this
   assignments <- fse.getAssignments(
-    unique(sort(searchICAO)),
+    searchICAO,
     minDistance = minDistance, maxDistance = maxDistance,
     maxSeats = maxSeats,
-    grouped = TRUE
+    grouped = TRUE,
+    progress = progress
   )
   
   if (length(assignments) < 1) {

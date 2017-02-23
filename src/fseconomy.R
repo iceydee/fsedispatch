@@ -79,7 +79,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
   return (groupedAssignments)
 }
 
-fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE) {
+fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE, progress = function(a, b) {}) {
   icaos <- unique(sort(icaos))
   maxFetch <- 100
   if(length(icaos) > maxFetch) {
@@ -98,6 +98,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
       }
       cat(sprintf("Fetching icaos %i:%i - %s\n", n, last, paste(icaos[n:last], collapse = "-")))
       a <- fse.getAssignments(icaos[n:last], minDistance, maxDistance, unittype, maxSeats, grouped)
+      progress(n / len, sprintf("%.0f / %.0f", n, len))
       
       if (grouped) {
         assignments <- append(assignments, a)

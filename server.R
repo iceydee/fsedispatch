@@ -6,26 +6,8 @@ source("./src/earnings.R")
 source("./src/icao.R")
 source("./src/scrape.R")
 
-# We tweak the "am" field to have nicer factor labels. Since this doesn't
-# rely on any user inputs we can do this once at startup and then use the
-# value throughout the lifetime of the application
-mpgData <- mtcars
-mpgData$am <- factor(mpgData$am, labels = c("Automatic", "Manual"))
-
 # Define server logic required to plot various variables against mpg
 shinyServer(function(input, output) {
-  
-  # Compute the forumla text in a reactive expression since it is 
-  # shared by the output$caption and output$mpgPlot expressions
-  formulaText <- reactive({
-    paste("mpg ~", input$variable)
-  })
-  
-  # Return the formula text for printing as a caption
-  output$caption <- renderText({
-    formulaText()
-  })
-  
   durationText <- reactive({
     ac <- fse.getAircraft(input$aircraft)
     sprintf("Estimated duration %.2fh - %.2fh",
@@ -196,27 +178,33 @@ shinyServer(function(input, output) {
     isolate(
       withProgress(message = "Finding assignments", value = 0, {
         # Find rental aircraft
-        incProgress(0.1, detail = "Finding rental aircraft")
+        setProgress(0.1, message = "Finding rental aircraft", detail = "")
         rentalAircraft <- rentalAircraft()
         
         # Fetch leg 1
         if (Sys.getenv("TESTRUN") == "true") {
           rentalAircraft <- rentalAircraft[1:(min(5, nrow(rentalAircraft))),]
         }
-        incProgress(0.2, detail = "Fetching assignments for leg 1")
         minDistance <- input$distance[1]
         maxDistance <- input$distance[2]
-        leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance)
+        leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance, progress = function(v, m) {
+          setProgress(0.1 + (v * 0.2),
+                      message = "Fetching assignments (Leg 1)",
+                      detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
+        })
         
         # Fetch leg 2
         if (Sys.getenv("TESTRUN") == "true") {
           leg1 <- leg1[1:(min(10, nrow(leg1))),]
         }
-        incProgress(0.3, detail = "Fetching assignments for leg 2")
-        leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao)
+        leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao, progress = function(v, m) {
+          setProgress(0.3 + (v * 0.6),
+                      message = "Fetching assignments (Leg 2",
+                      detail = sprintf("%.0f / %.0f", v * nrow(leg1), nrow(leg1)))
+        })
         
         # Gather results
-        incProgress(0.9, detail = "Gathering results")
+        setProgress(0.9, detail = "Gathering results")
         results <- gatherResults(leg1, leg2, maxDistance)
       })
     )

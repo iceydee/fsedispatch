@@ -35,16 +35,6 @@ Source: CRAN
 Version: 3.98-1.5
 Hash: 818adc834fc0a16dd4340a59d63b673a
 
-Package: backports
-Source: CRAN
-Version: 1.0.5
-Hash: 8b835bdc5447f2c76fda198e17d6bda4
-
-Package: base64enc
-Source: CRAN
-Version: 0.1-3
-Hash: c590d29e555926af053055e23ee79efb
-
 Package: bitops
 Source: CRAN
 Version: 1.0-6
@@ -60,21 +50,11 @@ Source: CRAN
 Version: 0.6.12
 Hash: e53fb8c58673df868183697e39a6a4d6
 
-Package: formatR
-Source: CRAN
-Version: 1.4
-Hash: b2a47a2b91737978cf50ba95825a9cd1
-
 Package: geosphere
 Source: CRAN
 Version: 1.5-5
 Hash: 6772bef0f3f3aaa58b475479c03ff596
 Requires: sp
-
-Package: highr
-Source: CRAN
-Version: 0.6
-Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
 
 Package: htmltools
 Source: CRAN
@@ -114,12 +94,6 @@ Source: CRAN
 Version: 0.5
 Hash: 463550cf44fb6f0a2359368f42eebe62
 
-Package: miniUI
-Source: CRAN
-Version: 0.1.1
-Hash: e85626581f80b1fe6c92a96ec348efc5
-Requires: htmltools, shiny
-
 Package: openssl
 Source: CRAN
 Version: 0.9.6
@@ -129,12 +103,6 @@ Package: packrat
 Source: CRAN
 Version: 0.4.8-1
 Hash: 6ad605ba7b4b476d84be6632393f5765
-
-Package: rprojroot
-Source: CRAN
-Version: 1.2
-Hash: fdcac51a7f47decd60556ceefc3c26b1
-Requires: backports
 
 Package: rvest
 Source: CRAN
@@ -154,12 +122,6 @@ Version: 1.0.0
 Hash: 315fd5ac8ada4047f81af7c19d5a5974
 Requires: R6, digest, htmltools, httpuv, jsonlite, mime, sourcetools,
     xtable
-
-Package: shinyjs
-Source: CRAN
-Version: 0.9
-Hash: 579098ad240eba826dc5d96c8c2a5d13
-Requires: digest, htmltools, jsonlite, miniUI, shiny
 
 Package: sourcetools
 Source: CRAN
@@ -192,8 +154,3 @@ Package: xtable
 Source: CRAN
 Version: 1.8-2
 Hash: 7293235cfcc14cdff1ce7fd1a0212031
-
-Package: yaml
-Source: CRAN
-Version: 2.1.14
-Hash: c81230c3a7d9ba20607ad6b4331173d1

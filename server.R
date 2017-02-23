@@ -8,6 +8,8 @@ source("./src/scrape.R")
 
 # Define server logic required to plot various variables against mpg
 shinyServer(function(input, output) {
+  values <- reactiveValues(optionNumber = 1)
+  
   durationText <- reactive({
     ac <- fse.getAircraft(input$aircraft)
     sprintf("Estimated duration %.2fh - %.2fh",
@@ -25,20 +27,21 @@ shinyServer(function(input, output) {
   }
   
   output$regionSelect <- renderUI({
-    if (nchar(input$aircraft) < 1) {
-      return()
+    if (nchar(input$aircraft) >= 1) {
+      rentalAircraft <- fse.findRentalAircraft(
+        input$aircraft,
+        waterOk = FALSE
+      )
+      
+      # Check how many ac we have in each region
+      regions$count <- sapply(1:nrow(regions), function (n) {
+        return (nrow(limitByRegion(rentalAircraft, regions[n,])))
+      })
+      
+      regions <- regions[regions$count > 0,]
+    } else {
+      regions$count <- rep(0, nrow(regions))
     }
-    rentalAircraft <- fse.findRentalAircraft(
-      input$aircraft,
-      waterOk = FALSE
-    )
-    
-    # Check how many ac we have in each region
-    regions$count <- sapply(1:nrow(regions), function (n) {
-      return (nrow(limitByRegion(rentalAircraft, regions[n,])))
-    })
-    
-    regions <- regions[regions$count > 0,]
     
     r <- sapply(1:nrow(regions), function(n) {
       sprintf("%s (%.0f aircraft)", regions$name[n], regions$count[n])
@@ -124,7 +127,7 @@ shinyServer(function(input, output) {
       data <- twoLegOptionData(result)
     }
     return (div(
-      renderDataTable(data),
+      renderDataTable(data, options = list(paging = F, searching = F, info = F)),
       h5(sprintf("Total earnings: $%.0f", result$totalEarnings)),
       h5(sprintf("Total distance: %.0f nm", result$totalDistance)),
       h5(sprintf("Total duration: %.2fh", result$totalDuration))
@@ -212,6 +215,11 @@ shinyServer(function(input, output) {
     return (results)
   })
   
+  numberOfResults <- reactive({
+    results <- results()
+    return (nrow(results))
+  })
+  
   output$results <- renderUI({
     # Dependencies
     if (is.empty(input$aircraft) || is.empty(input$region)) {
@@ -224,27 +232,23 @@ shinyServer(function(input, output) {
     div(
       h2("Results are in"),
       div(
-        id = "option1",
-        h3("Option 1"),
-        outputOption(results[1,]),
-        actionButton("option1Book", "Book Option 1")
-      ),
-      div(
-        id = "option2",
-        h3("Option 2"),
-        outputOption(results[2,]),
-        actionButton("option2Book", "Book option 2")
+        id = "currentOption",
+        h3(sprintf("Option %.0f", values$optionNumber)),
+        outputOption(results[values$optionNumber,]),
+        actionButton("optionBook", "Book Option"),
+        actionButton("prevOption", "Prev Option"),
+        actionButton("nextOption", "Next Option")
       )
     )
   })
   
-  bookOption <- function(number = 1) {
+  observeEvent(input$optionBook, {
     withProgress(message = "Booking assignments", value = 0, {
       # Fetch the results and get option
       results <- results()
-      a <- results[number,]
+      a <- results[values$optionNumber,]
       
-      incProgress(0.1, detail = "Leg 1")
+      setProgress(0.1, detail = "Leg 1")
       
       group <- group()
       
@@ -252,23 +256,23 @@ shinyServer(function(input, output) {
       fse.bookAssignments(a$start, a$assignmentIds1, group_id = group$groupId)
       
       if (!is.na(a$mid)) {
-        incProgress(0.5, detail = "Leg 2")
+        setProgress(0.5, detail = "Leg 2")
         
         # Book leg 2 if there is one
         fse.bookAssignments(a$mid, a$assignmentIds2, group_id = group$groupId)
       }
     })
-  }
-  
-  observeEvent(input$option1Book, {
-    removeUI("#option1Book")
-    bookOption(1)
-    removeUI("#option1")
   })
   
-  observeEvent(input$option2Book, {
-    removeUI("#option2Book")
-    bookOption(2)
-    removeUI("#option2")
+  observeEvent(input$prevOption, {
+    if (values$optionNumber > 1) {
+      values$optionNumber <- values$optionNumber - 1
+    }
+  })
+  
+  observeEvent(input$nextOption, {
+    if (values$optionNumber < numberOfResults()) {
+      values$optionNumber <- values$optionNumber + 1
+    }
   })
 })

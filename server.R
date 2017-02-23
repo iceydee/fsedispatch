@@ -236,6 +236,7 @@ shinyServer(function(input, output) {
         h3(sprintf("Option %.0f", values$optionNumber)),
         outputOption(results[values$optionNumber,]),
         actionButton("optionBook", "Book Option"),
+        actionButton("acRent", "Rent Aircraft"),
         actionButton("prevOption", "Prev Option"),
         actionButton("nextOption", "Next Option")
       )
@@ -261,6 +262,27 @@ shinyServer(function(input, output) {
         # Book leg 2 if there is one
         fse.bookAssignments(a$mid, a$assignmentIds2, group_id = group$groupId)
       }
+    })
+  })
+  
+  observeEvent(input$acRent, {
+    withProgress(message = "Renting aircraft", value = 0, {
+      # Fetch the results and get option
+      results <- results()
+      a <- results[values$optionNumber,]
+      
+      rentalAircraft <- rentalAircraft()
+      ac <- rentalAircraft[rentalAircraft$Location == a$start,]
+      if (a$dry1) {
+        ac <- ac[order(ac$RentalDry),]
+      } else {
+        ac <- ac[order(ac$RentalWet),]
+      }
+      ac <- ac[1,]
+      
+      setProgress(0.1, detail = "Contacting FSE")
+      
+      fse.rentAircraft(ac$Location, ac$Registration, a$dry1)
     })
   })
   

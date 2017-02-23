@@ -39,6 +39,15 @@ fse.bookAssignments <- function(icao, assignment_ids, group_id = 0) {
   system(cmd)
 }
 
+fse.rentAircraft <- function(icao, aircraft_reg, rent_dry = T) {
+  if (rent_dry) {
+    cmd <- sprintf("FSE_ICAO='%s' AIRCRAFT_REGISTRATION='%s' RENT_DRY='%i' ./scrape.sh rent_aircraft", icao, aircraft_reg, 1)
+  } else {
+    cmd <- sprintf("FSE_ICAO='%s' AIRCRAFT_REGISTRATION='%s' RENT_DRY='%i' ./scrape.sh rent_aircraft", icao, aircraft_reg, 0)
+  }
+  system(cmd)
+}
+
 fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
   toFetch <- vector()
   for (n in 1:length(icaos)) {

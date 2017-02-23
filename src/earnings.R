@@ -36,6 +36,7 @@ is.dry <- function(assignment) {
   if (assignment$DryEarnings > assignment$WetEarnings) {
     return (T)
   }
+  
   return (F)
 }
 
@@ -228,14 +229,21 @@ calc.assignments <- function(rentalAircraft, assignments) {
   })
   assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    ac <- ac[ac$RentalDry > 0,]
+    ac <- ac[order(ac$RentalDry),]
     if (nrow(ac) < 1) {
       cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      return (0.0)
+    }
+    if (ac$RentalDry == 0) {
       return (0.0)
     }
     calc.earnings(ac[1,], aircraft, assignments[n,])
   })
   assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    ac <- ac[ac$RentalWet > 0,]
+    ac <- ac[order(ac$RentalWet),]
     if (nrow(ac) < 1) {
       cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
       return (0.0)

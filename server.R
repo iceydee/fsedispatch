@@ -8,17 +8,29 @@ source("./src/scrape.R")
 
 # Define server logic required to plot various variables against mpg
 shinyServer(function(input, output) {
-  values <- reactiveValues(optionNumber = 1)
+  values <- reactiveValues(
+    optionNumber = 1,
+    durationMin = Inf,
+    durationMax = Inf
+  )
   
-  durationText <- reactive({
+  observeEvent(input$aircraft, {
     ac <- fse.getAircraft(input$aircraft)
-    sprintf("Estimated duration %.2fh - %.2fh",
-            calc.duration(ac, input$distance[1]),
-            calc.duration(ac, input$distance[2]))
+    if (nrow(ac) < 1) {
+      values$durationMin <- Inf
+      values$durationMax <- Inf
+    } else {
+      values$durationMin <- calc.duration(ac, input$distance[1])
+      values$durationMax <- calc.duration(ac, input$distance[2])
+    }
   })
   
   output$duration <- renderText({
-    durationText()
+    if (is.infinite(values$durationMin)) {
+      sprintf("Select aircraft to get duration estimation")
+    } else {
+      sprintf("Estimated duration %.0f min - %.0f min", values$durationMin * 60, values$durationMax * 60)
+    }
   })
   
   icaoOutput <- function(icao) {

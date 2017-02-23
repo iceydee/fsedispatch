@@ -4,19 +4,19 @@ source("./src/fseconomy.R")
 aircrafts <<- fse.getAircraft()
 
 # Define UI for miles per gallon application
-shinyUI(pageWithSidebar(
+shinyUI(fluidPage(
   
-  # # CSS for the progress bar
-  # tags$head(
-  #   tags$style(HTML("
-  #     .shiny-progress {
-  #       top: 50% !important;
-  #       left: 50% !important;
-  #       margin-top: -100px !important;
-  #       margin-left: -250px !important;
-  #     }
-  #   "))
-  # ),
+  # CSS for the progress bar
+  tags$head(
+   tags$style(HTML("
+     #shiny-notification-panel {
+       top: 50% !important;
+       left: 50% !important;
+       margin-top: -100px !important;
+       margin-left: -125px !important;
+     }
+   "))
+  ),
   
   # Application title
   headerPanel("FSEDispatch"),

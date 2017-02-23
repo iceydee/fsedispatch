@@ -76,7 +76,7 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
       n <- (n + maxFetch)
     }
     
-    name <- safeLongName(paste(fetchFiles, collapse="-"))
+    name <- safeLongName(paste(toFetch, collapse="-"))
     path <- sprintf("./tmp/scrape-list-%s", name)
     write(paste(fetchFiles, collapse="\n"), path)
     

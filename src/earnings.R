@@ -90,13 +90,13 @@ gatherResults <- function(leg1, leg2, maxDistance) {
         assignmentIds2 = b$AssignmentIds,
         totalEarnings = (a$Earnings + b$Earnings),
         distance1 = a$Distance,
-        fuelUsage1 = a$FuelUsage,
-        duration1 = a$Duration,
+        fuelUsage1 = ceiling(a$FuelUsage),
+        duration1 = round(a$Duration * 60),
         distance2 = b$Distance,
-        fuelUsage2 = b$FuelUsage,
-        duration2 = b$Duration,
+        fuelUsage2 = ceiling(b$FuelUsage),
+        duration2 = round(b$Duration * 60),
         totalDistance = a$Distance + b$Distance,
-        totalDuration = a$Duration + b$Duration
+        totalDuration = round((a$Duration + b$Duration) * 60)
       )
     } else {
       results[n,] <- list(
@@ -115,13 +115,13 @@ gatherResults <- function(leg1, leg2, maxDistance) {
         assignmentIds2 = NA,
         totalEarnings = a$Earnings,
         distance1 = a$Distance,
-        fuelUsage1 = a$FuelUsage,
-        duration1 = a$Duration,
+        fuelUsage1 = ceiling(a$FuelUsage),
+        duration1 = round(a$Duration * 60),
         distance2 = NA,
         fuelUsage2 = NA,
         duration2 = NA,
         totalDistance = a$Distance,
-        totalDuration = a$Duration
+        totalDuration = round(a$Duration * 60)
       )
     }
   }

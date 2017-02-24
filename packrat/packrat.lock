@@ -14,6 +14,11 @@ Source: CRAN
 Version: 2.2.0
 Hash: 712773a3439bd32db5c40938e1a9aac2
 
+Package: RColorBrewer
+Source: CRAN
+Version: 1.1-2
+Hash: c0d56cd15034f395874c870141870c25
+
 Package: RCurl
 Source: CRAN
 Version: 1.95-4.8
@@ -35,15 +40,41 @@ Source: CRAN
 Version: 3.98-1.5
 Hash: 818adc834fc0a16dd4340a59d63b673a
 
+Package: assertthat
+Source: CRAN
+Version: 0.1
+Hash: 0afb92b59b02593c70ff8046700ba9d3
+
+Package: base64enc
+Source: CRAN
+Version: 0.1-3
+Hash: c590d29e555926af053055e23ee79efb
+
 Package: bitops
 Source: CRAN
 Version: 1.0-6
 Hash: 67d0775189fd0041d95abca618c5c07e
 
+Package: colorspace
+Source: CRAN
+Version: 1.3-2
+Hash: 0bf8618b585fa98eb23414cd3ab95118
+
+Package: crosstalk
+Source: CRAN
+Version: 1.0.0
+Hash: c13adea5906fbe2becfcb5f843b26749
+Requires: R6, ggplot2, htmltools, jsonlite, lazyeval, shiny
+
 Package: curl
 Source: CRAN
 Version: 2.3
 Hash: 9a0b969942c61511002e103f7b047b98
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+Hash: 08eed0c80510af29bb15f840ccfe37ce
 
 Package: digest
 Source: CRAN
@@ -56,11 +87,34 @@ Version: 1.5-5
 Hash: 6772bef0f3f3aaa58b475479c03ff596
 Requires: sp
 
+Package: ggplot2
+Source: CRAN
+Version: 2.2.1
+Hash: 46e5cb78836848aa44655e577433f54b
+Requires: digest, gtable, lazyeval, plyr, reshape2, scales, tibble
+
+Package: gridExtra
+Source: CRAN
+Version: 2.2.1
+Hash: 8f54b57d4b0598ed5b27e0eafe86a670
+Requires: gtable
+
+Package: gtable
+Source: CRAN
+Version: 0.2.0
+Hash: cd78381a9d3fea966ac39bd0daaf5554
+
 Package: htmltools
 Source: CRAN
 Version: 0.3.5
 Hash: 6c7e3a96d9034d3ba8e6a07f7e2a333d
 Requires: Rcpp, digest
+
+Package: htmlwidgets
+Source: CRAN
+Version: 0.8
+Hash: e7a3c80acddc2412f96d616949e40bb8
+Requires: htmltools, jsonlite, yaml
 
 Package: httpuv
 Source: CRAN
@@ -79,10 +133,33 @@ Source: CRAN
 Version: 1.2
 Hash: 3a193a612cae6814719ed523f7e7cf44
 
+Package: labeling
+Source: CRAN
+Version: 0.3
+Hash: ecf589b42cd284b03a4beb9665482d3e
+
+Package: lazyeval
+Source: CRAN
+Version: 0.2.0
+Hash: 3d6e7608e65bbf5cb170dab1e3c9ed8b
+
+Package: leaflet
+Source: CRAN
+Version: 1.1.0
+Hash: 25f9a891535d490e22c4e200bf303362
+Requires: RColorBrewer, base64enc, crosstalk, htmltools, htmlwidgets,
+    magrittr, markdown, png, raster, scales, sp, viridis
+
 Package: magrittr
 Source: CRAN
 Version: 1.5
 Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: markdown
+Source: CRAN
+Version: 0.7.7
+Hash: fea2343a1119d61b0cc5c0a950d103a3
+Requires: mime
 
 Package: measurements
 Source: CRAN
@@ -94,6 +171,12 @@ Source: CRAN
 Version: 0.5
 Hash: 463550cf44fb6f0a2359368f42eebe62
 
+Package: munsell
+Source: CRAN
+Version: 0.4.3
+Hash: f96d896947fcaf9b6d0074002e9f4f9d
+Requires: colorspace
+
 Package: openssl
 Source: CRAN
 Version: 0.9.6
@@ -104,11 +187,40 @@ Source: CRAN
 Version: 0.4.8-1
 Hash: 6ad605ba7b4b476d84be6632393f5765
 
+Package: plyr
+Source: CRAN
+Version: 1.8.4
+Hash: ce3897d2ea6dabdb2c0a217b25f5fe99
+Requires: Rcpp
+
+Package: png
+Source: CRAN
+Version: 0.1-7
+Hash: 421d7d6e0fb4bd885ecbd909b6456b8b
+
+Package: raster
+Source: CRAN
+Version: 2.5-8
+Hash: cab4d071908e672aca4dbd776361eea5
+Requires: Rcpp, sp
+
+Package: reshape2
+Source: CRAN
+Version: 1.4.2
+Hash: 85d9947f8a5e187dff7f18265b96cb13
+Requires: Rcpp, plyr, stringr
+
 Package: rvest
 Source: CRAN
 Version: 0.3.2
 Hash: c69f7526520bad66fd2111ebe8b1364b
 Requires: httr, magrittr, selectr, xml2
+
+Package: scales
+Source: CRAN
+Version: 0.4.1
+Hash: bc8d2233a63b068b0f60b18303d60c55
+Requires: RColorBrewer, Rcpp, dichromat, labeling, munsell, plyr
 
 Package: selectr
 Source: CRAN
@@ -144,6 +256,18 @@ Version: 1.1.0
 Hash: 4d21d0063b37a17ea18eaec6acd29bf3
 Requires: magrittr, stringi
 
+Package: tibble
+Source: CRAN
+Version: 1.2
+Hash: 3857905737a164648031462bed6aa2ef
+Requires: Rcpp, assertthat, lazyeval
+
+Package: viridis
+Source: CRAN
+Version: 0.3.4
+Hash: c98cc0ee11a389f397c38ddb3762880c
+Requires: ggplot2, gridExtra
+
 Package: xml2
 Source: CRAN
 Version: 1.1.1
@@ -154,3 +278,8 @@ Package: xtable
 Source: CRAN
 Version: 1.8-2
 Hash: 7293235cfcc14cdff1ce7fd1a0212031
+
+Package: yaml
+Source: CRAN
+Version: 2.1.14
+Hash: c81230c3a7d9ba20607ad6b4331173d1

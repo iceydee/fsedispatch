@@ -1,5 +1,6 @@
 library(shiny)
 library(datasets)
+library(leaflet)
 source("./src/regions.R")
 source("./src/fseconomy.R")
 source("./src/earnings.R")
@@ -27,9 +28,9 @@ shinyServer(function(input, output) {
   
   output$duration <- renderText({
     if (is.infinite(values$durationMin)) {
-      sprintf("Select aircraft to get duration estimation")
+      sprintf("Select aircraft to get block time estimation")
     } else {
-      sprintf("Estimated duration %.0f min - %.0f min", values$durationMin * 60, values$durationMax * 60)
+      sprintf("Estimated block time %.0f min - %.0f min", values$durationMin * 60, values$durationMax * 60)
     }
   })
   
@@ -65,8 +66,7 @@ shinyServer(function(input, output) {
   output$groupSelect <- renderUI({
     groups <- fse.getGroups()
     
-    selectizeInput("group", NULL, c("", groups$name),
-                   options = list(placeholder = "Select your group"))
+    selectizeInput("group", "Assign to", c(groups$name))
   })
   
   oneLegOptionData <- function(result) {
@@ -132,17 +132,44 @@ shinyServer(function(input, output) {
     return (data)
   }
   
+  mapData <- reactive({
+    results <- results()
+    option <- results[values$optionNumber,]
+    
+    df <- data.frame(Location = character(), stringsAsFactors = F)
+    if (is.na(option$mid)) {
+      df[1,] <- list(Location = option$start)
+      df[2,] <- list(Location = option$end)
+    } else {
+      df[1,] <- list(Location = option$start)
+      df[2,] <- list(Location = option$mid)
+      df[3,] <- list(Location = option$end)
+    }
+    
+    df <- merge(df, icaoloc, by = "Location")
+    
+    return (df)
+  })
+  
+  output$routeMap <- renderLeaflet({
+    leaflet(data = mapData()) %>% addTiles() %>%
+      addMarkers(~Longitude, ~Latitude, label = ~Location)
+      #addPolylines(lng = ~Longitude, lat = ~Latitude)
+  })
+  
   outputOption <- function(result) {
     if (is.na(result$mid)) {
       data <- oneLegOptionData(result)
     } else {
       data <- twoLegOptionData(result)
     }
+    
     return (div(
       renderDataTable(data, options = list(paging = F, searching = F, info = F)),
       h5(sprintf("Total earnings: $%.0f", result$totalEarnings)),
       h5(sprintf("Total distance: %.0f nm", result$totalDistance)),
-      h5(sprintf("Total duration: %.2fh", result$totalDuration))
+      h5(sprintf("Total block time: %.0f minutes", result$totalDuration)),
+      leafletOutput("routeMap")
     ))
   }
   

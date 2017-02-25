@@ -136,14 +136,14 @@ shinyServer(function(input, output) {
     results <- results()
     option <- results[values$optionNumber,]
     
-    df <- data.frame(Location = character(), stringsAsFactors = F)
+    df <- data.frame(Location = character(), Color = character(), stringsAsFactors = F)
     if (is.na(option$mid)) {
-      df[1,] <- list(Location = option$start)
-      df[2,] <- list(Location = option$end)
+      df[1,] <- list(Location = option$start, Color = "green")
+      df[2,] <- list(Location = option$end, Color = "red")
     } else {
-      df[1,] <- list(Location = option$start)
-      df[2,] <- list(Location = option$mid)
-      df[3,] <- list(Location = option$end)
+      df[1,] <- list(Location = option$start, Color = "green")
+      df[2,] <- list(Location = option$mid, Color = "blue")
+      df[3,] <- list(Location = option$end, Color = "red")
     }
     
     df <- merge(df, icaoloc, by = "Location")
@@ -153,7 +153,7 @@ shinyServer(function(input, output) {
   
   output$routeMap <- renderLeaflet({
     leaflet(data = mapData()) %>% addTiles() %>%
-      addMarkers(~Longitude, ~Latitude, label = ~Location)
+      addCircleMarkers(~Longitude, ~Latitude, label = ~Location, color = ~Color, radius = 8)
       #addPolylines(lng = ~Longitude, lat = ~Latitude)
   })
   
@@ -216,6 +216,11 @@ shinyServer(function(input, output) {
     # Dependencies
     input$aircraft
     input$region
+    
+    if (Sys.getenv("CANNED_DATA") == "true") {
+      results <- readRDS("./data/canned_data.rds")
+      return (results)
+    }
     
     isolate(
       withProgress(message = "Finding assignments", value = 0, {

@@ -15,17 +15,6 @@ shinyServer(function(input, output) {
     durationMax = Inf
   )
   
-  observeEvent(input$aircraft, {
-    ac <- fse.getAircraft(input$aircraft)
-    if (nrow(ac) < 1) {
-      values$durationMin <- Inf
-      values$durationMax <- Inf
-    } else {
-      values$durationMin <- calc.duration(ac, input$distance[1])
-      values$durationMax <- calc.duration(ac, input$distance[2])
-    }
-  })
-  
   output$duration <- renderText({
     if (is.infinite(values$durationMin)) {
       sprintf("Select aircraft to get block time estimation")
@@ -132,28 +121,29 @@ shinyServer(function(input, output) {
     return (data)
   }
   
-  mapData <- reactive({
-    results <- results()
-    option <- results[values$optionNumber,]
+  addRouteLines <- function(map) {
+    data <- mapData()
     
-    df <- data.frame(Location = character(), Color = character(), stringsAsFactors = F)
-    if (is.na(option$mid)) {
-      df[1,] <- list(Location = option$start, Color = "green")
-      df[2,] <- list(Location = option$end, Color = "red")
-    } else {
-      df[1,] <- list(Location = option$start, Color = "green")
-      df[2,] <- list(Location = option$mid, Color = "blue")
-      df[3,] <- list(Location = option$end, Color = "red")
+    print(data)
+    
+    m <- addPolylines(map, lng = c(data[1,c("Longitude")], data[2,c("Longitude")]),
+                           lat = c(data[1,c("Latitude")], data[2,c("Latitude")]),
+                           weight = 2)
+    
+    if (nrow(data) > 2) {
+      # Add route lines for both legs
+      m <- addPolylines(m, lng = c(data[2,c("Longitude")], data[3,c("Longitude")]),
+                           lat = c(data[2,c("Latitude")], data[3,c("Latitude")]),
+                           weight = 2)
     }
     
-    df <- merge(df, icaoloc, by = "Location")
-    
-    return (df)
-  })
+    return (m)
+  }
   
   output$routeMap <- renderLeaflet({
     leaflet(data = mapData()) %>% addTiles() %>%
-      addCircleMarkers(~Longitude, ~Latitude, label = ~Location, color = ~Color, radius = 8)
+      addCircleMarkers(~Longitude, ~Latitude, label = ~Location, color = ~Color, stroke = F, radius = 5, weight = 3, fillOpacity = 0.5) %>%
+      addRouteLines()
       #addPolylines(lng = ~Longitude, lat = ~Latitude)
   })
   
@@ -259,9 +249,33 @@ shinyServer(function(input, output) {
     return (results)
   })
   
+  currentOption <- reactive({
+    results <- results()
+    return (results[values$optionNumber,])
+  })
+  
   numberOfResults <- reactive({
     results <- results()
     return (nrow(results))
+  })
+  
+  mapData <- reactive({
+    option <- currentOption()
+    
+    df <- data.frame(Location = character(), Color = character(), OrderNo = integer(), stringsAsFactors = F)
+    if (is.na(option$mid)) {
+      df[1,] <- list(Location = option$start, Color = "green", OrderNo = 1)
+      df[2,] <- list(Location = option$end, Color = "red", OrderNo = 2)
+    } else {
+      df[1,] <- list(Location = option$start, Color = "green", OrderNo = 1)
+      df[2,] <- list(Location = option$mid, Color = "blue", OrderNo = 2)
+      df[3,] <- list(Location = option$end, Color = "red", OrderNo = 3)
+    }
+    
+    df <- merge(df, icaoloc, by = "Location")
+    df <- df[order(df$OrderNo),]
+    
+    return (df)
   })
   
   output$results <- renderUI({
@@ -270,15 +284,12 @@ shinyServer(function(input, output) {
       return()
     }
     
-    # Fetch the results
-    results <- results()
-    
     div(
       h2("Results are in"),
       div(
         id = "currentOption",
         h3(sprintf("Option %.0f", values$optionNumber)),
-        outputOption(results[values$optionNumber,]),
+        outputOption(currentOption()),
         actionButton("optionBook", "Book Option"),
         actionButton("acRent", "Rent Aircraft"),
         actionButton("prevOption", "Prev Option"),
@@ -287,11 +298,20 @@ shinyServer(function(input, output) {
     )
   })
   
+  observeEvent(input$aircraft, {
+    ac <- fse.getAircraft(input$aircraft)
+    if (nrow(ac) < 1) {
+      values$durationMin <- Inf
+      values$durationMax <- Inf
+    } else {
+      values$durationMin <- calc.duration(ac, input$distance[1])
+      values$durationMax <- calc.duration(ac, input$distance[2])
+    }
+  })
+  
   observeEvent(input$optionBook, {
     withProgress(message = "Booking assignments", value = 0, {
-      # Fetch the results and get option
-      results <- results()
-      a <- results[values$optionNumber,]
+      a <- currentOption()
       
       setProgress(0.1, detail = "Leg 1")
       
@@ -311,9 +331,7 @@ shinyServer(function(input, output) {
   
   observeEvent(input$acRent, {
     withProgress(message = "Renting aircraft", value = 0, {
-      # Fetch the results and get option
-      results <- results()
-      a <- results[values$optionNumber,]
+      a <- currentOption()
       
       rentalAircraft <- rentalAircraft()
       ac <- rentalAircraft[rentalAircraft$Location == a$start,]

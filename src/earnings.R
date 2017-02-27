@@ -289,6 +289,8 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
     }
   }
   
+  progress(maxHops, 1)
+  
   # Create assignment tree
   tree <- Node$new("start")
   addResultNodes(legs, tree)

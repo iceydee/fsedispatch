@@ -266,13 +266,19 @@ shinyServer(function(input, output) {
         
         pFact <- 1/input$hops
         tree <- getAssignmentTree(rentalAircraft, minDistance, maxDistance, input$hops, progress = function(v, m) {
-          legNo <- ceiling(v)
-          v <- (v - (legNo - 1))
-          legV <- v
-          v <- (v * pFact)
-          setProgress(0.1 + (v * 0.9),
-                      message = sprintf("Fetching assignments (Leg %.0f)", legNo),
-                      detail = sprintf("%.0f / %.0f", v * m, m))
+          if (v == input$hops && m == 1) {
+            setProgress(0.9,
+                        message = "Finding most profitable routes",
+                        detail = "")
+          } else {
+            legNo <- ceiling(v)
+            v <- (v - (legNo - 1))
+            legV <- v
+            v <- ((v * pFact) + ((legNo - 1) * pFact))
+            setProgress(0.1 + (v * 0.9),
+                        message = sprintf("Fetching assignments (Leg %.0f)", legNo),
+                        detail = sprintf("%.0f / %.0f", v * m, m))
+          }
         })
       })
     )

@@ -24,6 +24,7 @@ shinyUI(fluidPage(
   sidebarPanel(
     selectizeInput("aircraft", NULL, c("", aircrafts$MakeModel),
                    options = list(placeholder = "Choose your aircraft")),
+    checkboxInput("airline", "Airline assignment", value = F),
     sliderInput("distance", "Target distance:",
                 min = 0, max = 2000, value = c(200, 400),
                 step = 50, post = " nm"),

@@ -67,11 +67,15 @@ gatherResults <- function(leg1, leg2, maxDistance) {
     stringsAsFactors = FALSE)
   for (n in 1:nrow(leg1)) {
     a <- leg1[n,]
-    b <- leg2[leg2$FromIcao == a$ToIcao,]
-    maxBDistance <- maxDistance - a$Distance
-    b <- b[b$Distance < maxBDistance,]
-    b <- b[order(-b$Earnings),]
-    b <- b[1,]
+    if (nrow(leg2) > 0) {
+      b <- leg2[leg2$FromIcao == a$ToIcao,]
+      maxBDistance <- maxDistance - a$Distance
+      b <- b[b$Distance < maxBDistance,]
+      b <- b[order(-b$Earnings),]
+      b <- b[1,]
+    } else {
+      b <- leg2
+    }
     
     if (nrow(b) > 0) {
       results[n,] <- list(
@@ -152,6 +156,27 @@ findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
   return (assignments)
 }
 
+getRankedAirlineAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, progress = function(a, b) {}) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  searchICAO <- unique(sort(rentalAircraft$Location))
+  assignments <- fse.getAirlineAssignments(searchICAO, progress)
+  
+  # Filter aircraft and distance
+  assignments <- assignments[assignments$Aircraft == aircraft$MakeModel,]
+  assignments <- assignments[assignments$Distance >= minDistance & assignments$Distance <= maxDistance,]
+  
+  if (nrow(assignments) < 1) {
+    return (assignments)
+  }
+  
+  # Calculate final earnings
+  assignments <- calc.airlineAssignments(rentalAircraft, assignments)
+  
+  # And sort
+  assignments <- assignments[order(-assignments$Earnings),]
+  return (assignments)
+}
+
 getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL, matchICAO = NULL, progress = function(a, b) {}) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   
@@ -210,6 +235,19 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Earnings),]
   
   return (groupedAssignments)
+}
+
+calc.airlineAssignments <- function(rentalAircraft, assignments) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  fse.fetchAirports(c(assignments$FromIcao, assignments$ToIcao))
+  assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
+  assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
+  assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
+  assignments$Earnings <- sapply(1:nrow(assignments), function(n) {assignments$Pay[n] - assignments$GroundCrewFee[n]})
+  assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
+  assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
+  assignments$Amount <- sapply(1:nrow(assignments), function(n) {as.integer(gsub("[^0-9]+", "", assignments$Commodity[n]))})
+  return (assignments)
 }
 
 calc.assignments <- function(rentalAircraft, assignments) {

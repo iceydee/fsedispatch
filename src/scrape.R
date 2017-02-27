@@ -1,5 +1,6 @@
 library("rvest")
 library("RJSONIO")
+library("plyr")
 source("./src/xmlHandling.R")
 
 htmlPath <- function(name, p = "fbos") {
@@ -93,6 +94,48 @@ fse.fetchAirports <- function(icaos, maxAge = 60 * 24 * 30) {
     system(cmd)
     unlink(path)
   }
+}
+
+fse.getAirlineAssignments <- function(icao, progress = function(a, b) {}) {
+  if (length(icao) > 1) {
+    fse.fetchAirports(icao, maxAge = 15)
+    a <- list()
+    for (n in 1:length(icao)) {
+      a[[n]] <- fse.getAirlineAssignments(icao[n])
+      progress(n / length(icao), sprintf("%.0f / %.0f", n, length(icao)))
+    }
+    a <- ldply(a, data.frame)
+    a <- a[order(-a$Pay),]
+    return (a)
+  }
+  
+  fse.fetchAirports(icao, maxAge = 15)
+  
+  # Fetch assignments
+  h <- read_html(htmlPath(icao, "fbos")) %>% html_nodes(xpath = '//*[@id="airportForm"]/table')
+  a <- html_table(h, header = TRUE, fill = TRUE)
+  a <- a[[1]]
+  a$AssignmentIds <- html_nodes(h, xpath = './/*[contains(@class, "updateCheckbox")]/input') %>% html_attr("value")
+  a <- a[a$Type == "A→" | a$Type == "A",]
+  a <- a[,!(names(a) %in% c("Add", "Brg", "Expires", "Action"))]
+  colnames(a) <- c("Pay", "FromIcao", "ToIcao", "Distance", "Commodity", "Type", "Registration", "AssignmentIds")
+  if (nrow(a) > 0) {
+    a$Pay <- sapply(1:nrow(a), function(n) {suppressWarnings(as.double(gsub("[\\$,]+", "", a$Pay[n])))})
+    a$Distance <- sapply(1:nrow(a), function(n) {icao.distance(a$FromIcao[n], a$ToIcao[n])})
+  }
+  a <- clean(a, c(c("double"), rep("char", 2), c("double"), rep("char", 4)))
+  
+  if (nrow(a) < 1) {
+    return (a)
+  }
+  
+  # Fetch aircraft types
+  b <- read_html(htmlPath(icao, "fbos")) %>% html_nodes(xpath = '//*[@id="aircraftForm"]/table')
+  b <- html_table(b, header = T, fill = T)
+  b <- b[[1]]
+  a$Aircraft <- sapply(1:nrow(a), function(n) {b[b$Id == a$Registration[n],]$Type})
+  
+  return (a)
 }
 
 fse.getFBOs <- function(icao) {

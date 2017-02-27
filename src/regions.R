@@ -5,6 +5,7 @@ nxt <- function(r) {
 }
 
 regions <- data.frame(name = character(), minLon = integer(), maxLon = integer(), minLat = integer(), maxLat = integer(), stringsAsFactors = FALSE)
+regions[nxt(regions),] <- c(name = "Global", minLon = -180, maxLon = 180, minLat = -90, maxLat = 90) #
 regions[nxt(regions),] <- c(name = "Central Europe", minLon = 6, maxLon = 24, minLat = 45.5, maxLat = 55) #
 regions[nxt(regions),] <- c(name = "Western Europe", minLon = -10.5, maxLon = 8.25, minLat = 36, maxLat = 61) #
 regions[nxt(regions),] <- c(name = "Eastern Europe", minLon = 12, maxLon = 30, minLat = 41.2, maxLat = 59.7) #

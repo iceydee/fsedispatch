@@ -30,10 +30,17 @@ shinyServer(function(input, output) {
   
   output$regionSelect <- renderUI({
     if (nchar(input$aircraft) >= 1) {
-      rentalAircraft <- fse.findRentalAircraft(
-        input$aircraft,
-        waterOk = FALSE
-      )
+      if (input$airline) {
+        rentalAircraft <- fse.findAircraft(
+          input$aircraft,
+          waterOk = FALSE
+        )
+      } else {
+        rentalAircraft <- fse.findRentalAircraft(
+          input$aircraft,
+          waterOk = FALSE
+        )
+      }
       
       # Check how many ac we have in each region
       regions$count <- sapply(1:nrow(regions), function (n) {
@@ -59,7 +66,7 @@ shinyServer(function(input, output) {
   })
   
   oneLegOptionData <- function(result) {
-    data <- list(From = character(),
+    data <- data.frame(From = character(),
                        To = character(),
                        Distance = integer(),
                        Amount = integer(),
@@ -69,7 +76,7 @@ shinyServer(function(input, output) {
                        Duration = double(),
                        `Minimum Fuel` = integer(),
                        stringsAsFactors = F)
-    data[1,] <- data.frame(
+    data[1,] <- list(
       From = icaoOutput(result$start),
       To = icaoOutput(result$end),
       Distance = result$distance1,
@@ -170,6 +177,17 @@ shinyServer(function(input, output) {
     return (F)
   }
   
+  recalcDuration <- function() {
+    ac <- fse.getAircraft(input$aircraft)
+    if (nrow(ac) < 1) {
+      values$durationMin <- Inf
+      values$durationMax <- Inf
+    } else {
+      values$durationMin <- calc.duration(ac, input$distance[1])
+      values$durationMax <- calc.duration(ac, input$distance[2])
+    }
+  }
+  
   group <- reactive({
     # Dependencies
     input$group
@@ -193,18 +211,58 @@ shinyServer(function(input, output) {
     # Dependencies
     input$aircraft
     input$region
+    input$airline
     
     isolate({
-      rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
+      if (input$airline) {
+        rentalAircraft <- fse.findAircraft(input$aircraft, waterOk = F)
+      } else {
+        rentalAircraft <- fse.findRentalAircraft(input$aircraft, waterOk = F)
+      }
       rentalAircraft <- limitByRegion(rentalAircraft, region())
     })
     
     return (rentalAircraft)
   })
   
-  results <- reactive({
+  airlineResults <- reactive({
     # Dependencies
     input$aircraft
+    input$region
+    
+    if (Sys.getenv("CANNED_DATA") == "true") {
+      results <- readRDS("./data/canned_airline_data.rds")
+      return (results)
+    }
+    
+    isolate(
+      withProgress(message = "Finding assignments", value = 0, {
+        # Find rental aircraft
+        setProgress(0.1, message = "Finding rental aircraft", detail = "")
+        rentalAircraft <- rentalAircraft()
+        
+        # Fetch leg 1
+        minDistance <- input$distance[1]
+        maxDistance <- input$distance[2]
+        leg1 <- getRankedAirlineAssignments(rentalAircraft, minDistance, maxDistance, progress = function(v, m) {
+          setProgress(0.1 + (v * 0.9),
+                      message = "Fetching airline assignments",
+                      detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
+        })
+
+        # Gather results
+        setProgress(0.9, detail = "Gathering results")
+        results <- gatherResults(leg1, leg1[0,], maxDistance)
+      })
+    )
+    
+    return (results)
+  })
+  
+  rentalResults <- reactive({
+    # Dependencies
+    input$aircraft
+    input$airline
     input$region
     
     if (Sys.getenv("CANNED_DATA") == "true") {
@@ -219,9 +277,6 @@ shinyServer(function(input, output) {
         rentalAircraft <- rentalAircraft()
         
         # Fetch leg 1
-        if (Sys.getenv("TESTRUN") == "true") {
-          rentalAircraft <- rentalAircraft[1:(min(5, nrow(rentalAircraft))),]
-        }
         minDistance <- input$distance[1]
         maxDistance <- input$distance[2]
         leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance, progress = function(v, m) {
@@ -231,9 +286,6 @@ shinyServer(function(input, output) {
         })
         
         # Fetch leg 2
-        if (Sys.getenv("TESTRUN") == "true") {
-          leg1 <- leg1[1:(min(10, nrow(leg1))),]
-        }
         leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao, progress = function(v, m) {
           setProgress(0.3 + (v * 0.6),
                       message = "Fetching assignments (Leg 2",
@@ -245,6 +297,24 @@ shinyServer(function(input, output) {
         results <- gatherResults(leg1, leg2, maxDistance)
       })
     )
+    
+    return (results)
+  })
+  
+  results <- reactive({
+    # Dependencies
+    input$airline
+    
+    if (Sys.getenv("CANNED_DATA") == "true") {
+      results <- readRDS("./data/canned_data.rds")
+      return (results)
+    }
+    
+    if (input$airline) {
+      results <- airlineResults()
+    } else {
+      results <- rentalResults()
+    }
     
     return (results)
   })
@@ -299,14 +369,11 @@ shinyServer(function(input, output) {
   })
   
   observeEvent(input$aircraft, {
-    ac <- fse.getAircraft(input$aircraft)
-    if (nrow(ac) < 1) {
-      values$durationMin <- Inf
-      values$durationMax <- Inf
-    } else {
-      values$durationMin <- calc.duration(ac, input$distance[1])
-      values$durationMax <- calc.duration(ac, input$distance[2])
-    }
+    recalcDuration()
+  })
+  
+  observeEvent(input$distance, {
+    recalcDuration()
   })
   
   observeEvent(input$optionBook, {

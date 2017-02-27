@@ -288,7 +288,7 @@ shinyServer(function(input, output) {
         # Fetch leg 2
         leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao, progress = function(v, m) {
           setProgress(0.3 + (v * 0.6),
-                      message = "Fetching assignments (Leg 2",
+                      message = "Fetching assignments (Leg 2)",
                       detail = sprintf("%.0f / %.0f", v * nrow(leg1), nrow(leg1)))
         })
         
@@ -305,16 +305,14 @@ shinyServer(function(input, output) {
     # Dependencies
     input$airline
     
-    if (Sys.getenv("CANNED_DATA") == "true") {
-      results <- readRDS("./data/canned_data.rds")
-      return (results)
-    }
-    
     if (input$airline) {
       results <- airlineResults()
     } else {
       results <- rentalResults()
     }
+    
+    # Reset the option number
+    values$optionNumber <- 1
     
     return (results)
   })

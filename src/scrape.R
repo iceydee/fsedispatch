@@ -143,30 +143,42 @@ fse.getFBOs <- function(icao) {
   a <- read_html(htmlPath(icao, "fbos")) %>% html_nodes(xpath = '//*[@id="fboInfo"]')
   a <- html_table(a, header = TRUE, fill = TRUE)
   a <- a[[1]]
-  a <- a[a$FBO > 0,]
+  a <- a[nchar(a$FBO) > 0,]
   colnames(a) <- c("FBO", "100LL Price", "100LL Gallons", "Jet-A Price", "Jet-A Gallons", "Repair/Avionics")
-  a$`100LL Price` <- sapply(1:nrow(a), function(n) {suppressWarnings(as.double(gsub("\\$", "", a$`100LL Price`[n])))})
-  a$`Jet-A Price` <- sapply(1:nrow(a), function(n) {suppressWarnings(as.double(gsub("\\$", "", a$`Jet-A Price`[n])))})
-  a$`100LL Gallons` <- sapply(1:nrow(a), function(n) {
-    if (is.na(a$`100LL Gallons`[n])) {
-      return (0)
-    }
-    if (a$`100LL Gallons`[n] == "unlimited") {
-      return (Inf)
-    } else {
-      return (suppressWarnings(as.integer(a$`100LL Gallons`[n])))
-    }
-  })
-  a$`Jet-A Gallons` <- sapply(1:nrow(a), function(n) {
-    if (is.na(a$`Jet-A Gallons`[n])) {
-      return (0)
-    }
-    if (a$`Jet-A Gallons`[n] == "unlimited") {
-      return (Inf)
-    } else {
-      return (suppressWarnings(as.integer(a$`Jet-A Gallons`[n])))
-    }
-  })
+  if (nrow(a) > 0) {
+    a$`100LL Price` <- sapply(1:nrow(a), function(n) {
+      if (is.na(a$`100LL Price`[n])) {
+        return (NA)
+      }
+      suppressWarnings(as.double(gsub("\\$", "", a$`100LL Price`[n])))
+    })
+    a$`Jet-A Price` <- sapply(1:nrow(a), function(n) {
+      if (is.na(a$`Jet-A Price`[n])) {
+        return (NA)
+      }
+      suppressWarnings(as.double(gsub("\\$", "", a$`Jet-A Price`[n])))
+    })
+    a$`100LL Gallons` <- sapply(1:nrow(a), function(n) {
+      if (is.na(a$`100LL Gallons`[n])) {
+        return (0)
+      }
+      if (a$`100LL Gallons`[n] == "unlimited") {
+        return (Inf)
+      } else {
+        return (suppressWarnings(as.integer(a$`100LL Gallons`[n])))
+      }
+    })
+    a$`Jet-A Gallons` <- sapply(1:nrow(a), function(n) {
+      if (is.na(a$`Jet-A Gallons`[n])) {
+        return (0)
+      }
+      if (a$`Jet-A Gallons`[n] == "unlimited") {
+        return (Inf)
+      } else {
+        return (suppressWarnings(as.integer(a$`Jet-A Gallons`[n])))
+      }
+    })
+  }
   return (a)
 }
 

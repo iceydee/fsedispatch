@@ -276,10 +276,16 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   
   # Fetch assignment legs
   legs <- list()
-  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, minDistance, maxDistance, progress)
+  legLength <- length(rentalAircraft$Location)
+  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, 0, maxDistance, function(v, m) {
+    progress(v, legLength)
+  })
   if (maxHops > 1) {
     for (n in 2:maxHops) {
-      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, minDistance, maxDistance, progress)
+      legLength <- length(legs[[n - 1]]$ToIcao)
+      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, 0, maxDistance, function(v, m) {
+        progress(v + (n-1), legLength)
+      })
     }
   }
   

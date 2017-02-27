@@ -264,10 +264,15 @@ shinyServer(function(input, output) {
         minDistance <- input$distance[1]
         maxDistance <- input$distance[2]
         
+        pFact <- 1/input$hops
         tree <- getAssignmentTree(rentalAircraft, minDistance, maxDistance, input$hops, progress = function(v, m) {
-          setProgress(0.1 + (v * 0.1),
-                      message = "Fetching assignments",
-                      detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
+          legNo <- ceiling(v)
+          v <- (v - (legNo - 1))
+          legV <- v
+          v <- (v * pFact)
+          setProgress(0.1 + (v * 0.9),
+                      message = sprintf("Fetching assignments (Leg %.0f)", legNo),
+                      detail = sprintf("%.0f / %.0f", v * m, m))
         })
       })
     )

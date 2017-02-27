@@ -120,18 +120,13 @@ shinyServer(function(input, output) {
   addRouteLines <- function(map) {
     data <- mapData()
     
-    m <- addPolylines(map, lng = c(data[1,c("Longitude")], data[2,c("Longitude")]),
-                           lat = c(data[1,c("Latitude")], data[2,c("Latitude")]),
-                           weight = 1.5, color = "black")
-    
-    if (nrow(data) > 2) {
-      # Add route lines for all legs
-      m <- addPolylines(m, lng = c(data[2,c("Longitude")], data[3,c("Longitude")]),
-                           lat = c(data[2,c("Latitude")], data[3,c("Latitude")]),
-                           weight = 1.5, color = "black")
+    for (n in 2:nrow(data)) {
+      map <- addPolylines(map, lng = c(data[n-1,c("Longitude")], data[n,c("Longitude")]),
+                        lat = c(data[n-1,c("Latitude")], data[n,c("Latitude")]),
+                        weight = 1.5, color = "black")
     }
     
-    return (m)
+    return (map)
   }
   
   output$routeMap <- renderLeaflet({

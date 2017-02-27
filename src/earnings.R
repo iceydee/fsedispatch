@@ -297,7 +297,13 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   calc.treeAssignments(rentalAircraft, tree)
   
   # Prune
-  Prune(tree, function(node) calc.totalDistance(node) < maxDistance)
+  Prune(tree, function(node) calc.totalDistance(node) <= maxDistance)
+  Prune(tree, function(node) {
+    if (!node$isLeaf) {
+      return (T)
+    }
+    calc.totalDistance(node) >= minDistance
+  })
   for (n in 1:maxHops) {
     # Prune leaves maxdepth
     pruneNonEarningLeaves(tree)

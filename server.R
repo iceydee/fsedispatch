@@ -210,8 +210,9 @@ shinyServer(function(input, output) {
   rentalAircraft <- reactive({
     # Dependencies
     input$aircraft
-    input$region
     input$airline
+    input$region
+    input$distance
     
     isolate({
       if (input$airline) {
@@ -264,6 +265,7 @@ shinyServer(function(input, output) {
     input$aircraft
     input$airline
     input$region
+    input$distance
     
     if (Sys.getenv("CANNED_DATA") == "true") {
       results <- readRDS("./data/canned_data.rds")
@@ -303,7 +305,10 @@ shinyServer(function(input, output) {
   
   results <- reactive({
     # Dependencies
+    input$aircraft
     input$airline
+    input$region
+    input$distance
     
     if (input$airline) {
       results <- airlineResults()

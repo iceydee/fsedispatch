@@ -1,6 +1,6 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
-RVersion: 3.3.3
+RVersion: 3.3.2
 Repos: CRAN=https://cran.rstudio.com/,
     CRANextra=http://www.stats.ox.ac.uk/pub/RWin
 
@@ -203,7 +203,7 @@ Requires: igraph
 Package: irlba
 Source: CRAN
 Version: 2.1.2
-Hash: 23fb0f166f3a2bdc2ac7b014b94b57a7
+Hash: b3433ead7f8cd82b73f8f7541726e8ac
 
 Package: iterators
 Source: CRAN

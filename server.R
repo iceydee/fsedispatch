@@ -65,6 +65,21 @@ shinyServer(function(input, output) {
     selectizeInput("group", "Assign to", c(groups$name))
   })
   
+  destinationData <- reactive({
+    c("", as.character(icaodata$icao))
+  })
+  
+  output$destinationSelect <- renderUI({
+    if (input$thirdLeg != "Destination") {
+      return (NULL)
+    }
+    
+    return (
+      selectizeInput("destination", NULL, destinationData(),
+                     options = list(placeholder = "Select target airport"))
+    )
+  })
+  
   oneLegOptionData <- function(result) {
     data <- data.frame(From = character(),
                        To = character(),
@@ -131,17 +146,15 @@ shinyServer(function(input, output) {
   addRouteLines <- function(map) {
     data <- mapData()
     
-    print(data)
-    
     m <- addPolylines(map, lng = c(data[1,c("Longitude")], data[2,c("Longitude")]),
                            lat = c(data[1,c("Latitude")], data[2,c("Latitude")]),
-                           weight = 2)
+                           weight = 1.5, color = "black")
     
     if (nrow(data) > 2) {
       # Add route lines for both legs
       m <- addPolylines(m, lng = c(data[2,c("Longitude")], data[3,c("Longitude")]),
                            lat = c(data[2,c("Latitude")], data[3,c("Latitude")]),
-                           weight = 2)
+                           weight = 1.5, color = "black")
     }
     
     return (m)
@@ -282,21 +295,28 @@ shinyServer(function(input, output) {
         minDistance <- input$distance[1]
         maxDistance <- input$distance[2]
         leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance, progress = function(v, m) {
-          setProgress(0.1 + (v * 0.2),
+          setProgress(0.1 + (v * 0.1),
                       message = "Fetching assignments (Leg 1)",
                       detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
         })
         
         # Fetch leg 2
         leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao, progress = function(v, m) {
-          setProgress(0.3 + (v * 0.6),
+          setProgress(0.2 + (v * 0.3),
                       message = "Fetching assignments (Leg 2)",
                       detail = sprintf("%.0f / %.0f", v * nrow(leg1), nrow(leg1)))
         })
         
+        # TODO: For when we have own aircraft
+        # if (input$thirdLeg == "Destination") {
+        #   destination = input$destination
+        # } else {
+        #   destination = NA
+        # }
+        
         # Gather results
         setProgress(0.9, detail = "Gathering results")
-        results <- gatherResults(leg1, leg2, maxDistance)
+        results <- gatherResults(leg1, leg2, maxDistance, destination = destination, destinationWeight = input$onwardWeight)
       })
     )
     
@@ -355,6 +375,15 @@ shinyServer(function(input, output) {
     # Dependencies
     if (is.empty(input$aircraft) || is.empty(input$region)) {
       return()
+    }
+    
+    results <- results()
+    if (nrow(results) < 1) {
+      return (
+        div(
+          h2("No routes found with those settings")
+        )
+      )
     }
     
     div(

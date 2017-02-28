@@ -40,7 +40,7 @@ is.dry <- function(assignment) {
   return (F)
 }
 
-gatherResults <- function(leg1, leg2, maxDistance) {
+gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destinationWeight = 0.5) {
   results <- data.frame(
     start = character(),
     mid = character(),
@@ -131,6 +131,20 @@ gatherResults <- function(leg1, leg2, maxDistance) {
   }
   
   results <- results[order(-results$totalEarnings),]
+  
+  # TODO: For when we have own aircraft
+  # if (!is.na(destination)) {
+  #   # Calculate destination bias
+  #   topEarn <- results[1,]$totalEarnings
+  #   destinationBonus <- topEarn * destinationWeight
+  # 
+  #   results$destinationValue <- sapply(1:nrow(results), function(n) {
+  #     calc.destinationBonus(destination, destinationBonus, results$start[n], results$end[n]) + results$totalEarnings[n]
+  #   })
+  # 
+  #   results <- results[order(-results$destinationValue),]
+  # }
+  
   return (as.data.frame(results))
 }
 
@@ -333,15 +347,20 @@ calc.bookingFee <- function(assignment) {
 }
 
 calc.distanceBonus <- function(rentalAircraft, assignment) {
-  if (is.na(assignment$FromIcao) ||
-      is.na(assignment$ToIcao) ||
-      is.na(rentalAircraft$Home)) {
+  return (calc.destinationBonus(rentalAircraft$Home, rentalAircraft$Bonus, assignment$FromIcao, assignment$ToIcao))
+}
+
+calc.destinationBonus <- function(destination, bonus, fromIcao, toIcao) {
+  if (is.na(destination) ||
+      is.na(fromIcao) ||
+      is.na(toIcao)) {
     return (0.00)
   }
-  oldHomeDistance <- icao.distance(assignment$FromIcao, rentalAircraft$Home)
-  newHomeDistance <- icao.distance(assignment$ToIcao, rentalAircraft$Home)
-  distanceDiff <- oldHomeDistance - newHomeDistance
-  return (rentalAircraft$Bonus * distanceDiff / 100)
+  
+  oldDistance <- icao.distance(fromIcao, destination)
+  newDistance <- icao.distance(toIcao, destination)
+  distanceDiff <- oldDistance - newDistance
+  return (bonus * distanceDiff / 100)
 }
 
 calc.fuelUsage <- function(aircraft, distance) {

@@ -29,6 +29,13 @@ shinyUI(fluidPage(
                 min = 0, max = 2000, value = c(200, 400),
                 step = 50, post = " nm"),
     h5(textOutput("duration")),
+    # TODO: This is for when we have own aircraft
+    # selectizeInput("thirdLeg", NULL, c("", "Profit", "Destination"),
+    #                options = list(placeholder = "Select onward journey bias")),
+    # uiOutput("destinationSelect"),
+    # sliderInput("onwardWeight", "Onward journey weighting:",
+    #             min = 0.0, max = 2.0, value = 0.5,
+    #             step = 0.1),
     uiOutput("regionSelect"),
     uiOutput("groupSelect")
   ),

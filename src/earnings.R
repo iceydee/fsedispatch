@@ -284,7 +284,7 @@ calc.assignments <- function(rentalAircraft, assignments) {
   assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
     if (nrow(ac) < 1) {
-      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      cat(sprintf("NB! For real, no rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
       return (0)
     }
     calc.distanceBonus(ac[1,], assignments[n,])
@@ -294,11 +294,7 @@ calc.assignments <- function(rentalAircraft, assignments) {
     ac <- ac[ac$RentalDry > 0,]
     ac <- ac[order(ac$RentalDry),]
     if (nrow(ac) < 1) {
-      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
-      return (0.0)
-    }
-    if (ac$RentalDry == 0) {
-      return (0.0)
+      return (NA)
     }
     calc.earnings(ac[1,], aircraft, assignments[n,])
   })
@@ -307,15 +303,19 @@ calc.assignments <- function(rentalAircraft, assignments) {
     ac <- ac[ac$RentalWet > 0,]
     ac <- ac[order(ac$RentalWet),]
     if (nrow(ac) < 1) {
-      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
-      return (0.0)
+      return (NA)
     }
     calc.earnings(ac[1,], aircraft, assignments[n,], dry = FALSE)
+  })
+  assignments$Earnings <- sapply(1:nrow(assignments), function(n) {
+    e <- c(dry = assignments$DryEarnings[n], wet = assignments$WetEarnings[n])
+    e[is.na(e)] <- -Inf
+    max(e["dry"], e["wet"])
   })
   assignments$CostOfDelay <- sapply(1:nrow(assignments), function(n) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
     e <- c(dry = assignments$DryEarnings[n], wet = assignments$WetEarnings[n])
-    e[is.na(e)] <- 0
+    e[is.na(e)] <- -Inf
     if (e["dry"] > e["wet"]) {
       dry <- T
     } else {
@@ -326,9 +326,8 @@ calc.assignments <- function(rentalAircraft, assignments) {
       return (0.0)
     }
     delayedEarnings <- calc.earnings(ac[1,], aircraft, assignments[n,], dry = dry, delay = 1.0)
-    return (max(assignments$DryEarnings[n], assignments$WetEarnings[n]) - delayedEarnings)
+    return (assignments$Earnings[n] - delayedEarnings)
   })
-  assignments$Earnings <- sapply(1:nrow(assignments), function(n) {max(assignments$DryEarnings[n], assignments$WetEarnings[n])})
   return (assignments)
 }
 

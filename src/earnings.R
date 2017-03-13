@@ -48,14 +48,17 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
     amount1 = integer(),
     commodity1 = character(),
     earnings1 = integer(),
+    costOfDelay1 = integer(),
     dry1 = logical(),
     assignmentIds1 = character(),
     amount2 = integer(),
     commodity2 = character(),
     earnings2 = integer(),
+    costOfDelay2 = integer(),
     dry2 = logical(),
     assignmentIds2 = character(),
     totalEarnings = integer(),
+    totalCostOfDelay = integer(),
     distance1 = integer(),
     fuelUsage1 = integer(),
     duration1 = integer(),
@@ -85,14 +88,17 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         amount1 = a$Amount,
         commodity1 = a$Commodity,
         earnings1 = a$Earnings,
+        costOfDelay1 = a$CostOfDelay,
         dry1 = is.dry(a),
         assignmentIds1 = a$AssignmentIds,
         amount2 = b$Amount,
         commodity2 = b$Commodity,
         earnings2 = b$Earnings,
+        costOfDelay2 = b$CostOfDelay,
         dry2 = is.dry(b),
         assignmentIds2 = b$AssignmentIds,
         totalEarnings = (a$Earnings + b$Earnings),
+        totalCostOfDelay = (a$CostOfDelay + b$CostOfDelay),
         distance1 = a$Distance,
         fuelUsage1 = ceiling(a$FuelUsage),
         duration1 = round(a$Duration * 60),
@@ -110,14 +116,17 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         amount1 = a$Amount,
         commodity1 = a$Commodity,
         earnings1 = a$Earnings,
+        costOfDelay1 = a$CostOfDelay,
         dry1 = is.dry(a),
         assignmentIds1 = a$AssignmentIds,
         amount2 = NA,
         commidity2 = NA,
         earnings2 = NA,
+        costOfDelay2 = NA,
         dry2 = NA,
         assignmentIds2 = NA,
         totalEarnings = a$Earnings,
+        totalCostOfDelay = a$CostOfDelay,
         distance1 = a$Distance,
         fuelUsage1 = ceiling(a$FuelUsage),
         duration1 = round(a$Duration * 60),
@@ -260,6 +269,7 @@ calc.airlineAssignments <- function(rentalAircraft, assignments) {
   assignments$Earnings <- sapply(1:nrow(assignments), function(n) {assignments$Pay[n] - assignments$GroundCrewFee[n]})
   assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
   assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
+  assignments$CostOfDelay <- rep(0.0, nrow(assignments))
   assignments$Amount <- sapply(1:nrow(assignments), function(n) {as.integer(gsub("[^0-9]+", "", assignments$Commodity[n]))})
   return (assignments)
 }
@@ -302,11 +312,27 @@ calc.assignments <- function(rentalAircraft, assignments) {
     }
     calc.earnings(ac[1,], aircraft, assignments[n,], dry = FALSE)
   })
+  assignments$CostOfDelay <- sapply(1:nrow(assignments), function(n) {
+    ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]
+    e <- c(dry = assignments$DryEarnings[n], wet = assignments$WetEarnings[n])
+    e[is.na(e)] <- 0
+    if (e["dry"] > e["wet"]) {
+      dry <- T
+    } else {
+      dry <- F
+    }
+    if (nrow(ac) < 1) {
+      cat(sprintf("No rental aircraft found for %s: %s\n", assignments$Location[n], paste(rentalAircraft$Location, collapse = "-")))
+      return (0.0)
+    }
+    delayedEarnings <- calc.earnings(ac[1,], aircraft, assignments[n,], dry = dry, delay = 1.0)
+    return (max(assignments$DryEarnings[n], assignments$WetEarnings[n]) - delayedEarnings)
+  })
   assignments$Earnings <- sapply(1:nrow(assignments), function(n) {max(assignments$DryEarnings[n], assignments$WetEarnings[n])})
   return (assignments)
 }
 
-calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE) {
+calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE, delay = 0.0) {
   if (rentalAircraft$RentalWet == 0) {
     dry <- TRUE
   }
@@ -314,12 +340,20 @@ calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE) {
     dry <- FALSE
   }
   
+  distance <- assignment$Distance
+  duration <- assignment$Duration
+  
+  if (delay > 0) {
+    distance <- (distance + (delay * aircraft$CruiseSpeed))
+    duration <- (duration + delay)
+  }
+  
   cost <- 0
   if (dry) {
-    fuelCost <- (calc.fuelUsage(aircraft, assignment$Distance) * assignment$FuelPrice)
-    cost <- ((rentalAircraft$RentalDry * assignment$Duration) + fuelCost)
+    fuelCost <- (calc.fuelUsage(aircraft, distance) * assignment$FuelPrice)
+    cost <- ((rentalAircraft$RentalDry * duration) + fuelCost)
   } else {
-    cost <- (rentalAircraft$RentalWet * assignment$Duration)
+    cost <- (rentalAircraft$RentalWet * duration)
   }
 
   return (assignment$Pay - cost + assignment$DistanceBonus - assignment$GroundCrewFee - assignment$BookingFee)

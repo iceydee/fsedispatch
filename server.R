@@ -87,6 +87,7 @@ shinyServer(function(input, output) {
                        Amount = integer(),
                        Commodity = character(),
                        Earnings = double(),
+                       DelayCost = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
@@ -98,6 +99,7 @@ shinyServer(function(input, output) {
       Amount = result$amount1,
       Commodity = result$commodity1,
       Earnings = result$earnings1,
+      DelayCost = result$costOfDelay1,
       RentDry = result$dry1,
       Duration = result$duration1,
       `Minimum Fuel` = result$fuelUsage1
@@ -113,6 +115,7 @@ shinyServer(function(input, output) {
                        Amount = integer(),
                        Commodity = character(),
                        Earnings = double(),
+                       DelayCost = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
@@ -124,6 +127,7 @@ shinyServer(function(input, output) {
       Amount = result$amount1,
       Commodity = result$commodity1,
       Earnings = result$earnings1,
+      DelayCost = result$costOfDelay1,
       RentDry = result$dry1,
       Duration = result$duration1,
       `Minimum Fuel` = result$fuelUsage1
@@ -135,6 +139,7 @@ shinyServer(function(input, output) {
       Amount = result$amount2,
       Commodity = result$commodity2,
       Earnings = result$earnings2,
+      DelayCost = result$costOfDelay2,
       RentDry = result$dry2,
       Duration = result$duration2,
       `Minimum Fuel` = result$fuelUsage2
@@ -164,7 +169,6 @@ shinyServer(function(input, output) {
     leaflet(data = mapData()) %>% addTiles() %>%
       addCircleMarkers(~Longitude, ~Latitude, label = ~Location, color = ~Color, stroke = F, radius = 5, weight = 3, fillOpacity = 0.5) %>%
       addRouteLines()
-      #addPolylines(lng = ~Longitude, lat = ~Latitude)
   })
   
   outputOption <- function(result) {
@@ -177,6 +181,7 @@ shinyServer(function(input, output) {
     return (div(
       renderDataTable(data, options = list(paging = F, searching = F, info = F)),
       h5(sprintf("Total earnings: $%.0f", result$totalEarnings)),
+      h5(sprintf("Total cost of delay: $%.0f", result$totalCostOfDelay)),
       h5(sprintf("Total distance: %.0f nm", result$totalDistance)),
       h5(sprintf("Total block time: %.0f minutes", result$totalDuration)),
       leafletOutput("routeMap")

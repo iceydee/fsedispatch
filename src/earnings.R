@@ -367,7 +367,7 @@ calc.fuelUsage <- function(aircraft, distance) {
   return (aircraft$GPH * calc.duration(aircraft, distance))
 }
 
-calc.duration <- function(aircraft, distance) {
-  # TODO: Include taxi, climb, descent
-  return (as.integer(distance) / as.integer(aircraft$CruiseSpeed))
+calc.duration <- function(aircraft, distance, taxi = 20) {
+  # TODO: Include climb, descent
+  return ((as.integer(distance) / as.integer(aircraft$CruiseSpeed)) + (taxi / 60))
 }

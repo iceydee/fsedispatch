@@ -120,6 +120,10 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   a <- a[a$Distance >= minDistance & a$Distance <= maxDistance,]
   a <- a[a$UnitType == unittype,]
   a <- a[a$Amount <= maxSeats,]
+  
+  # Filter out Pilot for Hire assignments
+  a <- a[!grepl("Pilot for Hire", a$Commodity),]
+  
   a <- a[order(-a$Pay),]
   
   if (grouped) {

@@ -1509,7 +1509,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>0</Crew>
 <Seats>15</Seats>
 <CruiseSpeed>135</CruiseSpeed>
-<GPH>180</GPH>
+<GPH>115</GPH>
 <FuelType>1</FuelType>
 <MTOW>5397</MTOW>
 <EmptyWeight>3156</EmptyWeight>
@@ -5358,7 +5358,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <MakeModel>Learjet 24B</MakeModel>
 <Crew>1</Crew>
 <Seats>7</Seats>
-<CruiseSpeed>330</CruiseSpeed>
+<CruiseSpeed>500</CruiseSpeed>
 <GPH>250</GPH>
 <FuelType>1</FuelType>
 <MTOW>6124</MTOW>
@@ -5383,7 +5383,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <MakeModel>Learjet 24B - Tip Tanks</MakeModel>
 <Crew>1</Crew>
 <Seats>7</Seats>
-<CruiseSpeed>330</CruiseSpeed>
+<CruiseSpeed>550</CruiseSpeed>
 <GPH>250</GPH>
 <FuelType>1</FuelType>
 <MTOW>6123</MTOW>

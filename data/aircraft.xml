@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AircraftConfigItems total="327"
+<AircraftConfigItems total="329"
 xmlns="http://server.fseconomy.net"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftconfigs.xsd"
@@ -4405,6 +4405,31 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <ModelId>83</ModelId>
 </AircraftConfig>
 <AircraftConfig>
+<MakeModel>Eurocopter AS365</MakeModel>
+<Crew>0</Crew>
+<Seats>13</Seats>
+<CruiseSpeed>145</CruiseSpeed>
+<GPH>155</GPH>
+<FuelType>1</FuelType>
+<MTOW>4300</MTOW>
+<EmptyWeight>2400</EmptyWeight>
+<Price>388800.00</Price>
+<Ext1>0</Ext1>
+<LTip>0</LTip>
+<LAux>0</LAux>
+<LMain>153</LMain>
+<Center1>0</Center1>
+<Center2>0</Center2>
+<Center3>0</Center3>
+<RMain>153</RMain>
+<RAux>0</RAux>
+<RTip>0</RTip>
+<Ext2>0</Ext2>
+<Engines>2</Engines>
+<EnginePrice>114000.00</EnginePrice>
+<ModelId>339</ModelId>
+</AircraftConfig>
+<AircraftConfig>
 <MakeModel>Eurocopter BK117</MakeModel>
 <Crew>0</Crew>
 <Seats>8</Seats>
@@ -5603,6 +5628,31 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Engines>4</Engines>
 <EnginePrice>66000.00</EnginePrice>
 <ModelId>182</ModelId>
+</AircraftConfig>
+<AircraftConfig>
+<MakeModel>Lockheed L049 (A2A)</MakeModel>
+<Crew>4</Crew>
+<Seats>49</Seats>
+<CruiseSpeed>230</CruiseSpeed>
+<GPH>360</GPH>
+<FuelType>0</FuelType>
+<MTOW>40770</MTOW>
+<EmptyWeight>22380</EmptyWeight>
+<Price>2850600.00</Price>
+<Ext1>0</Ext1>
+<LTip>0</LTip>
+<LAux>820</LAux>
+<LMain>1550</LMain>
+<Center1>0</Center1>
+<Center2>0</Center2>
+<Center3>0</Center3>
+<RMain>1550</RMain>
+<RAux>820</RAux>
+<RTip>0</RTip>
+<Ext2>0</Ext2>
+<Engines>4</Engines>
+<EnginePrice>66000.00</EnginePrice>
+<ModelId>340</ModelId>
 </AircraftConfig>
 <AircraftConfig>
 <MakeModel>Lockheed L10A Electra</MakeModel>

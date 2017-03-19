@@ -212,7 +212,7 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   }
   
   # Find assignments
-  maxSeats <- (aircraft$Seats - 1) # TODO: Use fuel calc for this
+  maxSeats <- (aircraft$Seats - 1 - aircraft$Crew) # TODO: Use fuel/weight calc in case we end up overweight
   assignments <- fse.getAssignments(
     searchICAO,
     minDistance = minDistance, maxDistance = maxDistance,

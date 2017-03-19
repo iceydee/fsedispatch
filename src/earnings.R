@@ -349,7 +349,11 @@ calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE, dela
   
   cost <- 0
   if (dry) {
-    fuelCost <- (calc.fuelUsage(aircraft, distance) * assignment$FuelPrice)
+    fuelPrice <- assignment$FuelPrice
+    if (is.na(fuelPrice)) {
+      fuelPrice <- 4.5 # Default to sane default if there's no fuel at ICAO
+    }
+    fuelCost <- (calc.fuelUsage(aircraft, distance) * fuelPrice)
     cost <- ((rentalAircraft$RentalDry * duration) + fuelCost)
   } else {
     cost <- (rentalAircraft$RentalWet * duration)

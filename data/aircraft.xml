@@ -6611,7 +6611,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <CruiseSpeed>140</CruiseSpeed>
 <GPH>14</GPH>
 <FuelType>0</FuelType>
-<MTOW>1364</MTOW>
+<MTOW>1365</MTOW>
 <EmptyWeight>759</EmptyWeight>
 <Price>153300.00</Price>
 <Ext1>0</Ext1>

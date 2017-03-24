@@ -84,25 +84,31 @@ shinyServer(function(input, output) {
     data <- data.frame(From = character(),
                        To = character(),
                        Distance = integer(),
-                       Amount = integer(),
-                       Commodity = character(),
+                       Seats = integer(),
+                       HasCargo = logical(),
+                       `Traffic Load` = integer(),
                        Earnings = double(),
                        DelayCost = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
+                       `Maximum Fuel` = integer(),
+                       `Takeoff Weight` = integer(),
                        stringsAsFactors = F)
     data[1,] <- list(
       From = icaoOutput(result$start),
       To = icaoOutput(result$end),
       Distance = result$distance1,
-      Amount = result$amount1,
-      Commodity = result$commodity1,
+      Seats = result$seats1,
+      HasCargo = result$hasCargo1,
+      `Traffic Load` = result$weight1,
       Earnings = result$earnings1,
       DelayCost = result$costOfDelay1,
       RentDry = result$dry1,
       Duration = result$duration1,
-      `Minimum Fuel` = result$fuelUsage1
+      `Minimum Fuel` = result$fuelUsage1,
+      `Maximum Fuel` = result$maxFuel1,
+      `Takeoff Weight` = result$takeOffWeight1
     )
     
     return (data)
@@ -112,37 +118,46 @@ shinyServer(function(input, output) {
     data <- data.frame(From = character(),
                        To = character(),
                        Distance = integer(),
-                       Amount = integer(),
-                       Commodity = character(),
+                       Seats = integer(),
+                       HasCargo = logical(),
+                       `Traffic Load` = integer(),
                        Earnings = double(),
                        DelayCost = double(),
                        RentDry = logical(),
                        Duration = double(),
                        `Minimum Fuel` = integer(),
+                       `Maximum Fuel` = integer(),
+                       `Takeoff Weight` = integer(),
                        stringsAsFactors = F)
     data[1,] <- list(
       From = icaoOutput(result$start),
       To = icaoOutput(result$mid),
       Distance = result$distance1,
-      Amount = result$amount1,
-      Commodity = result$commodity1,
+      Seats = result$seats1,
+      HasCargo = result$hasCargo1,
+      `Traffic Load` = result$weight1,
       Earnings = result$earnings1,
       DelayCost = result$costOfDelay1,
       RentDry = result$dry1,
       Duration = result$duration1,
-      `Minimum Fuel` = result$fuelUsage1
+      `Minimum Fuel` = result$fuelUsage1,
+      `Maximum Fuel` = result$maxFuel1,
+      `Takeoff Weight` = result$takeOffWeight1
     )
     data[2,] <- list(
       From = icaoOutput(result$mid),
       To = icaoOutput(result$end),
       Distance = result$distance2,
-      Amount = result$amount2,
-      Commodity = result$commodity2,
+      Seats = result$seats2,
+      HasCargo = result$hasCargo2,
+      `Traffic Load` = result$weight2,
       Earnings = result$earnings2,
       DelayCost = result$costOfDelay2,
       RentDry = result$dry2,
       Duration = result$duration2,
-      `Minimum Fuel` = result$fuelUsage2
+      `Minimum Fuel` = result$fuelUsage2,
+      `Maximum Fuel` = result$maxFuel2,
+      `Takeoff Weight` = result$takeOffWeight2
     )
     
     return (data)

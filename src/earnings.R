@@ -7,19 +7,30 @@ fuelWeight <- function(vol, type = 0) {
   return (vol * 3.08)
 }
 
-passengerWeight <- function(passengers) {
-  return (passengers * 73)
+fuelVolume <- function(weight, type = 0) {
+  if (type == 0) { # 100LL
+    return (weight / 2.72)
+  }
+  return (weight / 3.08)
 }
 
-maxPayload <- function(aircraft) {
+calc.takeOffWeight <- function(aircraft, fuelWeight, trafficWeight) {
+  return (aircraft$EmptyWeight + fuelWeight + trafficWeight)
+}
+
+calc.maxFuel <- function(aircraft, trafficWeight) {
+  return (fuelVolume(calc.maxPayload(aircraft) - trafficWeight))
+}
+
+calc.maxPayload <- function(aircraft) {
   return (aircraft$MTOW - aircraft$EmptyWeight)
 }
 
-maxCargo <- function(aircraft, volFuel, passengers = 0) {
-  return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - passengerWeight(passengers))
+calc.maxCargo <- function(aircraft, volFuel, passengers = 0) {
+  return (calc.maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - passengerWeight(passengers))
 }
 
-maxPassengers <- function(aircraft, volFuel, cargo = 0) {
+calc.maxPassengers <- function(aircraft, volFuel, cargo = 0) {
   return (maxPayload(aircraft) - fuelWeight(volFuel, aircraft$FuelType) - cargo)
 }
 
@@ -45,14 +56,18 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
     start = character(),
     mid = character(),
     end = character(),
-    amount1 = integer(),
-    commodity1 = character(),
+    seats1 = integer(),
+    hasCargo1 = logical(),
+    weight1 = integer(),
+    takeOffWeight1 = integer(),
     earnings1 = integer(),
     costOfDelay1 = integer(),
     dry1 = logical(),
     assignmentIds1 = character(),
-    amount2 = integer(),
-    commodity2 = character(),
+    seats2 = integer(),
+    hasCargo2 = logical(),
+    weight2 = integer(),
+    takeOffWeight2 = integer(),
     earnings2 = integer(),
     costOfDelay2 = integer(),
     dry2 = logical(),
@@ -61,9 +76,11 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
     totalCostOfDelay = integer(),
     distance1 = integer(),
     fuelUsage1 = integer(),
+    maxFuel1 = integer(),
     duration1 = integer(),
     distance2 = integer(),
     fuelUsage2 = integer(),
+    maxFuel2 = integer(),
     duration2 = integer(),
     totalDistance = integer(),
     totalDuration = integer(),
@@ -85,14 +102,18 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         start = a$FromIcao,
         mid = a$ToIcao,
         end = b$ToIcao,
-        amount1 = a$Amount,
-        commodity1 = a$Commodity,
+        seats1 = a$Seats,
+        hasCargo1 = a$HasCargo,
+        weight1 = a$Weight,
+        takeOffWeigh1 = a$TakeOffWeight,
         earnings1 = a$Earnings,
         costOfDelay1 = a$CostOfDelay,
         dry1 = is.dry(a),
         assignmentIds1 = a$AssignmentIds,
-        amount2 = b$Amount,
-        commodity2 = b$Commodity,
+        seats2 = b$Seats,
+        hasCargo2 = b$HasCargo,
+        weight2 = b$Weight,
+        takeOffWeight2 = b$TakeOffWeight,
         earnings2 = b$Earnings,
         costOfDelay2 = b$CostOfDelay,
         dry2 = is.dry(b),
@@ -101,9 +122,11 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         totalCostOfDelay = (a$CostOfDelay + b$CostOfDelay),
         distance1 = a$Distance,
         fuelUsage1 = ceiling(a$FuelUsage),
+        maxFuel1 = floor(a$MaxFuel),
         duration1 = round(a$Duration * 60),
         distance2 = b$Distance,
         fuelUsage2 = ceiling(b$FuelUsage),
+        maxFuel2 = floor(b$MaxFuel),
         duration2 = round(b$Duration * 60),
         totalDistance = a$Distance + b$Distance,
         totalDuration = round((a$Duration + b$Duration) * 60)
@@ -113,14 +136,18 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         start = a$FromIcao,
         mid = NA,
         end = a$ToIcao,
-        amount1 = a$Amount,
-        commodity1 = a$Commodity,
+        seats1 = a$Seats,
+        hasCargo1 = a$HasCargo,
+        weight1 = a$Weight,
+        takeOffWeight1 = a$TakeOffWeight,
         earnings1 = a$Earnings,
         costOfDelay1 = a$CostOfDelay,
         dry1 = is.dry(a),
         assignmentIds1 = a$AssignmentIds,
-        amount2 = NA,
-        commidity2 = NA,
+        seats2 = NA,
+        hasCargo2 = NA,
+        weight2 = NA,
+        takeOffWeight2 = NA,
         earnings2 = NA,
         costOfDelay2 = NA,
         dry2 = NA,
@@ -129,9 +156,11 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
         totalCostOfDelay = a$CostOfDelay,
         distance1 = a$Distance,
         fuelUsage1 = ceiling(a$FuelUsage),
+        maxFuel1 = floor(a$MaxFuel),
         duration1 = round(a$Duration * 60),
         distance2 = NA,
         fuelUsage2 = NA,
+        maxFuel2 = NA,
         duration2 = NA,
         totalDistance = a$Distance,
         totalDuration = round(a$Duration * 60)
@@ -213,10 +242,11 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   
   # Find assignments
   maxSeats <- (aircraft$Seats - 1 - aircraft$Crew) # TODO: Use fuel/weight calc in case we end up overweight
+  maxCargo <- calc.maxCargo(aircraft, calc.fuelUsage(aircraft, maxDistance))
   assignments <- fse.getAssignments(
     searchICAO,
     minDistance = minDistance, maxDistance = maxDistance,
-    maxSeats = maxSeats,
+    maxSeats = maxSeats, maxCargo = maxCargo,
     grouped = TRUE,
     progress = progress
   )
@@ -228,15 +258,21 @@ getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance =
   groupedAssignments <- assignments[[1]][0,]
   groupedAssignments["PtCount"] <- integer(0)
   groupedAssignments["AssignmentIds"] <- character(0)
+  groupedAssignments["HasPassengers"] <- logical(0)
+  groupedAssignments["HasCargo"] <- logical(0)
   
   for (n in 1:length(assignments)) {
     a <- assignments[[n]]
     b <- a[1,]
     b$Id <- n
     b$Amount <- sum(a$Amount)
+    b$Seats <- sum(a$Seats)
+    b$Weight <- sum(a$Weight)
     b$Pay <- sum(a$Pay)
     b$PtCount <- nrow(a[a$PtAssignment == "true",])
     b$AssignmentIds <- paste(a$Id, collapse = ",")
+    b$HasPassengers <- isTRUE(b$Seats > 0)
+    b$HasCargo <- isTRUE(nrow(a[a$UnitType == "kg",]) > 0)
     groupedAssignments[n,] <- b
   }
   groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
@@ -265,12 +301,24 @@ calc.airlineAssignments <- function(rentalAircraft, assignments) {
   fse.fetchAirports(c(assignments$FromIcao, assignments$ToIcao))
   assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
+  assignments$HasPassengers <- rep(T, nrow(assignments))
+  assignments$HasCargo <- rep(F, nrow(assignments))
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
   assignments$Earnings <- sapply(1:nrow(assignments), function(n) {assignments$Pay[n] - assignments$GroundCrewFee[n]})
   assignments$WetEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
   assignments$DryEarnings <- sapply(1:nrow(assignments), function(n) {assignments$Earnings[n]})
   assignments$CostOfDelay <- rep(0.0, nrow(assignments))
   assignments$Amount <- sapply(1:nrow(assignments), function(n) {as.integer(gsub("[^0-9]+", "", assignments$Commodity[n]))})
+  assignments$Seats <- assignments$Amount
+  assignments$Weight <- sapply(1:nrow(assignments), function(n) {
+    passengerWeight(assignments$Seats)
+  })
+  assignments$TakeOffWeight <- sapply(1:nrow(assignments), function(n) {
+    calc.takeOffWeight(aircraft, fuelWeight(assignments$FuelUsage[n], aircraft$FuelType), assignments$Weight[n])
+  })
+  assignments$MaxFuel <- sapply(1:nrow(assignments), function(n) {
+    calc.maxFuel(aircraft, assignments$Weight[n])
+  })
   return (assignments)
 }
 
@@ -280,6 +328,12 @@ calc.assignments <- function(rentalAircraft, assignments) {
   assignments$GroundCrewFee <- sapply(1:nrow(assignments), function(n) {calc.groundCrewFee(assignments[n,])})
   assignments$BookingFee <- sapply(1:nrow(assignments), function(n) {calc.bookingFee(assignments[n,])})
   assignments$FuelUsage <- sapply(1:nrow(assignments), function(n) {calc.fuelUsage(aircraft, assignments$Distance[n])})
+  assignments$TakeOffWeight <- sapply(1:nrow(assignments), function(n) {
+    calc.takeOffWeight(aircraft, fuelWeight(assignments$FuelUsage[n], aircraft$FuelType), assignments$Weight[n])
+  })
+  assignments$MaxFuel <- sapply(1:nrow(assignments), function(n) {
+    calc.maxFuel(aircraft, assignments$Weight[n])
+  })
   assignments$Duration <- sapply(1:nrow(assignments), function(n) {calc.duration(aircraft, assignments$Distance[n])})
   assignments$DistanceBonus <- sapply(1:nrow(assignments), function(n) {
     ac <- rentalAircraft[rentalAircraft$Location == assignments$Location[n],]

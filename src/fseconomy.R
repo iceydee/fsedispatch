@@ -2,6 +2,10 @@ source("./src/xmlHandling.R")
 source("./src/icao.R")
 source("./src/scrape.R")
 
+passengerWeight <- function(passengers) {
+  return (passengers * 73)
+}
+
 fse.setUserKey <- function(key) {
   userkey <<- key
 }
@@ -49,7 +53,7 @@ fse.groupHasICAOPair <- function(groupedAssignments, start, end) {
   return (FALSE)
 }
 
-fse.groupAssignments <- function(assignments, maxSeats = 9) {
+fse.groupAssignments <- function(assignments, maxSeats = 9, maxCargo = 1000) {
   groupedAssignments <- list()
   if (nrow(assignments) < 1) {
     return (groupedAssignments)
@@ -60,17 +64,10 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
       next
     }
     
-    tryCatch({
-      if (a$Amount < maxSeats) {
-      }
-    }, error = function(e) {
-      cat("And theeeere's the exception...\n")
-    })
-    
-    if (a$Amount < maxSeats) {
+    if (a$Weight < maxCargo) {
       i <- (length(groupedAssignments) + 1)
       x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
-      while (sum(x$Amount) > maxSeats) {
+      while (sum(x$Weight) > maxCargo) {
         x <- x[1:(nrow(x)-1),]
       }
       groupedAssignments[[i]] <- x
@@ -79,7 +76,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9) {
   return (groupedAssignments)
 }
 
-fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unittype = "passengers", maxSeats = 9, grouped = TRUE, progress = function(a, b) {}) {
+fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, maxSeats = 9, maxCargo = 1000, grouped = TRUE, progress = function(a, b) {}) {
   icaos <- unique(sort(icaos))
   maxFetch <- 100
   if(length(icaos) > maxFetch) {
@@ -97,7 +94,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
         last <- len
       }
       cat(sprintf("Fetching icaos %i:%i - %s\n", n, last, paste(icaos[n:last], collapse = "-")))
-      a <- fse.getAssignments(icaos[n:last], minDistance, maxDistance, unittype, maxSeats, grouped)
+      a <- fse.getAssignments(icaos[n:last], minDistance, maxDistance, maxSeats, maxCargo, grouped)
       progress(n / len, sprintf("%.0f / %.0f", n, len))
       
       if (grouped) {
@@ -118,8 +115,21 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
   a <- clean(a, c(c("int"), rep("char", 3), c("int"), rep("char", 2), c("int"), rep("char", 5)))
   a$Distance <- sapply(1:nrow(a), function(n) {icao.distance(a$FromIcao[n], a$ToIcao[n])})
   a <- a[a$Distance >= minDistance & a$Distance <= maxDistance,]
-  a <- a[a$UnitType == unittype,]
-  a <- a[a$Amount <= maxSeats,]
+  a$Seats <- sapply(1:nrow(a), function(n) {
+    if (a$UnitType[n] == "passengers") {
+      return (a$Amount[n])
+    }
+    return (0)
+  })
+  a$Weight <- sapply(1:nrow(a), function(n) {
+    if (a$UnitType[n] == "kg") {
+      return (a$Amount[n])
+    }
+    return (passengerWeight(a$Amount[n]))
+  })
+  
+  a <- a[a$Seats <= maxSeats,]
+  a <- a[a$Weight <= maxCargo,]
   
   # Filter out Pilot for Hire assignments
   a <- a[!grepl("Pilot for Hire", a$Commodity),]
@@ -130,7 +140,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, unitty
     if (nrow(a) < 1) {
       return (list())
     }
-    return (fse.groupAssignments(a, maxSeats = maxSeats))
+    return (fse.groupAssignments(a, maxSeats = maxSeats, maxCargo = maxCargo))
   }
   return (a)
 }

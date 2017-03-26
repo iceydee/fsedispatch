@@ -186,7 +186,10 @@ getRankedAirlineAssignments <- function(rentalAircraft, minDistance = 50, maxDis
   return (assignments)
 }
 
-getLeg <- function(searchICAO, minDistance = 50, maxDistance = 400, maxSeats = 1, maxCargo = 1000, progress = function(a, b) {}) {
+getLeg <- function(searchICAO, aircraft, minDistance = 50, maxDistance = 400, progress = function(a, b) {}) {
+  maxSeats <- (aircraft$Seats - 1 - aircraft$Crew)
+  maxCargo <- calc.maxCargo(aircraft, calc.fuelUsage(aircraft, maxDistance))
+  
   assignments <- fse.getAssignments(
     searchICAO,
     minDistance = minDistance, maxDistance = maxDistance,
@@ -273,13 +276,11 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   
   # Fetch assignment legs
-  maxSeats <- (aircraft$Seats - 1 - aircraft$Crew)
-  maxCargo <- calc.maxCargo(aircraft, calc.fuelUsage(aircraft, maxDistance))
   legs <- list()
-  legs[[1]] <- getLeg(rentalAircraft$Location, minDistance, maxDistance, maxSeats, maxCargo) #, progress)
+  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, minDistance, maxDistance) #, progress)
   if (maxHops > 1) {
     for (n in 2:maxHops) {
-      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, minDistance, maxDistance, maxSeats, maxCargo) #, progress)
+      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, minDistance, maxDistance) #, progress)
     }
   }
   

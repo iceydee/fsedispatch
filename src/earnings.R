@@ -246,7 +246,7 @@ addResultNodes <- function(legs, rootNode, node = NA, fromIcao = NA, level = 1, 
   }
   for (n in 1:min(nrow(a), depth)) {
     if (level == 1) {
-      a$pathString[n] <- sprintf("S1-%s", a$FromIcao[n])
+      a$pathString[n] <- sprintf("S1-%s-%s", a$FromIcao[n], a$ToIcao[n])
       node <- as.Node(a[n,])
       rootNode$AddChildNode(node)
     }
@@ -262,7 +262,6 @@ addResultNodes <- function(legs, rootNode, node = NA, fromIcao = NA, level = 1, 
 pruneNonEarningLeaves <- function(tree) {
   for (node in Traverse(tree, filterFun = isLeaf)) {
     if (node$Earnings < 0) {
-      cat(sprintf("About to cut %s\n", node$name))
       node$keep <- F
     } else {
       node$keep <- T
@@ -277,10 +276,10 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   
   # Fetch assignment legs
   legs <- list()
-  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, minDistance, maxDistance) #, progress)
+  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, minDistance, maxDistance, progress)
   if (maxHops > 1) {
     for (n in 2:maxHops) {
-      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, minDistance, maxDistance) #, progress)
+      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, minDistance, maxDistance, progress)
     }
   }
   
@@ -292,14 +291,19 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   calc.treeAssignments(rentalAircraft, tree)
   
   # Prune
-  Prune(tree, function(node) node$TotalDistance < maxDistance)
+  Prune(tree, function(node) calc.totalDistance(node) < maxDistance)
   for (n in 1:maxHops) {
     # Prune leaves maxdepth
     pruneNonEarningLeaves(tree)
   }
   
-  # Sort by earnings
-  Sort(tree, "Earnings", decreasing = T, recursive = T)
+  # Add totals to leaves
+  for (node in Traverse(tree, filterFun = isLeaf)) {
+    node$TotalEarnings <- calc.totalEarnings(node)
+    node$TotalDistance <- calc.totalDistance(node)
+    node$TotalCostOfDelay <- calc.totalCostOfDelay(node)
+    node$TotalBlockTime <- calc.totalBlockTime(node)
+  }
   
   return (tree)
 }
@@ -479,20 +483,24 @@ calc.treeAssignments <- function(rentalAircraft, tree) {
     e[is.na(e)] <- -Inf
     
     self$Earnings <- max(e["dry"], e["wet"])
-    self$CostOfDelay <- {
-      if (e["dry"] > e["wet"]) {
-        dry <- T
-      } else {
-        dry <- F
-      }
-      delayedEarnings <- calc.earnings(ac[1,], aircraft, self, dry = dry, delay = 1.0)
-      self$Earnings - delayedEarnings
-    }
     self$RentDry <- is.dry(self)
-    self$TotalEarnings <- calc.totalEarnings(self)
-    self$TotalDistance <- calc.totalDistance(self)
-    self$TotalCostOfDelay <- calc.totalCostOfDelay(self)
-    self$TotalBlockTime <- calc.totalBlockTime(self)
+    self$CostOfDelay <- {
+      if (!is.na(self$RentDry) && self$RentDry) {
+        x <- ac[ac$RentalDry > 0,]
+        x <- x[order(x$RentalDry),]
+      } else if (!is.na(self$RentDry)) {
+        x <- ac[ac$RentalWet > 0,]
+        x <- x[order(x$RentalWet),]
+      } else {
+        x <- ac[0,]
+      }
+      if (nrow(x) < 1) {
+        NA
+      } else {
+        delayedEarnings <- calc.earnings(x[1,], aircraft, self, dry = self$RentDry, delay = 1.0)
+        self$Earnings - delayedEarnings
+      }
+    }
   })
 }
 

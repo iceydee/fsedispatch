@@ -143,10 +143,10 @@ shinyServer(function(input, output) {
   outputOption <- function(result) {
     return (div(
       renderDataTable(optionData(result), options = list(paging = F, searching = F, info = F)),
-      h5(sprintf("Total earnings: $%.0f", result[[1]]$TotalEarnings)),
-      h5(sprintf("Total cost of delay: $%.0f", result[[1]]$TotalCostOfDelay)),
-      h5(sprintf("Total distance: %.0f nm", result[[1]]$TotalDistance)),
-      h5(sprintf("Total block time: %.0f minutes", result[[1]]$TotalDuration)),
+      h5(sprintf("Total earnings: $%.0f", result[[length(result)]]$TotalEarnings)),
+      h5(sprintf("Total cost of delay: $%.0f", result[[length(result)]]$TotalCostOfDelay)),
+      h5(sprintf("Total distance: %.0f nm", result[[length(result)]]$TotalDistance)),
+      h5(sprintf("Total block time: %.0f minutes", result[[length(result)]]$TotalDuration)),
       leafletOutput("routeMap")
     ))
   }
@@ -272,7 +272,17 @@ shinyServer(function(input, output) {
       })
     )
     
-    return (Traverse(tree, filterFun = isLeaf))
+    leaves <- Traverse(tree, filterFun = isLeaf)
+    
+    # Sort by total earnings
+    l <- unlist(lapply(leaves, function(node) node$TotalEarnings))
+    ix <- sort.int(l, decreasing = T, index.return = T)$ix
+    result <- list()
+    for (n in 1:length(ix)) {
+      result[[n]] <- leaves[[ix[n]]]
+    }
+    
+    return (result)
   })
   
   results <- reactive({
@@ -296,6 +306,9 @@ shinyServer(function(input, output) {
   })
   
   currentOption <- reactive({
+    if (numberOfResults() < 1) {
+      return (list())
+    }
     curNode <- results()[[values$optionNumber]]
     nodes <- list()
     while (!curNode$parent$isRoot) {

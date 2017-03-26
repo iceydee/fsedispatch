@@ -28,6 +28,8 @@ shinyUI(fluidPage(
     sliderInput("distance", "Target distance:",
                 min = 0, max = 2000, value = c(200, 400),
                 step = 50, post = " nm"),
+    sliderInput("hops", "Max hops:",
+                min = 1, max = 3, value = 2, step = 1),
     h5(textOutput("duration")),
     # TODO: This is for when we have own aircraft
     # selectizeInput("thirdLeg", NULL, c("", "Profit", "Destination"),

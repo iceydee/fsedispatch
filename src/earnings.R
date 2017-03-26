@@ -1,3 +1,4 @@
+library("data.tree")
 source("./src/fseconomy.R")
 
 fuelWeight <- function(vol, type = 0) {
@@ -51,124 +52,82 @@ is.dry <- function(assignment) {
   return (F)
 }
 
-gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destinationWeight = 0.5) {
-  results <- data.frame(
-    start = character(),
-    mid = character(),
-    end = character(),
-    seats1 = integer(),
-    hasCargo1 = logical(),
-    weight1 = integer(),
-    takeOffWeight1 = integer(),
-    earnings1 = integer(),
-    costOfDelay1 = integer(),
-    dry1 = logical(),
-    assignmentIds1 = character(),
-    seats2 = integer(),
-    hasCargo2 = logical(),
-    weight2 = integer(),
-    takeOffWeight2 = integer(),
-    earnings2 = integer(),
-    costOfDelay2 = integer(),
-    dry2 = logical(),
-    assignmentIds2 = character(),
-    totalEarnings = integer(),
-    totalCostOfDelay = integer(),
-    distance1 = integer(),
-    fuelUsage1 = integer(),
-    maxFuel1 = integer(),
-    duration1 = integer(),
-    distance2 = integer(),
-    fuelUsage2 = integer(),
-    maxFuel2 = integer(),
-    duration2 = integer(),
-    totalDistance = integer(),
-    totalDuration = integer(),
-    stringsAsFactors = FALSE)
-  for (n in 1:nrow(leg1)) {
-    a <- leg1[n,]
-    if (nrow(leg2) > 0) {
-      b <- leg2[leg2$FromIcao == a$ToIcao,]
-      maxBDistance <- maxDistance - a$Distance
-      b <- b[b$Distance < maxBDistance,]
-      b <- b[order(-b$Earnings),]
-      b <- b[1,]
-    } else {
-      b <- leg2
+gatherResults <- function(legs, maxDistance, destination = NA, destinationWeight = 0.5) {
+  r <- list()
+  
+  for (n in 1:nrow(legs[[1]])) {
+    a <- list()
+    a[[1]] <- legs[[1]][n,]
+    if (length(legs) > 1) {
+      curDistance <- a[[1]]$Distance
+      for (i in 2:length(legs)) {
+        b <- legs[[i]][legs[[i]]$FromIcao == legs[[i - 1]]$ToIcao,]
+        maxBDistance <- maxDistance - curDistance
+        b <- b[b$Distance < maxBDistance,]
+        b <- b[order(-b$Earnings),]
+        a[[i]] <- b[1,]
+        curDistance <- curDistance + a[[i]]$Distance
+      }
     }
     
-    if (nrow(b) > 0) {
-      results[n,] <- list(
-        start = a$FromIcao,
-        mid = a$ToIcao,
+    entry <- data.frame(
+      start = character(),
+      end = character(),
+      seats = integer(),
+      hasCargo = logical(),
+      weight = integer(),
+      takeOffWeight = integer(),
+      earnings = integer(),
+      costOfDelay = integer(),
+      dry = logical(),
+      assignmentIds = character(),
+      distance = integer(),
+      fuelUsage = integer(),
+      maxFuel = integer(),
+      duration = integer(),
+      stringsAsFactors = FALSE
+    )
+    
+    for (i in 1:length(a)) {
+      b <- a[[i]]
+      entry[i,] <- list(
+        start = b$FromIcao,
         end = b$ToIcao,
-        seats1 = a$Seats,
-        hasCargo1 = a$HasCargo,
-        weight1 = a$Weight,
-        takeOffWeigh1 = a$TakeOffWeight,
-        earnings1 = a$Earnings,
-        costOfDelay1 = a$CostOfDelay,
-        dry1 = is.dry(a),
-        assignmentIds1 = a$AssignmentIds,
-        seats2 = b$Seats,
-        hasCargo2 = b$HasCargo,
-        weight2 = b$Weight,
-        takeOffWeight2 = b$TakeOffWeight,
-        earnings2 = b$Earnings,
-        costOfDelay2 = b$CostOfDelay,
-        dry2 = is.dry(b),
-        assignmentIds2 = b$AssignmentIds,
-        totalEarnings = (a$Earnings + b$Earnings),
-        totalCostOfDelay = (a$CostOfDelay + b$CostOfDelay),
-        distance1 = a$Distance,
-        fuelUsage1 = ceiling(a$FuelUsage),
-        maxFuel1 = floor(a$MaxFuel),
-        duration1 = round(a$Duration * 60),
-        distance2 = b$Distance,
-        fuelUsage2 = ceiling(b$FuelUsage),
-        maxFuel2 = floor(b$MaxFuel),
-        duration2 = round(b$Duration * 60),
-        totalDistance = a$Distance + b$Distance,
-        totalDuration = round((a$Duration + b$Duration) * 60)
-      )
-    } else {
-      results[n,] <- list(
-        start = a$FromIcao,
-        mid = NA,
-        end = a$ToIcao,
-        seats1 = a$Seats,
-        hasCargo1 = a$HasCargo,
-        weight1 = a$Weight,
-        takeOffWeight1 = a$TakeOffWeight,
-        earnings1 = a$Earnings,
-        costOfDelay1 = a$CostOfDelay,
-        dry1 = is.dry(a),
-        assignmentIds1 = a$AssignmentIds,
-        seats2 = NA,
-        hasCargo2 = NA,
-        weight2 = NA,
-        takeOffWeight2 = NA,
-        earnings2 = NA,
-        costOfDelay2 = NA,
-        dry2 = NA,
-        assignmentIds2 = NA,
-        totalEarnings = a$Earnings,
-        totalCostOfDelay = a$CostOfDelay,
-        distance1 = a$Distance,
-        fuelUsage1 = ceiling(a$FuelUsage),
-        maxFuel1 = floor(a$MaxFuel),
-        duration1 = round(a$Duration * 60),
-        distance2 = NA,
-        fuelUsage2 = NA,
-        maxFuel2 = NA,
-        duration2 = NA,
-        totalDistance = a$Distance,
-        totalDuration = round(a$Duration * 60)
+        seats = b$Seats,
+        hasCargo = b$HasCargo,
+        weight = b$Weight,
+        takeOffWeight = b$TakeOffWeight,
+        earnings = b$Earnings,
+        costOfDelay = b$CostOfDelay,
+        dry = is.dry(b),
+        assignmentIds = b$AssignmentIds,
+        distance = b$Distance,
+        fuelUsage = ceiling(b$FuelUsage),
+        maxFuel = floor(b$MaxFuel),
+        duration = b$Duration
       )
     }
+    
+    entry$totalEarnings <- rep(sum(entry$Earnings), nrow(entry))
+    entry$totalCostOfDelay <- rep(sum(entry$CostOfDelay), nrow(entry))
+    entry$totalDistance <- rep(sum(entry$Distance), nrow(entry))
+    entry$totalDuration <- rep(sum(entry$Duration), nrow(entry))
+    
+    r[[n]] <- as.data.frame(entry)
   }
   
-  results <- results[order(-results$totalEarnings),]
+  earnings <- list()
+  for (n in 1:length(results)) {
+    earnings[[n]] <- r[[n]]$totalEarnings[1]
+  }
+  earnings <- rapply(earnings, c)
+  order <- sort(earnings, decreasing = T, index.return = T)$ix
+  
+  results <- list()
+  for (n in 1:length(order)) {
+    results[[n]] <- r[[order[n]]]
+  }
+  return (results)
   
   # TODO: For when we have own aircraft
   # if (!is.na(destination)) {
@@ -182,8 +141,6 @@ gatherResults <- function(leg1, leg2, maxDistance, destination = NA, destination
   # 
   #   results <- results[order(-results$destinationValue),]
   # }
-  
-  return (as.data.frame(results))
 }
 
 findNearestAircraft <- function(assignments, searchICAO, matchICAO) {
@@ -227,6 +184,123 @@ getRankedAirlineAssignments <- function(rentalAircraft, minDistance = 50, maxDis
   # And sort
   assignments <- assignments[order(-assignments$Earnings),]
   return (assignments)
+}
+
+getLeg <- function(searchICAO, minDistance = 50, maxDistance = 400, maxSeats = 1, maxCargo = 1000, progress = function(a, b) {}) {
+  assignments <- fse.getAssignments(
+    searchICAO,
+    minDistance = minDistance, maxDistance = maxDistance,
+    maxSeats = maxSeats, maxCargo = maxCargo,
+    grouped = TRUE,
+    progress = progress
+  )
+  
+  if (length(assignments) < 1) {
+    return (data.frame())
+  }
+  
+  groupedAssignments <- assignments[[1]][0,]
+  groupedAssignments["PtCount"] <- integer(0)
+  groupedAssignments["AssignmentIds"] <- character(0)
+  groupedAssignments["HasPassengers"] <- logical(0)
+  groupedAssignments["HasCargo"] <- logical(0)
+  
+  for (n in 1:length(assignments)) {
+    a <- assignments[[n]]
+    b <- a[1,]
+    b$Id <- n
+    b$Amount <- sum(a$Amount)
+    b$Seats <- sum(a$Seats)
+    b$Weight <- sum(a$Weight)
+    b$Pay <- sum(a$Pay)
+    b$PtCount <- nrow(a[a$PtAssignment == "true",])
+    b$AssignmentIds <- paste(a$Id, collapse = ",")
+    b$HasPassengers <- isTRUE(b$Seats > 0)
+    b$HasCargo <- isTRUE(nrow(a[a$UnitType == "kg",]) > 0)
+    groupedAssignments[n,] <- b
+  }
+  groupedAssignments <- groupedAssignments[order(-groupedAssignments$Pay),]
+  
+  if (aircraft$FuelType == 0) {
+    fuelType <- "100LL"
+  } else {
+    fuelType <- "Jet-A"
+  }
+  groupedAssignments$FuelPrice <- sapply(1:nrow(groupedAssignments), function(n) {
+    fse.fuelPrice(groupedAssignments$FromIcao[n], fuelType)
+  })
+
+  return (groupedAssignments)  
+}
+
+addResultNodes <- function(legs, rootNode, node = NA, fromIcao = NA, level = 1, depth = Inf) {
+  a <- legs[[level]]
+  if (!is.na(fromIcao)) {
+    a <- a[a$FromIcao == fromIcao,]
+  }
+  if (nrow(a) < 1) {
+    return ()
+  }
+  for (n in 1:min(nrow(a), depth)) {
+    if (level == 1) {
+      a$pathString[n] <- sprintf("S1-%s", a$FromIcao[n])
+      node <- as.Node(a[n,])
+      rootNode$AddChildNode(node)
+    }
+    a$pathString[n] <- sprintf("L%.0f-%s", level, a$ToIcao[n])
+    b <- as.Node(a[n,])
+    node$AddChildNode(b)
+    if (level < length(legs)) {
+      addResultNodes(legs, rootNode, b, a$ToIcao[n], level + 1, depth)
+    }
+  }
+}
+
+pruneNonEarningLeaves <- function(tree) {
+  for (node in Traverse(tree, filterFun = isLeaf)) {
+    if (node$Earnings < 0) {
+      cat(sprintf("About to cut %s\n", node$name))
+      node$keep <- F
+    } else {
+      node$keep <- T
+    }
+  }
+  Prune(tree, function(node) {return (is.null(node$keep) || node$keep)})
+  Prune(tree, function(node) {return (!(node$parent$isRoot && node$isLeaf))})
+}
+
+getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 400, maxHops = 3, progress = function(a, b) {}) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  
+  # Fetch assignment legs
+  maxSeats <- (aircraft$Seats - 1 - aircraft$Crew)
+  maxCargo <- calc.maxCargo(aircraft, calc.fuelUsage(aircraft, maxDistance))
+  legs <- list()
+  legs[[1]] <- getLeg(rentalAircraft$Location, minDistance, maxDistance, maxSeats, maxCargo) #, progress)
+  if (maxHops > 1) {
+    for (n in 2:maxHops) {
+      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, minDistance, maxDistance, maxSeats, maxCargo) #, progress)
+    }
+  }
+  
+  # Create assignment tree
+  tree <- Node$new("start")
+  addResultNodes(legs, tree)
+  
+  # Do calculations
+  calc.treeAssignments(rentalAircraft, tree)
+  
+  # Prune
+  Prune(tree, function(node) node$TotalDistance < maxDistance)
+  for (n in 1:maxHops) {
+    # Prune leaves maxdepth
+    pruneNonEarningLeaves(tree)
+  }
+  
+  # Sort by earnings
+  Sort(tree, "Earnings", decreasing = T, recursive = T)
+  
+  return (tree)
 }
 
 getRankedAssignments <- function(rentalAircraft, minDistance = 50, maxDistance = 400, searchICAO = NULL, matchICAO = NULL, progress = function(a, b) {}) {
@@ -322,6 +396,105 @@ calc.airlineAssignments <- function(rentalAircraft, assignments) {
   return (assignments)
 }
 
+getRentalAircraftForNode <- function(rentalAircraft, node) {
+  if (node$parent$isRoot) {
+    return (rentalAircraft[rentalAircraft$Location == node$FromIcao,])
+  }
+  return (getRentalAircraftForNode(rentalAircraft, node$parent))
+}
+
+calc.totalEarnings <- function(node, current = 0.0) {
+  if (node$parent$isRoot) {
+    return (current)
+  }
+  current <- current + node$Earnings
+  return (calc.totalEarnings(node$parent, current))
+}
+
+calc.totalDistance <- function(node, current = 0.0) {
+  if (node$parent$isRoot) {
+    return (current)
+  }
+  current <- current + node$Distance
+  return (calc.totalDistance(node$parent, current))
+}
+
+calc.totalCostOfDelay <- function(node, current = 0.0) {
+  if (node$parent$isRoot) {
+    return (current)
+  }
+  current <- current + node$CostOfDelay
+  return (calc.totalCostOfDelay(node$parent, current))
+}
+
+calc.totalBlockTime <- function(node, current = 0.0) {
+  if (node$parent$isRoot) {
+    return (current)
+  }
+  current <- current + node$Duration
+  return (calc.totalBlockTime(node$parent, current))
+}
+
+calc.treeAssignments <- function(rentalAircraft, tree) {
+  aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
+  
+  x <- c(as.vector(tree$Get("FromIcao")), as.vector(tree$Get("ToIcao")))
+  fse.fetchAirports(x[!is.na(x)])
+  
+  tree$Do(function(self) {
+    if (self$isRoot) {
+      return ()
+    }
+    
+    ac <- getRentalAircraftForNode(rentalAircraft, self)
+    
+    self$GroundCrewFee <- calc.groundCrewFee(self)
+    self$BookingFee <- calc.bookingFee(self)
+    self$FuelUsage <- calc.fuelUsage(aircraft, self$Distance)
+    self$TakeOffWeight <- calc.takeOffWeight(aircraft, fuelWeight(self$FuelUsage, aircraft$FuelType), self$Weight)
+    self$MaxFuel <- calc.maxFuel(aircraft, self$Weight)
+    self$Duration <- calc.duration(aircraft, self$Distance)
+    self$DistanceBonus <- calc.distanceBonus(ac[1,], self)
+    self$DryEarnings <- {
+      x <- ac[ac$RentalDry > 0,]
+      x <- x[order(x$RentalDry),]
+      if (nrow(x) < 1) {
+        NA
+      } else {
+        calc.earnings(x[1,], aircraft, self)
+      }
+    }
+    self$WetEarnings <- {
+      x <- ac[ac$RentalWet > 0,]
+      x <- x[order(x$RentalWet),]
+      if (nrow(x) < 1) {
+        NA
+      } else {
+        calc.earnings(x[1,], aircraft, self)
+      }
+    }
+    
+    e <- c(dry = self$DryEarnings, wet = self$WetEarnings)
+    e[is.na(e)] <- -Inf
+    
+    self$Earnings <- max(e["dry"], e["wet"])
+    self$CostOfDelay <- {
+      if (e["dry"] > e["wet"]) {
+        dry <- T
+      } else {
+        dry <- F
+      }
+      delayedEarnings <- calc.earnings(ac[1,], aircraft, self, dry = dry, delay = 1.0)
+      self$Earnings - delayedEarnings
+    }
+    self$RentDry <- is.dry(self)
+    self$TotalEarnings <- calc.totalEarnings(self)
+    self$TotalDistance <- calc.totalDistance(self)
+    self$TotalCostOfDelay <- calc.totalCostOfDelay(self)
+    self$TotalBlockTime <- calc.totalBlockTime(self)
+  })
+}
+
 calc.assignments <- function(rentalAircraft, assignments) {
   aircraft <- fse.getAircraft(rentalAircraft$MakeModel[1])
   fse.fetchAirports(c(assignments$FromIcao, assignments$ToIcao))
@@ -404,7 +577,7 @@ calc.earnings <- function(rentalAircraft, aircraft, assignment, dry = TRUE, dela
   cost <- 0
   if (dry) {
     fuelPrice <- assignment$FuelPrice
-    if (is.na(fuelPrice)) {
+    if (is.null(fuelPrice) || is.na(fuelPrice)) {
       fuelPrice <- 4.5 # Default to sane default if there's no fuel at ICAO
     }
     fuelCost <- (calc.fuelUsage(aircraft, distance) * fuelPrice)

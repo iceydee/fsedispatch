@@ -10,7 +10,12 @@ fse.setUserKey <- function(key) {
   userkey <<- key
 }
 
+fse.setServiceKey <- function(key) {
+  servicekey <<- key
+}
+
 fse.setUserKey(Sys.getenv("USERKEY"))
+fse.setServiceKey(Sys.getenv("SERVICEKEY"))
 
 fse.getAircraft <- function(makeModel = NULL) {
   url <- fse.query("aircraft", list(search = "configs"))
@@ -147,7 +152,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, maxSea
 
 fse.query <- function(query, args) {
   baseURL <- "http://server.fseconomy.net/data"
-  return (sprintf("%s?userkey=%s&format=xml&query=%s&%s", baseURL, userkey, query, fse.argsToParams(args)))
+  return (sprintf("%s?servicekey=%s&format=xml&query=%s&%s", baseURL, servicekey, query, fse.argsToParams(args)))
 }
 
 fse.argsToParams <- function(args) {

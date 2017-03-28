@@ -19,8 +19,24 @@ calc.takeOffWeight <- function(aircraft, fuelWeight, trafficWeight) {
   return (aircraft$EmptyWeight + fuelWeight + trafficWeight)
 }
 
+aircraftMaxFuel <- function(aircraft) {
+  return (aircraft$Ext1 +
+          aircraft$LTip +
+          aircraft$LAux +
+          aircraft$LMain +
+          aircraft$Center1 +
+          aircraft$Center2 +
+          aircraft$Center3 +
+          aircraft$RMain +
+          aircraft$RAux +
+          aircraft$RTip +
+          aircraft$Ext2)
+}
+
 calc.maxFuel <- function(aircraft, trafficWeight) {
-  return (fuelVolume(calc.maxPayload(aircraft) - trafficWeight))
+  weightMax <- fuelVolume(calc.maxPayload(aircraft) - trafficWeight)
+  acMax <- aircraftMaxFuel(aircraft)
+  return (min(weightMax, acMax))
 }
 
 calc.maxPayload <- function(aircraft) {

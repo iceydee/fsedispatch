@@ -72,7 +72,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9, maxCargo = 1000) {
     if (a$Weight < maxCargo) {
       i <- (length(groupedAssignments) + 1)
       x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
-      while (sum(x$Weight) > maxCargo) {
+      while (sum(x$Weight) > maxCargo || sum(x$Seats) > maxSeats) {
         x <- x[1:(nrow(x)-1),]
       }
       groupedAssignments[[i]] <- x

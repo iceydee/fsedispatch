@@ -42,6 +42,20 @@ fse.findRentalAircraft <- function(makeModel, waterOk = TRUE) {
   a <- fse.findAircraft(makeModel, waterOk = waterOk)
   a <- a[a$RentalDry > 0 | a$RentalWet > 0,]
   a <- a[a$NeedsRepair == 0,]
+  
+  # Find my aircraft
+  b <- fse.getMyAircraft()
+  if (nrow(b) > 0) {
+    for (n in 1:nrow(b)) {
+      # Unset wet rental, we pay for our own fuel.
+      # Set rental dry to something really low
+      # No bonus given to self
+      cat(sprintf("Updating my aircraft: %s\n", b$Registration[n]))
+      a[a$Registration == b$Registration[n],c("RentalDry", "RentalWet", "Bonus")] <- c(1, 0, 0)
+      print(a[a$Registration == b$Registration[n],])
+    }
+  }
+  
   return (a[order(a$RentalDry, a$RentalWet),])
 }
 

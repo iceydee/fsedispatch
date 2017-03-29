@@ -35,6 +35,20 @@ fse.getGroups <- function(maxAge = 60 * 24 * 7) {
   return (groups)
 }
 
+fse.getMyAircraft <- function(maxAge = 60 * 24) {
+  path <- htmlPath("my-aircraft", "acs")
+  if (!validFileExists(path, maxAge)) {
+    cmd <- sprintf("PREFIX='acs' ./scrape.sh my_aircraft")
+    system(cmd)
+  }
+  
+  h <- read_html(path) %>% html_nodes(xpath = '//*[@id="aircraftForm"]/table')
+  a <- html_table(h, header = TRUE, fill = TRUE)
+  a <- a[[1]]
+  
+  return (a)
+}
+
 fse.bookAssignments <- function(icao, assignment_ids, group_id = 0) {
   cmd <- sprintf("FSE_ICAO='%s' ASSIGNMENT_IDS='%s' GROUP_ID='%i' ./scrape.sh get_assignments", icao, assignment_ids, group_id)
   system(cmd)

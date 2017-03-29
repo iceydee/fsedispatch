@@ -141,7 +141,7 @@ shinyServer(function(input, output) {
       h5(sprintf("Total earnings: $%.0f", result[[length(result)]]$TotalEarnings)),
       h5(sprintf("Total cost of delay: $%.0f", result[[length(result)]]$TotalCostOfDelay)),
       h5(sprintf("Total distance: %.0f nm", result[[length(result)]]$TotalDistance)),
-      h5(sprintf("Total block time: %.0f minutes", result[[length(result)]]$TotalDuration)),
+      h5(sprintf("Total block time: %.0f minutes", result[[length(result)]]$TotalBlockTime)),
       leafletOutput("routeMap")
     ))
   }

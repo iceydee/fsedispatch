@@ -394,7 +394,7 @@ shinyServer(function(input, output) {
       group <- group()
       
       for (n in 1:length(a)) {
-        setProgress(0.1 + ((0.9 / nrow(a)) * n), detail = sprintf("Leg %.0f", n))
+        setProgress(0.1 + ((0.9 / length(a)) * n), detail = sprintf("Leg %.0f", n))
         fse.bookAssignments(a[[n]]$FromIcao, a[[n]]$AssignmentIds, group_id = group$groupId)
       }
     })

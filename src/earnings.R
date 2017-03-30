@@ -286,7 +286,7 @@ calc.totalBlockTime <- function(node, current = 0.0) {
   if (node$parent$isRoot) {
     return (current)
   }
-  current <- current + node$Duration
+  current <- current + ceiling((node$Duration * 60))
   return (calc.totalBlockTime(node$parent, current))
 }
 

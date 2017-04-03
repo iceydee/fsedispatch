@@ -116,7 +116,7 @@ fse.getAirlineAssignments <- function(icao, progress = function(a, b) {}) {
     a <- list()
     for (n in 1:length(icao)) {
       a[[n]] <- fse.getAirlineAssignments(icao[n])
-      progress(n / length(icao), sprintf("%.0f / %.0f", n, length(icao)))
+      progress(n / length(icao), length(icao))
     }
     a <- ldply(a, data.frame)
     a <- a[order(-a$Pay),]

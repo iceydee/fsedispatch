@@ -202,7 +202,7 @@ shinyServer(function(input, output) {
     return (rentalAircraft)
   })
   
-  airlineResults <- reactive({
+  airlineTree <- reactive({
     # Dependencies
     input$aircraft
     input$region
@@ -226,17 +226,25 @@ shinyServer(function(input, output) {
                       message = "Fetching airline assignments",
                       detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
         })
-
-        # Gather results
-        setProgress(0.9, detail = "Gathering results")
-        results <- gatherResults(leg1, leg1[0,], maxDistance)
+        
+        tree <- getAirlineAssignmentTree(rentalAircraft, minDistance, maxDistance, progress = function(v, m) {
+          if (v == 1 && m == 1) {
+            setProgress(0.9,
+                        message = "Finding most profitable routes",
+                        detail = "")
+          } else {
+            setProgress(0.1 + (v * 0.9),
+                        message = "Fetching airline assignments",
+                        detail = sprintf("%.0f / %.0f", v * m, m))
+          }
+        })
       })
     )
     
-    return (results)
+    return (tree)
   })
   
-  rentalResults <- reactive({
+  rentalTree <- reactive({
     # Dependencies
     input$aircraft
     input$airline
@@ -278,17 +286,7 @@ shinyServer(function(input, output) {
       })
     )
     
-    leaves <- Traverse(tree, filterFun = isLeaf)
-    
-    # Sort by total earnings
-    l <- unlist(lapply(leaves, function(node) node$TotalEarnings))
-    ix <- sort.int(l, decreasing = T, index.return = T)$ix
-    result <- list()
-    for (n in 1:length(ix)) {
-      result[[n]] <- leaves[[ix[n]]]
-    }
-    
-    return (result)
+    return (tree)
   })
   
   results <- reactive({
@@ -300,15 +298,25 @@ shinyServer(function(input, output) {
     input$hops
     
     if (input$airline) {
-      results <- airlineResults()
+      tree <- airlineTree()
     } else {
-      results <- rentalResults()
+      tree <- rentalTree()
+    }
+    
+    leaves <- Traverse(tree, filterFun = isLeaf)
+    
+    # Sort by total earnings
+    l <- unlist(lapply(leaves, function(node) node$TotalEarnings))
+    ix <- sort.int(l, decreasing = T, index.return = T)$ix
+    result <- list()
+    for (n in 1:length(ix)) {
+      result[[n]] <- leaves[[ix[n]]]
     }
     
     # Reset the option number
     values$optionNumber <- 1
     
-    return (results)
+    return (result)
   })
   
   currentOption <- reactive({

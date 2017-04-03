@@ -68,7 +68,51 @@ is.dry <- function(assignment) {
   return (F)
 }
 
-getLeg <- function(searchICAO, aircraft, minDistance = 50, maxDistance = 400, progress = function(a, b) {}) {
+emptyAssignment <- function(from, to) {
+  a <- data.frame(
+    Id = integer(),
+    Location = character(),
+    ToIcao = character(),
+    FromIcao = character(),
+    Amount = integer(),
+    UnitType = character(),
+    Commodity = character(),
+    Pay = integer(),
+    Expires = character(),
+    ExpireDateTime = character(),
+    Type = character(),
+    Express = character(),
+    PtAssignment = character(),
+    Distance = integer(),
+    Seats = integer(),
+    Weight = integer(),
+    stringsAsFactors = F)
+  
+  a[1,] <- c(
+    Id = NA,
+    Location = from,
+    ToIcao = to,
+    FromIcao = from,
+    Amount = 0,
+    UnitType = "passengers",
+    Commodity = "Empty flight",
+    Pay = 0,
+    Expires = "Never",
+    ExpireDateTime = NA,
+    Type = "Trip-Only",
+    Express = "False",
+    PtAssignment = "false",
+    Distance = icao.distance(from, to),
+    Seats = 0,
+    Weight = 0
+  )
+  
+  a <- clean(a, c(rep("char", 4), c("int"), rep("char", 2), c("int"), rep("char", 5), rep("int", 3)))
+  
+  return (a)
+}
+
+getLeg <- function(searchICAO, aircraft, minDistance = 50, maxDistance = 400, fetchNearby = F, progress = function(a, b) {}) {
   maxSeats <- (aircraft$Seats - 1 - aircraft$Crew)
   maxCargo <- calc.maxCargo(aircraft, calc.fuelUsage(aircraft, maxDistance))
   
@@ -80,6 +124,18 @@ getLeg <- function(searchICAO, aircraft, minDistance = 50, maxDistance = 400, pr
     progress = progress
   )
   
+  if (fetchNearby) {
+    for (n in 1:length(searchICAO)) {
+      from <- searchICAO[n]
+      toList <- icao.nearby(from, maxDistance / 3)
+      if (nrow(toList) >= 1) {
+        for (i in 1:nrow(toList)) {
+          assignments[[length(assignments) + 1]] <- emptyAssignment(from, toList$icao[i])
+        }
+      }
+    }
+  }
+  
   if (length(assignments) < 1) {
     return (data.frame())
   }
@@ -89,6 +145,7 @@ getLeg <- function(searchICAO, aircraft, minDistance = 50, maxDistance = 400, pr
   groupedAssignments["AssignmentIds"] <- character(0)
   groupedAssignments["HasPassengers"] <- logical(0)
   groupedAssignments["HasCargo"] <- logical(0)
+  groupedAssignments["PilotForHire"] <- logical(0)
   
   for (n in 1:length(assignments)) {
     a <- assignments[[n]]
@@ -160,13 +217,13 @@ getAssignmentTree <- function(rentalAircraft, minDistance = 50, maxDistance = 40
   # Fetch assignment legs
   legs <- list()
   legLength <- length(rentalAircraft$Location)
-  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, 0, maxDistance, function(v, m) {
+  legs[[1]] <- getLeg(rentalAircraft$Location, aircraft, 0, maxDistance, fetchNearby = T, progress = function(v, m) {
     progress(v, legLength)
   })
   if (maxHops > 1) {
     for (n in 2:maxHops) {
       legLength <- length(legs[[n - 1]]$ToIcao)
-      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, 0, maxDistance, function(v, m) {
+      legs[[n]] <- getLeg(legs[[n - 1]]$ToIcao, aircraft, 0, maxDistance, progress = function(v, m) {
         progress(v + (n-1), legLength)
       })
     }

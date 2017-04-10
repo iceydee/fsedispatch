@@ -1,0 +1,10 @@
+version: "2"
+services:
+  fsesql:
+    image: postgres:9.6
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_USER: fsedispatch
+      POSTGRES_PASSWORD: iZwYD=[iged93YcFcqbu
+

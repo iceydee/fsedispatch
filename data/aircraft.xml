@@ -209,7 +209,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>12</Crew>
 <Seats>150</Seats>
 <CruiseSpeed>454</CruiseSpeed>
-<GPH>960</GPH>
+<GPH>800</GPH>
 <FuelType>1</FuelType>
 <MTOW>73500</MTOW>
 <EmptyWeight>42220</EmptyWeight>
@@ -234,7 +234,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>12</Crew>
 <Seats>185</Seats>
 <CruiseSpeed>477</CruiseSpeed>
-<GPH>1835</GPH>
+<GPH>900</GPH>
 <FuelType>1</FuelType>
 <MTOW>92986</MTOW>
 <EmptyWeight>48038</EmptyWeight>
@@ -734,7 +734,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>1</Crew>
 <Seats>21</Seats>
 <CruiseSpeed>250</CruiseSpeed>
-<GPH>210</GPH>
+<GPH>80</GPH>
 <FuelType>1</FuelType>
 <MTOW>8391</MTOW>
 <EmptyWeight>4360</EmptyWeight>
@@ -742,11 +742,11 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Ext1>0</Ext1>
 <LTip>0</LTip>
 <LAux>0</LAux>
-<LMain>280</LMain>
+<LMain>242</LMain>
 <Center1>0</Center1>
 <Center2>0</Center2>
 <Center3>0</Center3>
-<RMain>280</RMain>
+<RMain>242</RMain>
 <RAux>0</RAux>
 <RTip>0</RTip>
 <Ext2>0</Ext2>
@@ -1209,7 +1209,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>0</Crew>
 <Seats>15</Seats>
 <CruiseSpeed>248</CruiseSpeed>
-<GPH>142</GPH>
+<GPH>112</GPH>
 <FuelType>1</FuelType>
 <MTOW>6804</MTOW>
 <EmptyWeight>4123</EmptyWeight>
@@ -1759,7 +1759,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>12</Crew>
 <Seats>135</Seats>
 <CruiseSpeed>495</CruiseSpeed>
-<GPH>1500</GPH>
+<GPH>1000</GPH>
 <FuelType>1</FuelType>
 <MTOW>76726</MTOW>
 <EmptyWeight>45400</EmptyWeight>
@@ -1784,7 +1784,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>12</Crew>
 <Seats>162</Seats>
 <CruiseSpeed>435</CruiseSpeed>
-<GPH>890</GPH>
+<GPH>700</GPH>
 <FuelType>1</FuelType>
 <MTOW>70535</MTOW>
 <EmptyWeight>41145</EmptyWeight>
@@ -1809,7 +1809,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>19</Crew>
 <Seats>417</Seats>
 <CruiseSpeed>504</CruiseSpeed>
-<GPH>4060</GPH>
+<GPH>3000</GPH>
 <FuelType>1</FuelType>
 <MTOW>396893</MTOW>
 <EmptyWeight>178755</EmptyWeight>
@@ -3609,7 +3609,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>1</Crew>
 <Seats>21</Seats>
 <CruiseSpeed>170</CruiseSpeed>
-<GPH>110</GPH>
+<GPH>60</GPH>
 <FuelType>1</FuelType>
 <MTOW>5669</MTOW>
 <EmptyWeight>3265</EmptyWeight>
@@ -6209,7 +6209,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>0</Crew>
 <Seats>2</Seats>
 <CruiseSpeed>150</CruiseSpeed>
-<GPH>63</GPH>
+<GPH>35</GPH>
 <FuelType>0</FuelType>
 <MTOW>3572</MTOW>
 <EmptyWeight>2384</EmptyWeight>
@@ -7109,7 +7109,7 @@ xmlns:schemaLocation="http://server.fseconomy.net/static/xsd/datafeed_aircraftco
 <Crew>0</Crew>
 <Seats>10</Seats>
 <CruiseSpeed>180</CruiseSpeed>
-<GPH>75</GPH>
+<GPH>50</GPH>
 <FuelType>1</FuelType>
 <MTOW>3100</MTOW>
 <EmptyWeight>1522</EmptyWeight>

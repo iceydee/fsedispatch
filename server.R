@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
     )
   })
   
-  oneLegOptionData <- function(result) {
+  optionData <- function(result) {
     data <- data.frame(From = character(),
                        To = character(),
                        Distance = integer(),
@@ -95,70 +95,24 @@ shinyServer(function(input, output) {
                        `Maximum Fuel` = integer(),
                        `Takeoff Weight` = integer(),
                        stringsAsFactors = F)
-    data[1,] <- list(
-      From = icaoOutput(result$start),
-      To = icaoOutput(result$end),
-      Distance = result$distance1,
-      Seats = result$seats1,
-      HasCargo = result$hasCargo1,
-      `Traffic Load` = result$weight1,
-      Earnings = result$earnings1,
-      DelayCost = result$costOfDelay1,
-      RentDry = result$dry1,
-      Duration = result$duration1,
-      `Minimum Fuel` = result$fuelUsage1,
-      `Maximum Fuel` = result$maxFuel1,
-      `Takeoff Weight` = result$takeOffWeight1
-    )
     
-    return (data)
-  }
-  
-  twoLegOptionData <- function(result) {
-    data <- data.frame(From = character(),
-                       To = character(),
-                       Distance = integer(),
-                       Seats = integer(),
-                       HasCargo = logical(),
-                       `Traffic Load` = integer(),
-                       Earnings = double(),
-                       DelayCost = double(),
-                       RentDry = logical(),
-                       Duration = double(),
-                       `Minimum Fuel` = integer(),
-                       `Maximum Fuel` = integer(),
-                       `Takeoff Weight` = integer(),
-                       stringsAsFactors = F)
-    data[1,] <- list(
-      From = icaoOutput(result$start),
-      To = icaoOutput(result$mid),
-      Distance = result$distance1,
-      Seats = result$seats1,
-      HasCargo = result$hasCargo1,
-      `Traffic Load` = result$weight1,
-      Earnings = result$earnings1,
-      DelayCost = result$costOfDelay1,
-      RentDry = result$dry1,
-      Duration = result$duration1,
-      `Minimum Fuel` = result$fuelUsage1,
-      `Maximum Fuel` = result$maxFuel1,
-      `Takeoff Weight` = result$takeOffWeight1
-    )
-    data[2,] <- list(
-      From = icaoOutput(result$mid),
-      To = icaoOutput(result$end),
-      Distance = result$distance2,
-      Seats = result$seats2,
-      HasCargo = result$hasCargo2,
-      `Traffic Load` = result$weight2,
-      Earnings = result$earnings2,
-      DelayCost = result$costOfDelay2,
-      RentDry = result$dry2,
-      Duration = result$duration2,
-      `Minimum Fuel` = result$fuelUsage2,
-      `Maximum Fuel` = result$maxFuel2,
-      `Takeoff Weight` = result$takeOffWeight2
-    )
+    for (n in 1:length(result)) {
+      data[n,] <- list(
+        From = icaoOutput(result[[n]]$FromIcao),
+        To = icaoOutput(result[[n]]$ToIcao),
+        Distance = result[[n]]$Distance,
+        Seats = result[[n]]$Seats,
+        HasCargo = result[[n]]$HasCargo,
+        `Traffic Load` = result[[n]]$Weight,
+        Earnings = result[[n]]$Earnings,
+        DelayCost = result[[n]]$CostOfDelay,
+        RentDry = result[[n]]$RentDry,
+        Duration = result[[n]]$Duration,
+        `Minimum Fuel` = result[[n]]$FuelUsage,
+        `Maximum Fuel` = result[[n]]$MaxFuel,
+        `Takeoff Weight` = result[[n]]$TakeOffWeight
+      )
+    }
     
     return (data)
   }
@@ -166,18 +120,13 @@ shinyServer(function(input, output) {
   addRouteLines <- function(map) {
     data <- mapData()
     
-    m <- addPolylines(map, lng = c(data[1,c("Longitude")], data[2,c("Longitude")]),
-                           lat = c(data[1,c("Latitude")], data[2,c("Latitude")]),
-                           weight = 1.5, color = "black")
-    
-    if (nrow(data) > 2) {
-      # Add route lines for both legs
-      m <- addPolylines(m, lng = c(data[2,c("Longitude")], data[3,c("Longitude")]),
-                           lat = c(data[2,c("Latitude")], data[3,c("Latitude")]),
-                           weight = 1.5, color = "black")
+    for (n in 2:nrow(data)) {
+      map <- addPolylines(map, lng = c(data[n-1,c("Longitude")], data[n,c("Longitude")]),
+                        lat = c(data[n-1,c("Latitude")], data[n,c("Latitude")]),
+                        weight = 1.5, color = "black")
     }
     
-    return (m)
+    return (map)
   }
   
   output$routeMap <- renderLeaflet({
@@ -187,18 +136,12 @@ shinyServer(function(input, output) {
   })
   
   outputOption <- function(result) {
-    if (is.na(result$mid)) {
-      data <- oneLegOptionData(result)
-    } else {
-      data <- twoLegOptionData(result)
-    }
-    
     return (div(
-      renderDataTable(data, options = list(paging = F, searching = F, info = F)),
-      h5(sprintf("Total earnings: $%.0f", result$totalEarnings)),
-      h5(sprintf("Total cost of delay: $%.0f", result$totalCostOfDelay)),
-      h5(sprintf("Total distance: %.0f nm", result$totalDistance)),
-      h5(sprintf("Total block time: %.0f minutes", result$totalDuration)),
+      renderDataTable(optionData(result), options = list(paging = F, searching = F, info = F)),
+      h5(sprintf("Total earnings: $%.0f", result[[length(result)]]$TotalEarnings)),
+      h5(sprintf("Total cost of delay: $%.0f", result[[length(result)]]$TotalCostOfDelay)),
+      h5(sprintf("Total distance: %.0f nm", result[[length(result)]]$TotalDistance)),
+      h5(sprintf("Total block time: %.0f minutes", result[[length(result)]]$TotalBlockTime)),
       leafletOutput("routeMap")
     ))
   }
@@ -259,7 +202,7 @@ shinyServer(function(input, output) {
     return (rentalAircraft)
   })
   
-  airlineResults <- reactive({
+  airlineTree <- reactive({
     # Dependencies
     input$aircraft
     input$region
@@ -283,22 +226,31 @@ shinyServer(function(input, output) {
                       message = "Fetching airline assignments",
                       detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
         })
-
-        # Gather results
-        setProgress(0.9, detail = "Gathering results")
-        results <- gatherResults(leg1, leg1[0,], maxDistance)
+        
+        tree <- getAirlineAssignmentTree(rentalAircraft, minDistance, maxDistance, progress = function(v, m) {
+          if (v == 1 && m == 1) {
+            setProgress(0.9,
+                        message = "Finding most profitable routes",
+                        detail = "")
+          } else {
+            setProgress(0.1 + (v * 0.9),
+                        message = "Fetching airline assignments",
+                        detail = sprintf("%.0f / %.0f", v * m, m))
+          }
+        })
       })
     )
     
-    return (results)
+    return (tree)
   })
   
-  rentalResults <- reactive({
+  rentalTree <- reactive({
     # Dependencies
     input$aircraft
     input$airline
     input$region
     input$distance
+    input$hops
     
     if (Sys.getenv("CANNED_DATA") == "true") {
       results <- readRDS("./data/canned_data.rds")
@@ -310,37 +262,31 @@ shinyServer(function(input, output) {
         # Find rental aircraft
         setProgress(0.1, message = "Finding rental aircraft", detail = "")
         rentalAircraft <- rentalAircraft()
-        
+
         # Fetch leg 1
         minDistance <- input$distance[1]
         maxDistance <- input$distance[2]
-        leg1 <- getRankedAssignments(rentalAircraft, 0, maxDistance, progress = function(v, m) {
-          setProgress(0.1 + (v * 0.1),
-                      message = "Fetching assignments (Leg 1)",
-                      detail = sprintf("%.0f / %.0f", v * nrow(rentalAircraft), nrow(rentalAircraft)))
+        
+        pFact <- 1/input$hops
+        tree <- getAssignmentTree(rentalAircraft, minDistance, maxDistance, input$hops, progress = function(v, m) {
+          if (v == input$hops && m == 1) {
+            setProgress(0.9,
+                        message = "Finding most profitable routes",
+                        detail = "")
+          } else {
+            legNo <- ceiling(v)
+            v <- (v - (legNo - 1))
+            legV <- v
+            v <- ((v * pFact) + ((legNo - 1) * pFact))
+            setProgress(0.1 + (v * 0.9),
+                        message = sprintf("Fetching assignments (Leg %.0f)", legNo),
+                        detail = sprintf("%.0f / %.0f", v * m, m))
+          }
         })
-        
-        # Fetch leg 2
-        leg2 <- getRankedAssignments(rentalAircraft, minDistance, maxDistance, leg1$ToIcao, leg1$FromIcao, progress = function(v, m) {
-          setProgress(0.2 + (v * 0.3),
-                      message = "Fetching assignments (Leg 2)",
-                      detail = sprintf("%.0f / %.0f", v * nrow(leg1), nrow(leg1)))
-        })
-        
-        # TODO: For when we have own aircraft
-        # if (input$thirdLeg == "Destination") {
-        #   destination = input$destination
-        # } else {
-        #   destination = NA
-        # }
-        
-        # Gather results
-        setProgress(0.9, detail = "Gathering results")
-        results <- gatherResults(leg1, leg2, maxDistance, destination = destination, destinationWeight = input$onwardWeight)
       })
     )
     
-    return (results)
+    return (tree)
   })
   
   results <- reactive({
@@ -349,42 +295,63 @@ shinyServer(function(input, output) {
     input$airline
     input$region
     input$distance
+    input$hops
     
     if (input$airline) {
-      results <- airlineResults()
+      tree <- airlineTree()
     } else {
-      results <- rentalResults()
+      tree <- rentalTree()
+    }
+    
+    leaves <- Traverse(tree, filterFun = isLeaf)
+    
+    # Sort by total earnings
+    l <- unlist(lapply(leaves, function(node) node$TotalEarnings))
+    ix <- sort.int(l, decreasing = T, index.return = T)$ix
+    result <- list()
+    for (n in 1:length(ix)) {
+      result[[n]] <- leaves[[ix[n]]]
     }
     
     # Reset the option number
     values$optionNumber <- 1
     
-    return (results)
+    return (result)
   })
   
   currentOption <- reactive({
-    results <- results()
-    return (results[values$optionNumber,])
+    if (numberOfResults() < 1) {
+      return (list())
+    }
+    curNode <- results()[[values$optionNumber]]
+    nodes <- list()
+    while (!curNode$parent$isRoot) {
+      nodes[[length(nodes)+1]] <- curNode
+      curNode <- curNode$parent
+    }
+    return (rev(nodes))
   })
   
   numberOfResults <- reactive({
     results <- results()
-    return (nrow(results))
+    return (length(results))
   })
   
   mapData <- reactive({
     option <- currentOption()
     
     df <- data.frame(Location = character(), Color = character(), OrderNo = integer(), stringsAsFactors = F)
-    if (is.na(option$mid)) {
-      df[1,] <- list(Location = option$start, Color = "green", OrderNo = 1)
-      df[2,] <- list(Location = option$end, Color = "red", OrderNo = 2)
-    } else {
-      df[1,] <- list(Location = option$start, Color = "green", OrderNo = 1)
-      df[2,] <- list(Location = option$mid, Color = "blue", OrderNo = 2)
-      df[3,] <- list(Location = option$end, Color = "red", OrderNo = 3)
+    for (n in 1:length(option)) {
+      if (n == 1) {
+        color <- "green"
+      } else {
+        color <- "blue"
+      }
+      
+      df[n,] <- list(Location = option[[n]]$FromIcao, Color = color, OrderNo = n)
     }
-    
+    df[length(option) + 1,] <- list(Location = option[[length(option)]]$ToIcao, Color = "red", OrderNo = length(option) + 1)
+
     df <- merge(df, icaoloc, by = "Location")
     df <- df[order(df$OrderNo),]
     
@@ -398,7 +365,7 @@ shinyServer(function(input, output) {
     }
     
     results <- results()
-    if (nrow(results) < 1) {
+    if (length(results) < 1) {
       return (
         div(
           h2("No routes found with those settings")
@@ -432,18 +399,11 @@ shinyServer(function(input, output) {
     withProgress(message = "Booking assignments", value = 0, {
       a <- currentOption()
       
-      setProgress(0.1, detail = "Leg 1")
-      
       group <- group()
       
-      # Book leg 1
-      fse.bookAssignments(a$start, a$assignmentIds1, group_id = group$groupId)
-      
-      if (!is.na(a$mid)) {
-        setProgress(0.5, detail = "Leg 2")
-        
-        # Book leg 2 if there is one
-        fse.bookAssignments(a$mid, a$assignmentIds2, group_id = group$groupId)
+      for (n in 1:length(a)) {
+        setProgress(0.1 + ((0.9 / length(a)) * n), detail = sprintf("Leg %.0f", n))
+        fse.bookAssignments(a[[n]]$FromIcao, a[[n]]$AssignmentIds, group_id = group$groupId)
       }
     })
   })
@@ -453,8 +413,8 @@ shinyServer(function(input, output) {
       a <- currentOption()
       
       rentalAircraft <- rentalAircraft()
-      ac <- rentalAircraft[rentalAircraft$Location == a$start,]
-      if (a$dry1) {
+      ac <- rentalAircraft[rentalAircraft$Location == a[[1]]$FromIcao,]
+      if (a[[1]]$RentDry) {
         ac <- ac[order(ac$RentalDry),]
       } else {
         ac <- ac[order(ac$RentalWet),]
@@ -463,7 +423,7 @@ shinyServer(function(input, output) {
       
       setProgress(0.1, detail = "Contacting FSE")
       
-      fse.rentAircraft(ac$Location, ac$Registration, a$dry1)
+      fse.rentAircraft(ac$Location, ac$Registration, a[[1]]$RentDry)
     })
   })
   

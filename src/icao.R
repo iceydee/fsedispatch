@@ -76,16 +76,11 @@ icao.distance <- function(start, end) {
     p <- c(start, end)
   }
   
-  # Check distance cache first
-  #distance <- icao.distanceForPair(p)
-  #if (is.null(distance)) {
-    loc1 <- icao.location(p[1])
-    loc2 <- icao.location(p[2])
+  loc1 <- icao.location(p[1])
+  loc2 <- icao.location(p[2])
     
-    distance <- round(conv_unit(distVincentyEllipsoid(loc1, loc2), "m", "naut_mi"))
-    #icao.cacheDistance(p, distance)
-  #}
-  
+  distance <- round(conv_unit(distVincentyEllipsoid(loc1, loc2), "m", "naut_mi"))
+
   return (distance)
 }
 
@@ -113,13 +108,18 @@ filterLatLon <- function(loc, maxDistance = 50) {
   return (c(diffLon, diffLat))
 }
 
-icao.nearby <- function(start, maxDistance = 50) {
+icao.nearby <- function(start, maxDistance = 50, minSize = 1500) {
   startLoc <- icao.location(start)
   filterLoc <- filterLatLon(startLoc, maxDistance)
   lonRange <- c(startLoc[1] - filterLoc[1], startLoc[1] + filterLoc[1])
   latRange <- c(startLoc[2] - filterLoc[2], startLoc[2] + filterLoc[2])
   
   x <- icaodata[icaodata$lon > lonRange[1] & icaodata$lon < lonRange[2] & icaodata$lat > latRange[1] & icaodata$lat < latRange[2],]
-  x$distance <- sapply(as.character(x$icao), icao.distance, end = start)
-  return (x[x$distance <= maxDistance,])
+  x <- x[x$size >= minSize,]
+  x$icao <- as.character(x$icao)
+  x$distance <- sapply(x$icao, icao.distance, end = start)
+  x <- x[x$distance <= maxDistance,]
+  x <- x[x$icao != start,]
+  x <- x[!is.na(x$icao),]
+  return (x[order(x$distance),])
 }

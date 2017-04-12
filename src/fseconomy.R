@@ -10,7 +10,12 @@ fse.setUserKey <- function(key) {
   userkey <<- key
 }
 
+fse.setServiceKey <- function(key) {
+  servicekey <<- key
+}
+
 fse.setUserKey(Sys.getenv("USERKEY"))
+fse.setServiceKey(Sys.getenv("SERVICEKEY"))
 
 fse.getAircraft <- function(makeModel = NULL) {
   url <- fse.query("aircraft", list(search = "configs"))
@@ -37,6 +42,20 @@ fse.findRentalAircraft <- function(makeModel, waterOk = TRUE) {
   a <- fse.findAircraft(makeModel, waterOk = waterOk)
   a <- a[a$RentalDry > 0 | a$RentalWet > 0,]
   a <- a[a$NeedsRepair == 0,]
+  
+  # Find my aircraft
+  b <- fse.getMyAircraft()
+  if (nrow(b) > 0) {
+    for (n in 1:nrow(b)) {
+      # Unset wet rental, we pay for our own fuel.
+      # Set rental dry to something really low
+      # No bonus given to self
+      cat(sprintf("Updating my aircraft: %s\n", b$Registration[n]))
+      a[a$Registration == b$Registration[n],c("RentalDry", "RentalWet", "Bonus")] <- c(1, 0, 0)
+      print(a[a$Registration == b$Registration[n],])
+    }
+  }
+  
   return (a[order(a$RentalDry, a$RentalWet),])
 }
 
@@ -67,7 +86,7 @@ fse.groupAssignments <- function(assignments, maxSeats = 9, maxCargo = 1000) {
     if (a$Weight < maxCargo) {
       i <- (length(groupedAssignments) + 1)
       x <- assignments[assignments$FromIcao == a$FromIcao & assignments$ToIcao == a$ToIcao,]
-      while (sum(x$Weight) > maxCargo) {
+      while (sum(x$Weight) > maxCargo || sum(x$Seats) > maxSeats) {
         x <- x[1:(nrow(x)-1),]
       }
       groupedAssignments[[i]] <- x
@@ -147,7 +166,7 @@ fse.getAssignments <- function(icaos, minDistance = 0, maxDistance = 400, maxSea
 
 fse.query <- function(query, args) {
   baseURL <- "http://server.fseconomy.net/data"
-  return (sprintf("%s?userkey=%s&format=xml&query=%s&%s", baseURL, userkey, query, fse.argsToParams(args)))
+  return (sprintf("%s?servicekey=%s&format=xml&query=%s&%s", baseURL, servicekey, query, fse.argsToParams(args)))
 }
 
 fse.argsToParams <- function(args) {
